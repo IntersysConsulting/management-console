@@ -2,10 +2,12 @@ var min_length=8;
 var unamemaxlength=20;
 var passmaxlength=15;
 var server = "http://localhost:8080/CatalinaPR/";
-var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value;
-var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val;
+var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value,super_cat_code,category_code;
+var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,val,super_cat_id;
 var timeout=25000;
+var vTable;
 var UpValue = [];
+var i=0
 function include(filename, onload) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -66,25 +68,44 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
 }
 function ProgramParams()
 {
-    jQuery('.home').stop().animate({ height: 730, marginTop: 30 }, 200);
-    jQuery('.controls').stop().animate({ height: 530}, 200);
+    jQuery('.home').stop().animate({height: 670, marginTop: 30}, 200);
+    jQuery('.controls').stop().animate({height: 470}, 200);
 }
 function Controls()
 {
-    jQuery('.home').stop().animate({ height: 540, marginTop: 70 }, 200);
-    jQuery('.controls').stop().animate({ height: 340}, 200);
+    jQuery('.home').stop().animate({height: 580, marginTop: 70}, 200);
+    jQuery('.controls').stop().animate({height: 370}, 200);
 }
-function makeProductCategoryRequest(value,user_val){
+var make_button_active = function()
+{
+  //Get item siblings
+  var siblings =($(this).siblings());
 
-    var super_category_desc=value;
+  //Remove active class on all buttons
+  siblings.each(function (index)
+    {
+       
+      $(this).removeClass('active');
+    }
+  )
+
+
+  //Add the clicked button class
+ $(this).addClass('active');
+ 
+  //return true;
+}
+function MakeROIReport(user_val){
+
+    
     var User=user_val;
-    url=server+'php/ProductCategoryTable.php?cat_desc='+super_category_desc + '&user='+User;
+    url=server+'php/ROIReportTable.php?user='+User;
      jQuery.ajax({
         type: "GET",
         url: url,
         timeout: 15000, //15 seconds
         error: function (jqXHR, strError) {
-            alert(strError);
+            
             if (strError == 'timeout') {
                 jQuery('#CategoryTable').hide();
                 jQuery('#CategoryNoData').show();
@@ -94,16 +115,16 @@ function makeProductCategoryRequest(value,user_val){
         },
         dataType: "jsonp",
         jsonp: "callback",
-        jsonpCallback: "CategoryCallback"
+        jsonpCallback: "roiCallback"
     });
  
 }
-function CategoryCallback(data){
+function roiCallback(data){
 
  if (data != null ) {
-   var ProductValues = data['result'];  
-    var product=ProductValues['product'];
-    productData = new Array();
+   var roiValues = data['result'];  
+    var product=roiValues['product'];
+    roiData = new Array();
 
         jQuery(product).each(function (p) {
 
@@ -124,7 +145,7 @@ function CategoryCallback(data){
             if (this['p_value'] != null) {
                 pc_val = this['p_value'];
             }
-            productData.push([user_id, cat_id,cat_code, cat_desc, pc_val ]);
+            roiData.push([user_id, cat_id,cat_code, cat_desc, pc_val ]);
 
         });
        PlotProdCategoryTable(); 
@@ -135,55 +156,59 @@ function CategoryCallback(data){
         }
 
 }
+
 function PlotProdCategoryTable()
 {
      jQuery('#Prod_cat_code').show();
       jQuery('#Prod_cat_desc').show();
        jQuery('#pc_value').show();
-    var vTable = $('#CategoryTable').dataTable({
-            "aaData": productData,
+   vTable = $('#ROIReport').dataTable({
+            "aaData": roiData,
             "aoColumnDefs": [
-            { "aTargets": [2], //Visit Page Num
+            {"aTargets": [1], 
                 "fnRender": function (obj) {
                     var sReturn = obj.aData[obj.iDataColumn];
                     count = obj.aData[obj.iDataColumn];
-                     sReturn = "<div  class='segmentdesc' style='height:30px; width:160px; padding-top: 5%; font-size:14px; font-weight:bold;'> " + sReturn + "</div>";
+                     sReturn = "<div  class='segmentdesc' style='height:30px; width:360px; padding-top: 5%; font-size:14px; font-weight:bold;'> " + sReturn + "</div>";
                     return sReturn;
                 }
             },
-             { "aTargets": [3], //Page Url
+             {"aTargets": [2], 
                 "fnRender": function (obj) {
                     var sReturn = obj.aData[obj.iDataColumn];
                      sReturn = "<div  class='segmentdesc' style='height:31px; padding-top: 3%; width:260px;font-size:14px; font-weight:bold;'> " + sReturn + "</div>";
                     return sReturn;
                 }
             },
-            { "aTargets": [4], //Page Url
+            {"aTargets": [3], 
                 "fnRender": function (obj) {
                     var sReturn = obj.aData[obj.iDataColumn];
-                     sReturn = "<input type='text'  style='height:35px; text-align:center;font-size:12px; width:130px;' value='"+sReturn+"'/>";
+                     sReturn = '<input type="text" id="inp" name="prod_cats['+i+']" style="height:35px; text-align:center;font-size:12px; width:130px;" value="'+sReturn+'"/>';
+                     i++;
                     return sReturn;
                 }
             }
              ],
             "aoColumns": [
-            { "sTitle": "#", "sClass": "cellCenter", "sWidth": "0%","bVisible": false },
-            { "sTitle": "", "sClass": "cellCenter", "sWidth": "0%","bVisible": false },
-            { "sTitle": "", "sClass": "cellCenter", "sWidth": "15%" },
-            { "sTitle": "", "sClass": "cellCenter", "sWidth": "20%" },
-            { "sTitle": "", "sClass": "cellCenter", "sWidth": "10%" }],
+            {"sTitle": "#", "sClass": "cellCenter", "sWidth": "0%","bVisible": false},
+            {"sTitle": "", "sClass": "cellCenter", "sWidth": "0%"},
+            {"sTitle": "", "sClass": "cellCenter", "sWidth": "35%"},
+            {"sTitle": "", "sClass": "cellCenter", "sWidth": "15%"}],
             "bJQueryUI": true,
             "bDestroy": true,
             "bPaginate": false,
             "bFilter": false,
             "bInfo": false,
             "bSort": false,
-            "bAutoWidth": false
+            "bAutoWidth": false,
+            "bEditable":true
+            
         });
 }
 include(server + 'js/jquery-1.7.1.min.js', function() {
     include(server + 'js/jquery.validate.js', function() {
         include(server + 'js/jquery.dataTables.min.js', function() {
+            include(server + 'js/jquery.jqGrid.min.js', function() {
             $(document).ready(function() {
                 $('#userid_error').hide();
                 $('#passwrd_error').hide();
@@ -200,11 +225,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
       jQuery('#Prod_cat_desc').hide();
        jQuery('#pc_value').hide();
        jQuery('#prod_cat_err').hide();
-                $("#mainmenu ul li").click(function(){
-                    $("#mainmenu ul li").removeClass("active");
-                    $(this).addClass("active");
-                    return true;
-                })
+       
+//                $(".mainmenu ul li").click(function(){
+//                    alert('inside li');
+//                    $(".mainmenu ul li").removeClass("active");
+//                    $(this).addClass("active");
+//                    return true;
+//                });
+                 $(".mainmenu ul li").click(make_button_active);
+                 $("#click").click(function(){
+                     var uname=document.getElementById("user_id").value;
+                 MakeROIReport(uname);
+                 });
+                 
                 jQuery('#submit').click(function () {
                     var uname=document.getElementById("userid").value;
                     var passwrd=document.getElementById("passwrd").value;
@@ -245,7 +278,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     window.location.href = server+'php/DefaultHome.php';
                     return false;
                 });
-            
+                jQuery('#pgm_cancel').click(function () {
+                    window.location.href = server+'php/DefaultHome.php';
+                    return false;
+                });
+                jQuery('#prod_cat_ancel').click(function () {
+                    window.location.href = server+'php/DefaultHome.php';
+                    return false;
+                });
                 $("[name^=inp_text]").each(function () {
                     $("[name^=inp_text]").live('input', function() {
                         $(this).blur(function(){
@@ -327,14 +367,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('no need' +data);
-                            }
-                                                     
-                            else {
-                                alert('updated'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('no need' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('updated'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -421,14 +461,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('no need' +data);
-                            }
-                                                     
-                            else {
-                                alert('updated'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('no need' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('updated'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -513,14 +553,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -604,14 +644,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -695,14 +735,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -921,14 +961,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -939,15 +979,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $("[name^=val_con]").each(function () {
                     $("[name^=val_con]").live('input', function() {
                         $(this).blur(function(){
-                            
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
                             var sb=name.substr(9,1);
                             user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
                             metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
-                            if(metric_id_value=='1'){
-                                if((value<=(120))&&(value!=""))
+                            if((metric_id_value=='1')&&((column=='minimum'))){
+                                if((value>=(0))&&(value<=(120))&&(value!=""))
                                 {
                                     GuardRails_Checking(value,column,user_val,metric_id_value);
                                     
@@ -960,11 +999,31 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                 else
                                 {
-                                    $('#Val_control_err').html('Please Enter Value <=120');
+                                    $('#Val_control_err').html('Please Enter Value between 0 and 120');
                                     $('#Val_control_err').show();
                                     return false;
                                 }
                             }
+                            else if((metric_id_value=='1')&&((column=='maximum')))
+                                {
+                                     if((value>=(0))&&(value<=(120))&&(value!=""))
+                                {
+                                    GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                                }
+                                else if(value=="")
+                                {
+                                    $('#Val_control_err').html('Please enter a value');
+                                    $('#Val_control_err').show();
+                                    return false;
+                                }
+                                else
+                                {
+                                    $('#Val_control_err').html('Please Enter Value between 0 and 120');
+                                    $('#Val_control_err').show();
+                                    return false;
+                                }
+                                }
                             else if((metric_id_value=='2'))
                             {
                                 if((value>=(10))&&(value<=(120))&&(value!=""))
@@ -1127,7 +1186,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $('#val_control_save').click(function() {
                                 
                     var Updated_Values = JSON.stringify(UpValue);
-                    alert(Updated_Values);
+                   alert(Updated_Values);
                     jQuery.ajax({
                         type: "POST",
                         url: server+"php/ValControls_Update.php?arr="+Updated_Values,
@@ -1143,7 +1202,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             else {
                                 alert('no need'+ data);
                                                                 
-                            }
+                           }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -1308,16 +1367,132 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                      value=(e.target.options[e.target.selectedIndex].text);
                      column='p_value';
                       user_val=document.getElementById("pgm_param_user_id['0']").value;
-                            parameter=8;
+                      parameter=8;
                      GuardRails_Checking(value,column,user_val,parameter);
                     });
                 $('#pgm_param_save').click(function() {
                                 
                     var Updated_Values = JSON.stringify(UpValue);
-                    alert(Updated_Values);
+                    //alert(Updated_Values);
                     jQuery.ajax({
                         type: "POST",
                         url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
+                        data: {
+                            'Updated_Values':Updated_Values
+                        },
+                    
+                        success: function(data){
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
+                        },
+                        error:function(event){
+                            alert('error'+event.message);
+                        }
+                    });  
+                });
+                
+                $('#drp_dwn_super_category').live('change', function(e) {
+                     desc=(e.target.options[e.target.selectedIndex].text);
+                    val=(e.target.options[e.target.selectedIndex].value);
+                      user_val=document.getElementById("username").value;
+                          $.post(server+'php/EligibleProduct.php?sup_id='+val, {"sup_id": val}, function (txt) {
+                                
+                                    $('#sample').html(txt);
+                                    $('#sample #headings').hide();
+                                    $('#sample #drp_dwn_super_category').hide();
+                                    $('#sample #super').hide();
+                                     
+                                     $('#sample #pro_cat_save').hide();
+                                     $('#sample #prod_cat_ancel').hide();
+                                    
+                            });
+                    });
+                    
+                   $("[name^=prod_cat]").each(function () {
+                    $("[name^=prod_cat]").live('input', function() { 
+                        $(this).blur(function(){
+                           // alert('hi');
+                            value=this.value;
+                            column=$(this).attr('id');
+                            var name=$(this).attr('name');
+                            var sb=name.substr(9,1);
+                            user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
+                            super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
+                            super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                            if(((value=='YES')||(value=='NO')||(value=='yes')||(value=='no')||value=='Yes'||(value=='No'))&&(value!=""))
+                                {
+                                    
+                               if(col_val=="")
+                                {
+                                    col_val=value;
+                                    col_name=column;
+                                    user_val=user_val;
+                                    index_val=super_cat_id;
+                                    category_code=super_cat_code;
+                                    var UP_Value = {  
+                                        "col_nam" :col_name,                                
+                                        "col_value" :col_val,
+                                        "user_id_val" :user_val,
+                                        "sup_id_val":index_val,
+                                        "cat_code":category_code
+                                    };
+                                    
+                                    UpValue.push(UP_Value);
+                                    return true;
+                                }
+                                else if(col_val!=value)
+                                {
+                                    col_val=value;
+                                    col_name=column;
+                                    user_val=user_val;
+                                    index_val=super_cat_id;
+                                     category_code=super_cat_code;
+                                    var UP_Value = {  
+                                        "col_nam" :col_name,                                
+                                        "col_value" :col_val,
+                                        "user_id_val" :user_val,
+                                        "sup_id_val":index_val,
+                                        "cat_code":category_code
+                                    };
+                                    
+                                    UpValue.push(UP_Value);
+
+                                    return true; 
+                                }
+                            
+                                $('#prod_cat_err').hide();
+                                return true; 
+                            }
+                            else if(value=="")
+                            {
+                                $('#prod_cat_err').html('please enter a value');
+                                $('#prod_cat_err').show();
+                                return false;
+                            }
+                            else
+                            {
+                                $('#prod_cat_err').show();
+                                return false;
+                            }
+                       
+                            
+                        });
+                    });
+                   });
+                   
+             $('#pro_cat_save').click(function() {
+                                
+                    var Updated_Values = JSON.stringify(UpValue);
+                    //alert(Updated_Values);
+                    jQuery.ajax({
+                        type: "POST",
+                        url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
                         data: {
                             'Updated_Values':Updated_Values
                         },
@@ -1337,14 +1512,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     });  
                 });
-                
-                $('#drp_dwn_super_category').live('change', function(e) {
-                     desc=(e.target.options[e.target.selectedIndex].text);
-                    value=(e.target.options[e.target.selectedIndex].value);
-                      user_val=document.getElementById("username").value;
-                           
-                     makeProductCategoryRequest(value,user_val);
-                    });
+
+            
+             
+              
+            });     
             });
         });
      });

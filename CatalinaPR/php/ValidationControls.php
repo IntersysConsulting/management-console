@@ -24,26 +24,35 @@ session_start();
                 });
             });
         </script>
-        <title>Guard Rails</title>
+        <title>Validation Control</title>
     </head>
     <body>
-        <div class="home" style="height:540px;">
+        <div class="home" style="height:580px;">
             <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
             <div style="margin-left: 50px;"><img src="../images/logo.JPG"/></div>
             <div id="logout" >
                 <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
             </div>
             <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-                <?php require 'Mainmenu.php'; ?>
-
+                <?php //require 'Mainmenu.php'; ?>
+                <div class="mainmenu">
+                    <ul>
+                        <li><a href="DefaultHome.php">Home </a></li>
+                        <li><a href="SalesChange.php">Controls </a></li>
+                        <li><a href="GuardRails.php">Guard Rails </a></li>
+                        <li  class="active"><a href="ValidationControls.php">Validation Rules </a></li>
+                        <li><a href="ROIReports.php">Reports </a></li>
+                    </ul>
+                </div>
             </div>
             <div id="tabs" style="margin-left: 50px;margin-top: 35px;width: 650px; height: 298px;">
                 <ul>
                     <li><a href="#tabs-1" onclick="Controls();">&nbsp;Controls&nbsp;</a></li>
                     <li><a href="ProgramParameter.php" onclick="ProgramParams();">&nbsp;Program Parameters&nbsp;</a></li>
-                    <li><a href="EligibleProducts.php" onclick="ProgramParams();">&nbsp;Eligible Products&nbsp;</a></li>
+                    <li><a href="EligibleProduct.php" onclick="ProgramParams();">&nbsp;Eligible Product&nbsp;</a></li>
+                    
                 </ul>
-                <div class="controls" style="height:340px;">
+                <div class="controls" style="height:370px;">
 
                     <div id="tabs-1">
                         <div class="heading" style="width:330px; margin-left: 255px;">
@@ -82,16 +91,16 @@ session_start();
                                 $i=0;
                                 ?>
 
-                                <table>
+                                <table style="width:589px;" cellpadding='0' cellspacing='0'>
                                     <?php while ($row = mysql_fetch_array($results)) { ?>
-                                        <tr style=" float:left;" class="val_control_row">
+                                        <tr style="  height:10px;" class="val_control_row">
                                             
-                                            <td class="segmentdesc" style="width:240px; padding-top:1%"><label id="segment" name="segment"><?php echo $row[2];  ?></label></td>
+                                            <td class="segmentdesc" style="width:240px; padding-top:1px; border:#868282 1px solid ;"><label id="segment" name="segment"><?php echo $row[2];  ?></label></td>
                                             <td><input id="val_control_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                                             <td><input id="val_control_metric_id['<?php echo $i ?>']" type="hidden" name="metric_id" value="<?php echo $row[1]; ?>" /></td>
                                             <td>&nbsp;</td>
-                                            <td style="width:163px;"><input name="val_con['<?php echo $i ?>']"  id="minimum" class="inpu_text" style="text-align: center; height:25px; width:163px; font-size: 10px;"  value="<?php echo $row[3]; ?>"/></td>
-                                            <td style="width:163px;"><input name="val_con['<?php echo $i ?>']"  id="maximum" class="inpu_text"  style="text-align: center; height:25px; width:163px;"   value="<?php echo $row[4]; ?>"/></td>
+                                            <td style="width:163px;"><input name="val_con['<?php echo $i ?>']"  id="minimum" class="inpu_text" style="text-align: center; height:20px;  width:163px; font-size: 10px;"  value="<?php echo $row[3]; ?>"/></td>
+                                            <td style="width:163px;"><input name="val_con['<?php echo $i ?>']"  id="maximum" class="inpu_text"  style="text-align: center; height:20px; width:163px;"   value="<?php echo $row[4]; ?>"/></td>
                                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                                         </tr>
 

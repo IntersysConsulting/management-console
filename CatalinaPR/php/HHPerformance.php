@@ -43,16 +43,16 @@ else {
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 2px;">
+                <table style="margin-left: 6px; width:490px; " cellpadding='0' cellspacing='0'>
                 <?php while ($row = mysql_fetch_array($results)) { ?>
-                        <tr style=" float:left; height:18px" class="sales_change_row">
+                        <tr style=" height:10px;" class="sales_change_row">
 
-                            <td class="segmentdesc" style="width:180px;"><label id="index" name="index"><?php echo $row[2]; ?></label></td>
+                            <td class="segmentdesc" style="width:180px; border:#868282 1px solid;"><label id="index" name="index"><?php echo $row[2]; ?></label></td>
                             <td><input id="hh_perf_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                             <td><input id="hh_perf_index_id['<?php echo $i ?>']" type="hidden" name="index_id" value="<?php echo $row[1]; ?>" /></td>
                             <td>&nbsp;</td>
-                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; width:144px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
-                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; width:144px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
+                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; height:20px; width:144px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
+                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; height:20px; width:144px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
 

@@ -2,7 +2,7 @@
 session_start();
 if(isset($_SESSION['myusername'])){
      unset($_SESSION['myusername']); 
-      header("location:LoginDesign.php");
+      header("location:../index.php");
      }
      else
      {

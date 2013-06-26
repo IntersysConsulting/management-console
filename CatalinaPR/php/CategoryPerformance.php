@@ -9,13 +9,13 @@
     <body>
 
 
-        <div class="heading" style="width:270px; margin-left: 210px;">
+        <div class="heading" style="width:263px; margin-left: 217px;">
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Category Performance</div>
             <div style="text-align:center; font-style: italic;">ROI adjustment based on category Performance</div>
         </div>
         <div style="margin-left:70px;">
             <div class="segment" style="margin-left: 7px;width: 125px">Index</div>
-            <div class="headers" style="width:270px; margin-left: 140px;">
+            <div class="headers" style="width:263px; margin-left: 147px;">
                 <ul style="float: left; list-style-type: none;">
                     <li style="width:128px !important"><b>Bottom Quartile</b></li>
                     <li style="width:88px !important"><b>Top Quartile</b></li>
@@ -44,15 +44,15 @@ else {
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 2px;">
+                <table style="margin-left: 2px;" cellpadding='0' cellspacing='0'>
                 <?php while ($row = mysql_fetch_array($results)) { ?>
-                        <tr style=" float:left; height:18px" class="sales_change_row">
+                        <tr style="height:18px" class="sales_change_row">
 
-                            <td class="segmentdesc" style="width:130px;"><label id="Index" name="Index"><?php echo $row[2]; ?></label></td>
-                            <td><input id="cat_per_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
-                            <td><input id="cat-per_index_id['<?php echo $i ?>']" type="hidden" name="indext_id" value="<?php echo $row[1]; ?>" /></td>
-                            <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; width:130px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
-                            <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; width:130px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
+                            <td class="segmentdesc" style="width:130px; border:#868282 1px solid;"><label id="Index" name="Index"><?php echo $row[2]; ?></label></td>
+                            <td style="width:10px;"><input id="cat_per_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
+                            <td style="width:10px;"><input id="cat-per_index_id['<?php echo $i ?>']" type="hidden" name="indext_id" value="<?php echo $row[1]; ?>" /></td>
+                            <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; height:20px; width:130px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
+                            <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; height:20px; width:130px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
 
@@ -60,7 +60,7 @@ else {
 } ?>
                 </table>
 <?php mysql_close($con); ?>
-                <div id="cat_perf_err"><label> Please enter value between -.05 and .20 </label></div>
+                <div id="cat_perf_err"><label> Please enter value between 5 and 120 </label></div>
                 <div>
                     <div><input style="margin-left:200px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
                 <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>

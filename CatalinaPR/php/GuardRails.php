@@ -34,8 +34,16 @@ session_start();
                 <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
             </div>
             <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-                <?php require 'Mainmenu.php'; ?>
-
+                <?php //require 'Mainmenu.php'; ?>
+                <div class="mainmenu">
+                    <ul>
+                        <li><a href="DefaultHome.php">Home </a></li>
+                        <li><a href="SalesChange.php">Controls </a></li>
+                        <li  class="active"><a href="GuardRails.php">Guard Rails </a></li>
+                        <li><a href="ValidationControls.php">Validation Rules </a></li>
+                        <li><a href="ROIReports.php">Reports </a></li>
+                    </ul>
+                </div>
             </div>
             <div id="tabs" style="margin-left: 50px;margin-top: 35px;width: 650px; height: 298px;">
                 <ul>
@@ -62,7 +70,7 @@ session_start();
                         </div>
                         
                         <form action="GuardRails_Update.php" method="POST" id="update">
-                            <div>
+                            <div style="margin-top: 10px; margin-left: 3px;">
                                 <?php
                                 require 'connection.php';
                                  if(isset($_SESSION['myusername']))    
@@ -83,16 +91,16 @@ session_start();
                                 $i=0;
                                 ?>
 
-                                <table>
+                                <table style="width:550px;" cellpadding='0' cellspacing='0'>
                                     <?php while ($row = mysql_fetch_array($results)) { ?>
-                                        <tr style=" float:left; height:18px" class="sales_change_row">
+                                        <tr style=" height:10px" class="sales_change_row">
                                             
-                                            <td class="segmentdesc" style="width:240px;"><label id="metric" name="metric"><?php echo $row[2];  ?></label></td>
+                                            <td class="segmentdesc" style="width:240px; border:#868282 1px solid;"><label id="metric" name="metric"><?php echo $row[2];  ?></label></td>
                                             <td><input id="guard_rails_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                                             <td><input id="guard_rails_metric_id['<?php echo $i ?>']" type="hidden" name="metric_id" value="<?php echo $row[1]; ?>" /></td>
                                             <td>&nbsp;</td>
-                                            <td style="width:143px;"><input name="guard_rails['<?php echo $i ?>']"  id="minimum" class="inpu_text" style="text-align: center; width:143px; font-size: 10px;"  value="<?php echo $row[3]; ?>"/></td>
-                                            <td style="width:143px;"><input name="guard_rails['<?php echo $i ?>']"  id="maximum" class="inpu_text"  style="text-align: center; width:143px;"   value="<?php echo $row[4]; ?>"/></td>
+                                            <td style="width:143px;"><input name="guard_rails['<?php echo $i ?>']"  id="minimum" class="inpu_text" style="text-align: center; height:20px; width:143px; font-size: 10px;"  value="<?php echo $row[3]; ?>"/></td>
+                                            <td style="width:143px;"><input name="guard_rails['<?php echo $i ?>']"  id="maximum" class="inpu_text"  style="text-align: center; height:20px; width:143px;"   value="<?php echo $row[4]; ?>"/></td>
                                            
                                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                                         </tr>
