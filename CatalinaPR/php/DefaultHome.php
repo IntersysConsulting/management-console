@@ -34,7 +34,15 @@ session_start();
                 <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
             </div>
             <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-                <?php require 'Mainmenu.php'; ?>
+               <div class="mainmenu">
+                    <ul>
+                        <li  class="active"><a href="DefaultHome.php">Home </a></li>
+                        <li><a href="SalesChange.php">Controls </a></li>
+                        <li><a href="GuardRails.php">Guard Rails </a></li>
+                        <li><a href="ValidationControls.php">Validation Rules </a></li>
+                        <li><a href="ROIReports.php">Reports </a></li>
+                    </ul>
+                </div>
 
             </div>
             <div id="tabs" style="margin-left: 50px;margin-top: 35px;width: 650px; height: 298px;">
