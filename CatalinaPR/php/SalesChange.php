@@ -65,12 +65,12 @@ session_start();
                             <div class="segment">Segment</div>
                             <div class="headers">
                                 <ul style="float: left; list-style-type: none;">
-                                    <li><b>-5</b></li>
-                                    <li>  <b>-4</b></li>
-                                    <li>  <b>-3</b></li>
-                                    <li>  <b>-2</b></li>
-                                    <li>  <b>-1</b></li>
-                                    <li>  <b>0</b></li>
+                                    <li> <b>-5</b></li>
+                                    <li> <b>-4</b></li>
+                                    <li> <b>-3</b></li>
+                                    <li> <b>-2</b></li>
+                                    <li> <b>-1</b></li>
+                                    <li> <b>0</b></li>
                                     <li> <b>1</b></li>
                                     <li> <b>2</b></li>
                                     <li> <b>3</b></li>
@@ -79,34 +79,27 @@ session_start();
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <form action="SalesChange_Update.php" method="POST" id="update">
                             <div>
                                 <?php
                                 require 'connection.php';
-                                 if(isset($_SESSION['myusername']))    
-                                {		
-                                        $myusername = $_SESSION['myusername'];	
+                                if (isset($_SESSION['myusername'])) {
+                                    $myusername = $_SESSION['myusername'];
                                 }
-                                else
-                                {
-                                     header("location:../index.php");
+                                else {
+                                    header("location:../index.php");
                                 }
-                                $db_table = "pr_sales_change";
-                                
-                                ?>
-                                <?php
-//                                $query = "select * From $db_table ";
-                                $query="SELECT a.user_id,a.segment_id,b.segment_desc, a.n5_val, a.n4_val, a.n3_val, a.n2_val, a.n1_val, a.zed_val, a.p5_val, a.p4_val, a.p3_val, a.p2_val, a.p1_val FROM pr_sales_change a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='".$myusername."'";
+                                $query = "SELECT a.user_id,a.segment_id,b.segment_desc, a.n5_val, a.n4_val, a.n3_val, a.n2_val, a.n1_val, a.zed_val, a.p5_val, a.p4_val, a.p3_val, a.p2_val, a.p1_val FROM pr_sales_change a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
                                 $results = mysql_query($query, $con) or die("Error performing query");
-                                $i=0;
+                                $i = 0;
                                 ?>
 
                                 <table>
-                                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                                <?php while ($row = mysql_fetch_array($results)) { ?>
                                         <tr style=" float:left; height:18px" class="sales_change_row">
-                                            
-                                            <td class="segmentdesc"><label id="segment" name="segment"><?php echo $row[2];  ?></label></td>
+
+                                            <td class="segmentdesc"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
                                             <td><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                                             <td><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
                                             <td><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
@@ -122,8 +115,8 @@ session_start();
                                             <td><input name="inp_text['<?php echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[13], 2, '.', ''); ?>"/></td>
                                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                                         </tr>
-
-                                    <?php $i++; } ?>
+                                 <?php $i++;
+                                  } ?>
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="sales_change_err"><label> Please enter value between -.10 and .20 </label></div>
@@ -139,14 +132,8 @@ session_start();
 
             </div>
         </div>
-        
+
     </body>
-    
-
-            
-
-
-            
 </html>
 
 

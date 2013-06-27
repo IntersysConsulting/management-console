@@ -222,16 +222,10 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $('#Val_control_err').hide();
                 $('#pgm_param_err').hide();
                 jQuery('#Prod_cat_code').hide();
-      jQuery('#Prod_cat_desc').hide();
-       jQuery('#pc_value').hide();
-       jQuery('#prod_cat_err').hide();
-       
-//                $(".mainmenu ul li").click(function(){
-//                    alert('inside li');
-//                    $(".mainmenu ul li").removeClass("active");
-//                    $(this).addClass("active");
-//                    return true;
-//                });
+                  jQuery('#Prod_cat_desc').hide();
+                   jQuery('#pc_value').hide();
+                   jQuery('#prod_cat_err').hide();
+
                  $(".mainmenu ul li").click(make_button_active);
                  $("#click").click(function(){
                      var uname=document.getElementById("user_id").value;
@@ -478,7 +472,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $("[name^=roi_adj]").each(function () {
                     $("[name^=roi_adj]").live('input', function() {
                         $(this).blur(function(){
-                            var input = $(this);
+                            
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -545,6 +539,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $('#roi_adj_save').click(function() {
                                 
                     var Updated_Values = JSON.stringify(UpValue);
+                   
                     jQuery.ajax({
                         type: "POST",
                         url: server+"php/ROIAdj_Update.php?arr="+Updated_Values,
@@ -571,7 +566,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $("[name^=pur_cyc]").each(function () {
                     $("[name^=pur_cyc]").live('input', function() {
                         $(this).blur(function(){
-                            var input = $(this);
+                            
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -662,7 +657,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $("[name^=cat_per]").each(function () {
                     $("[name^=cat_per]").live('input', function() {
                         $(this).blur(function(){
-                            var input = $(this);
+                           
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -752,7 +747,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $("[name^=hh_perf]").each(function () {
                     $("[name^=hh_perf]").live('input', function() {
                         $(this).blur(function(){
-                            var input = $(this);
+                           
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -825,14 +820,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -863,7 +858,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                 else
                                 {
-                                    $('#guard_rails_err').html('Please Enter Value between 0 and 30');
+                                    $('#guard_rails_err').html('Please Enter Value between 30 and 120');
                                     $('#guard_rails_err').show();
                                     return false;
                                 }
@@ -1186,7 +1181,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                 $('#val_control_save').click(function() {
                                 
                     var Updated_Values = JSON.stringify(UpValue);
-                   alert(Updated_Values);
+                   //alert(Updated_Values);
                     jQuery.ajax({
                         type: "POST",
                         url: server+"php/ValControls_Update.php?arr="+Updated_Values,
@@ -1195,14 +1190,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                           }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                           }
                         },
                         error:function(event){
                             alert('error'+event.message);
@@ -1417,7 +1412,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                    $("[name^=prod_cat]").each(function () {
                     $("[name^=prod_cat]").live('input', function() { 
                         $(this).blur(function(){
-                           // alert('hi');
+                           
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -1489,7 +1484,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
              $('#pro_cat_save').click(function() {
                                 
                     var Updated_Values = JSON.stringify(UpValue);
-                    //alert(Updated_Values);
+                    
                     jQuery.ajax({
                         type: "POST",
                         url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
@@ -1498,14 +1493,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         },
                     
                         success: function(data){
-                            if (data) {
-                                alert('updated' +data);
-                            }
-                                                     
-                            else {
-                                alert('no need'+ data);
-                                                                
-                            }
+//                            if (data) {
+//                                alert('updated' +data);
+//                            }
+//                                                     
+//                            else {
+//                                alert('no need'+ data);
+//                                                                
+//                            }
                         },
                         error:function(event){
                             alert('error'+event.message);

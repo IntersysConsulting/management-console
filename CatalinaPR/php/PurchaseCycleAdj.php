@@ -27,25 +27,22 @@
 
         <form action="PurchaseCycle_Update.php" method="POST" id="update">
             <div>
-<?php
-require 'connection.php';
-if (isset($_SESSION['myusername'])) {
-    $myusername = $_SESSION['myusername'];
-}
-else {
-    header("location:../index.php");
-}
-
-?>
                 <?php
-//                                $query = "select * From $db_table ";
+                require 'connection.php';
+                if (isset($_SESSION['myusername'])) {
+                    $myusername = $_SESSION['myusername'];
+                }
+                else {
+                    header("location:../index.php");
+                }
+               
                 $query = "SELECT a.user_id,a.segment_id,b.segment_desc,  a.food, a.drug, a.gm FROM pr_purch_cycle_adj a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
                 $results = mysql_query($query, $con) or die("Error performing query");
                 $i = 0;
                 ?>
 
                 <table style="margin-left: 2px;">
-                <?php while ($row = mysql_fetch_array($results)) { ?>
+                    <?php while ($row = mysql_fetch_array($results)) { ?>
                         <tr style=" float:left; height:18px" class="pur_cycle_row">
 
                             <td style="width:145px; text-decoration:none; height:10px;" class="segment"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
@@ -58,17 +55,17 @@ else {
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
 
-    <?php $i++;
-} ?>
+                        <?php $i++;
+                    } ?>
                 </table>
-<?php mysql_close($con); ?>
-                <div id="pur_cycle_adj_err"><label> Please enter value between -.10 and .20 </label></div>
+                <?php mysql_close($con); ?>
+                <div id="pur_cycle_adj_err"><label> Please enter value between 30 and 100 </label></div>
                 <div>
                     <div><input style="margin-left:200px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pur_cycle_save" value="save"/></div>
-                <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                                </div>
+                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                </div>
 
             </div>  
         </form>
- </body>
+    </body>
 </html>

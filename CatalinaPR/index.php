@@ -15,9 +15,9 @@ $error = $_GET['err'];
             <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
             <div style="margin-left: 50px;"><img src="images/logo.JPG"/></div>
             <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-                <div id="mainmenu">
+                <div class="mainmenu">
                     <ul>
-                        <li class="active"><a href="php/LoginDesign.php" >Home </a></li>
+                        <li class="active"><a href="php/DefaultHome.php" >Home </a></li>
                         <li><a href="php/SalesChange.php">Controls </a></li>
                         <li><a href="php/GuardRails.php">Guard Rails </a></li>
                         <li><a href="php/ValidationControls.php">Validation Rules </a></li>
