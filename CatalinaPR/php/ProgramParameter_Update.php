@@ -4,7 +4,7 @@ require 'connection.php';
 //$db_name        = "mpr";
 //$db_username    = "root";
 //$db_password    = "root555";
-$today = date('Y-m-d H:m:s');
+$today = date('Y-m-d H:i:s');
 $updated_values = $_GET['arr'];
 $decodedata = json_decode($updated_values);
 
