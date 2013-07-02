@@ -68,8 +68,8 @@ session_start();
                             </div>
                         </div>
 
-                        <form action="GuardRails_Update.php" method="POST" id="update">
-                            <div style="margin-top: 10px; margin-left: 3px;">
+<!--                        <form action="GuardRails_Update.php" method="POST" id="update">-->
+<!--                            <div style="margin-top: 10px; margin-left: 3px;">-->
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -106,8 +106,8 @@ session_start();
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="guard_rails_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                 </div>
-                            </div>  
-                        </form>
+<!--                            </div>  -->
+<!--                        </form>-->
 
                     </div>
                 </div>

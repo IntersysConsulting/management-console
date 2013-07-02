@@ -25,8 +25,8 @@
             </div>
         </div>
 
-        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:70px;">
-            <div>
+<!--        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:70px;">
+            <div>-->
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -41,7 +41,7 @@
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 2px;" cellpadding='0' cellspacing='0'>
+                <table style="margin-left: 72px;" cellpadding='0' cellspacing='0'>
                     <?php while ($row = mysql_fetch_array($results)) { ?>
                         <tr style="height:18px" class="sales_change_row">
 
@@ -63,7 +63,7 @@
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                 </div>
 
-            </div>  
-        </form>
+<!--            </div>  
+        </form>-->
     </body>
 </html>

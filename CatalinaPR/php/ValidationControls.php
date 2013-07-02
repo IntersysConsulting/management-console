@@ -31,7 +31,7 @@ session_start();
             <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
             <div style="margin-left: 50px;"><img src="../images/logo.JPG"/></div>
             <div id="logout" >
-                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
+               <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
             </div>
             <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
                 <div class="mainmenu">
@@ -59,8 +59,8 @@ session_start();
                             <div style=" font-style: italic; text-align: center;">Minimum and Maximum Offer for  Controls</div>
                         </div>
                         <div>
-                            <div class="segment" style="margin-left: 7px;width: 230px">Metric</div>
-                            <div class="headers" style="width:330px; margin-left: 255px;">
+                            <div class="segment" style="margin-left: 0px;width: 240px; height:20px;">Metric</div>
+                            <div class="headers" style="width:330px; margin-left: 255px; margin-top:-24px;">
                                 <ul style="float: left; list-style-type: none;">
                                     <li style="width:164px !important"><b>Minimum</b></li>
                                     <li style="width:88px !important"><b>Maximum</b></li>
@@ -70,8 +70,8 @@ session_start();
                             </div>
                         </div>
 
-                        <form action="ValControls_Update.php" method="POST" id="update">
-                            <div>
+<!--                        <form action="ValControls_Update.php" method="POST" id="update">-->
+<!--                            <div>-->
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -108,8 +108,8 @@ session_start();
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="val_control_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                 </div>
-                            </div>  
-                        </form>
+<!--                            </div>  -->
+<!--                        </form>-->
 
                     </div>
                 </div>

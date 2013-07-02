@@ -80,8 +80,8 @@ session_start();
                             </div>
                         </div>
 
-                        <form action="SalesChange_Update.php" method="POST" id="update">
-                            <div>
+<!--                        <form action="SalesChange_Update.php" method="POST" id="update">
+                            <div>-->
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -95,24 +95,25 @@ session_start();
                                 $i = 0;
                                 ?>
 
-                                <table>
+                                <table style=" width:605px; " cellpadding='0' cellspacing='0'>
                                 <?php while ($row = mysql_fetch_array($results)) { ?>
-                                        <tr style=" float:left; height:18px" class="sales_change_row">
+                                        <tr style="height:8px;"class="sales_change_row">
 
-                                            <td class="segmentdesc"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
-                                            <td><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
-                                            <td><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="n4_val" class="saleschange_inpu_text"  style="width:38px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[5], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="n2_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[6], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="n1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[7], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="zed_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[8], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="p5_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[9], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="p4_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[10], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']"  id="p3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[11], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']" id="p2_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[12], 2, '.', ''); ?>"/></td>
-                                            <td><input name="inp_text['<?php echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[13], 2, '.', ''); ?>"/></td>
+                                            <td class="segmentdesc" style="width:120px; border:#868282 1px solid;"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
+                                            <td style="width:0px;"><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
+                                            <td style="width:0px;"><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
+                                             <td style="width:15px;">&nbsp;</td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n4_val" class="saleschange_inpu_text"  style="width:37px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[5], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n2_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[6], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[7], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="zed_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[8], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p5_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[9], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p4_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[10], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[11], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p2_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[12], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[13], 2, '.', ''); ?>"/></td>
                                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                                         </tr>
                                  <?php $i++;
@@ -124,8 +125,8 @@ session_start();
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                 </div>
-                            </div>  
-                        </form>
+<!--                            </div>  
+                        </form>-->
 
                     </div>
                 </div>

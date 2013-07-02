@@ -49,8 +49,8 @@ session_start();
             <div class="heading" id="pc_value" style="width: 132px;margin-top: -22px;margin-left: 458px;height: 20px;text-align: center;text-decoration: underline;font-weight: bold;">Value</div>
             
         </div>
-        <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">
-          <div>
+<!--        <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">-->
+          <div style="margin-top:5px;">
         <?php
         
          require 'connection.php';
@@ -92,7 +92,7 @@ session_start();
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="prod_cat_ancel" value="cancel"/></div>
                 </div>
 
-            </div>  
-        </form>
+         </div>  
+       <!--    </form>-->
  </body>
 </html>

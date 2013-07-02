@@ -30,8 +30,8 @@
             </div>
         </div>
 
-        <form action="ROIAdj_Update.php" method="POST" id="update" style="margin-left: 75px;">
-            <div>
+<!--        <form action="ROIAdj_Update.php" method="POST" id="update" style="margin-left: 75px;">
+            <div>-->
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -46,7 +46,7 @@
                 $i = 0;
                 ?>
 
-                <table>
+                <table style="margin-left:80px;">
                     <?php while ($row = mysql_fetch_array($results)) { ?>
                         <tr style=" float:left; height:18px" class="sales_change_row">
 
@@ -76,7 +76,7 @@
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                 </div>
 
-            </div>  
-        </form>
+<!--            </div>  
+        </form>-->
     </body>
 </html>

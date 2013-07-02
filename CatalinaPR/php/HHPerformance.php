@@ -23,8 +23,8 @@
             </div>
         </div>
 
-        <form action="HHPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:20px;">
-            <div>
+<!--        <form action="HHPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:20px;">-->
+<!--            <div style="width:550px; margin-left:20px;">-->
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -40,7 +40,7 @@
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 6px; width:490px; " cellpadding='0' cellspacing='0'>
+                <table style="margin-left: 25px; width:490px; " cellpadding='0' cellspacing='0'>
                     <?php while ($row = mysql_fetch_array($results)) { ?>
                         <tr style=" height:10px;" class="sales_change_row">
 
@@ -63,8 +63,8 @@
                     <div style="margin-top: -25px; margin-left: 290px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                 </div>
 
-            </div>  
-        </form>
+<!--            </div>  -->
+<!--        </form>-->
     </body>
 </html>
 
