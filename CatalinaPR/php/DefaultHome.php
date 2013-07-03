@@ -1,5 +1,21 @@
 <?php
-session_start();
+include "connection.php";
+// Select all the rows in the markers table
+$query = "SELECT * FROM PR_AG_PRODCAT";
+$result = mysql_query($query);
+if (!$result) {
+  die("Invalid query: " . mysql_error());
+}
+$num = mysql_num_rows($result);
+while($row=@mysql_fetch_assoc($result)){
+        $row=@mysql_fetch_assoc($result);
+        $prod[] = $row["prodtypdesc"];
+	$brand[] = $row["branddesc"];
+	$sum_amount[] = $row["sumamt"];
+        $sum_qty[]=$row["sumqty"];
+        $sum_trip[]=$row["sumtrip"];
+	$year[] = $row["year"];
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,50 +33,63 @@ session_start();
 
     function drawVisualization() {
     
-      var time = [['2000W01', '2000W02'],
-                  ['2002Q3', '2002Q4'],
-                  [1990, 1991],
-                  [(new Date(2000, 0, 1)), (new Date(2000, 0, 2))]];
-    
-      var columnType;
-      switch (timeUnits) {
-       case 0:
-       case 1:
-         columnType = 'string';
-         break;
-       case 2:
-       columnType = 'number';
-       break;
-       case 3:
-       columnType = 'date';
-       break;
-      }
+//      var time = [['2000W01', '2000W02','2000W03'],
+//                  ['2002Q3', '2002Q4'],
+//                  [1990, 1991,1992],
+//                  [(new Date(2000, 0, 1)), (new Date(2000, 0, 2))]];
+//    
+//      var columnType;
+//      switch (timeUnits) {
+//       case 0:
+//       case 1:
+//         columnType = 'string';
+//         break;
+//       case 2:
+//       columnType = 'number';
+//       break;
+//       case 3:
+//       columnType = 'date';
+//       break;
+//      }
     
       var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Fruit');
-      data.addColumn(columnType, 'Time');
-      data.addColumn('number', 'Sales');
-      data.addColumn('number', 'Expenses');
-      data.addColumn('string', 'Location');
-      data.addRows([
-        ['Apples', time[timeUnits][0], 1000, 300, 'East'],
-        ['Oranges', time[timeUnits][0], 950, 200, 'West'],
-        ['Bananas', time[timeUnits][0], 300, 250, 'West'],
-        ['Apples', time[timeUnits][1], 1200, 400, 'East'],
-        ['Oranges', time[timeUnits][1], 900, 150, 'West'],
-        ['Bananas', time[timeUnits][1], 788, 617, 'West']
-      ]);
-    
+       data.addColumn('string', 'Product Type');
+        data.addColumn('number', 'Date');
+        data.addColumn('number', 'Sum Amount');
+        data.addColumn('number', 'Sum Quantity');
+        data.addColumn('number', 'Sum Trip');
+        data.addColumn('string', 'Brand');
+		data.addRows([
+		<?php 
+		$j=0;
+		for($j=0;$j<=$num;$j++){
+		echo "['$prod[$j]',$year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]'],\n";
+		}
+		?>
+		]);
+//      data.addColumn('string', 'Fruit');
+//      data.addColumn(columnType, 'Time');
+//      data.addColumn('number', 'Sales');
+//      data.addColumn('number', 'Expenses');
+//      data.addColumn('string', 'Location');
+//      data.addRows([
+//        ['Apples', time[timeUnits][0], 1000, 300, 'East'],
+//        ['Oranges', time[timeUnits][0], 950, 200, 'West'],
+//        ['Bananas', time[timeUnits][0], 300, 250, 'West'],
+//        ['Apples', time[timeUnits][1], 1200, 400, 'East'],
+//        ['Oranges', time[timeUnits][1], 900, 150, 'West'],
+//        ['Bananas', time[timeUnits][1], 788, 617, 'West'],
+//        ['Apples', time[timeUnits][2], 1300, 500, 'East'],
+//        ['Oranges', time[timeUnits][2], 800, 100, 'West'],
+//        ['Bananas', time[timeUnits][2], 980, 700, 'West']
+//      ]);
+
       var motionchart = new google.visualization.MotionChart(
           document.getElementById('visualization'));
       motionchart.draw(data, {'width': 600, 'height': 300});
     }
     
-    var timeUnits = 0;
-    
-    
-    
-
+    var timeUnits = 2;
     google.setOnLoadCallback(drawVisualization);
 
     function changeTimeUnits(value) {
@@ -82,7 +111,7 @@ session_start();
                 });
             });
         </script>
-        <title>Sales Change Goals</title>
+        <title>Home</title>
     </head>
     <body>
         <div class="home">
@@ -99,7 +128,7 @@ session_start();
                         <li><a href="GuardRails.php">Guard Rails </a></li>
                         <li><a href="ValidationControls.php">Validation Rules </a></li>
                         <li><a href="ROIReports.php">Reports </a></li>
-                    </ul>
+                     </ul>
                 </div>
 
             </div>
@@ -128,8 +157,3 @@ session_start();
 
             
 </html>
-
-
-
-
-

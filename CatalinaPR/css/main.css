@@ -23,7 +23,7 @@ root {
     margin-top: 78px;
     border-style: dashed;
     width: 740px;
-    height: 500px;
+    height: 530px;
     -webkit-box-shadow: 0px 1px 10px 1px #CCC;
     -moz-box-shadow: 0px 1px 10px 1px #CCC;
     box-shadow: 0px 1px 10px 1px #E7E4E4;
@@ -83,7 +83,7 @@ root {
     margin-top: -1px;
     border-style: solid;
     width: 650px;
-    height: 290px;
+    height: 320px;
     -webkit-box-shadow: 0px 1px 10px 1px #CCC;
     -moz-box-shadow: 0px 1px 10px 1px #CCC;
     box-shadow: 0px 1px 10px 1px #E7E4E4;
@@ -265,4 +265,6 @@ login_error{
     border: #999191 1px solid;
     text-align: center;
 }
-
+.updating{
+    background-color: lightblue; width:90px; height:20px;margin-top: -25px; margin-left: 450px; border: #808080 1px solid;border-radius: 4px;
+}
