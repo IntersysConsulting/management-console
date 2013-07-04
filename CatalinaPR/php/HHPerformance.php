@@ -61,6 +61,7 @@
                 <div>
                     <div><input style="margin-left:190px; margin-top:15px; font-size: 13px;" type="button" name="save" id="hh_perf_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 290px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                    <div class="updating" id="hh_perf_updating">Updated...</div>
                 </div>
 
 <!--            </div>  -->

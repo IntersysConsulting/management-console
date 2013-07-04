@@ -85,6 +85,7 @@
                 <div>
                     <div><input style="margin-left:-90px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pgm_param_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: -10px;"><input style="font-size: 13px;" type="button" name="cancel" id="pgm_cancel" value="cancel"/></div>
+                    <div class="updating" id="pgm_param_updating" style="margin-left: 80px !important;">Updated...</div>
                 </div>
 
             </div>  

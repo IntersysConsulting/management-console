@@ -1,5 +1,12 @@
 <?php
+session_start();
 include "connection.php";
+if (isset($_SESSION['myusername'])) {
+                    $myusername = $_SESSION['myusername'];
+                }
+                else {
+                    header("location:../index.php");
+                }
 // Select all the rows in the markers table
 $query = "SELECT * FROM PR_AG_PRODCAT";
 $result = mysql_query($query);
@@ -14,7 +21,7 @@ while($row=@mysql_fetch_assoc($result)){
 	$sum_amount[] = $row["sumamt"];
         $sum_qty[]=$row["sumqty"];
         $sum_trip[]=$row["sumtrip"];
-	$year[] = $row["year"];
+	$year[] = $row["ch_year"];
 }
 ?>
 <!DOCTYPE html>

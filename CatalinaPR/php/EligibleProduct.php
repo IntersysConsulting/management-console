@@ -44,7 +44,7 @@ session_start();
         </div>
         
         <div style="margin-top: 60px;">
-            <div class="segment" id="Prod_cat_code" style="width: 157px;height: 20px;">Product Category Code</div>
+            <div class="segment" id="Prod_cat_code" style="margin-left:5px;width: 157px;height: 20px;">Product Category Code</div>
             <div class="segment" id="Prod_cat_desc"style="margin-top: -22px;margin-left: 182px;width: 255px;height: 20px">Product Category Description</div>
             <div class="heading" id="pc_value" style="width: 132px;margin-top: -22px;margin-left: 458px;height: 20px;text-align: center;text-decoration: underline;font-weight: bold;">Value</div>
             
@@ -69,10 +69,10 @@ session_start();
                     while ($row = mysql_fetch_array($result)) {
                         echo "<tr style='height:20px;' >";
                         echo "<td class='segmentdesc' style='width:120px; padding-top:1px; border:#868282 1px solid;'><label id='segment' name='segment'>"; echo $row[2];  echo "</label></td>";
-                        echo '<td style="width:15px"><input id="prod_cat_user_id['; echo $i; echo']" type="hidden" name="user_id" value="'; echo $row[0]; echo'" /></td>';
-                        echo '<td><input id="super_cat_code['; echo $i; echo']" type="hidden" name="super_cat_code" value="'; echo $row[2]; echo'" /></td>';
+                        echo '<td style="width:15px"><input id="prod_cat_user_id['; echo $i; echo']" type="hidden" name="user_id" value="'; echo $row[0]; echo'"/></td>';
+                        echo '<td style="width:0px;"><input id="super_cat_code['; echo $i; echo']" type="hidden" name="super_cat_code" value="'; echo $row[2]; echo'"/></td>';
                         echo '<td class="segmentdesc" style="width:195px; border:#868282 1px solid; padding-top:1px"><label id="segment" name="segment">'; echo $row[3];  echo '</label></td>';
-                        echo '<td style="width:20px"><input id="super_cat_id['; echo $i; echo']" type="hidden" name="super_cat_id" value="'; echo $row[1]; echo'" /></td>';
+                        echo '<td style="width:20px"><input id="super_cat_id['; echo $i; echo']" type="hidden" name="super_cat_id" value="'; echo $row[1]; echo'"/></td>';
                         echo '<td style="width:130px;"><input name="prod_cat['; echo $i; echo ']"  id="pc_value" class="inpu_text" style="text-align: center; height:20px; width:130px; font-size: 10px;"  value="';echo $row[4]; echo'"/></td>';
                         echo "</tr>";
                         $i++;
@@ -90,6 +90,7 @@ session_start();
                 <div style="margin-top: 20px;">
                     <div><input style="margin-left:220px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pro_cat_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="prod_cat_ancel" value="cancel"/></div>
+                    <div class="prod_cat_updating" >Updated...</div>
                 </div>
 
          </div>  

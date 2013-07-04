@@ -74,6 +74,7 @@
                 <div>
                     <div><input style="margin-left:150px; margin-top:20px; font-size: 13px;" type="button" name="save" id="roi_adj_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                    <div class="updating" id="roi_adj_updating">Updated...</div>
                 </div>
 
 <!--            </div>  

@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (isset($_SESSION['myusername'])) {
+                                    $myusername = $_SESSION['myusername'];
+                                }
+                                else {
+                                    header("location:../index.php");
+                                }
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,7 +65,7 @@ session_start();
                     <div id="tabs-1">
                         <div class="heading">
                             <div style="text-align: center; font-weight: bold; font-size: 14px;">Sales Change Goals</div>
-                            <div style="font-style: italic;">Quintile Change-current Period vs Previous Period or same period Last Year</div>
+                            <div style="font-style: italic; text-align: center;">Quintile Change-current Period vs Previous Period or same period Last Year</div>
                         </div>
                         <div>
                             <div class="segment">Segment</div>
@@ -121,10 +127,12 @@ session_start();
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="sales_change_err"><label> Please enter value between -.10 and .20 </label></div>
-                                <div>
-                                    <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="save" value="save"/></div>
-                                    <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                                <div style="margin-left:-30px;">
+                                    <div style="width:100px;"><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="save" value="save"/></div>
+                                    <div style="margin-top: -25px; margin-left: 350px; width:100px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                                    <div class="updating" id="updating">Updated...</div>
                                 </div>
+                                
 <!--                            </div>  
                         </form>-->
 

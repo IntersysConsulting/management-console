@@ -54,7 +54,7 @@ session_start();
                     <div id="tabs-1">
                         <div class="heading" style="width:290px; margin-left: 260px;">
                             <div style="text-align: center; font-weight: bold; font-size: 14px;">Program Guard Rails</div>
-                            <div style=" font-style: italic;">Minimum and Maximum Offer Values</div>
+                            <div style=" font-style: italic; text-align: center;">Minimum and Maximum Offer Values</div>
                         </div>
                         <div style="margin-left:110px; margin-top: 21px;">
 
@@ -105,6 +105,7 @@ session_start();
                                 <div>
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="guard_rails_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                                    <div class="updating" id="updating">Updated...</div>
                                 </div>
 <!--                            </div>  -->
 <!--                        </form>-->

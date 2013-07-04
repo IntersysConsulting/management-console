@@ -61,6 +61,7 @@
                 <div>
                     <div><input style="margin-left:200px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                    <div class="updating" id="cat_perf_updating">Updated...</div>
                 </div>
 
 <!--            </div>  

@@ -268,3 +268,7 @@ login_error{
 .updating{
     background-color: lightblue; width:90px; height:20px;margin-top: -25px; margin-left: 450px; border: #808080 1px solid;border-radius: 4px;
 }
+.prod_cat_updating
+{
+    background-color: lightblue; width:90px; height:20px;margin-top: -25px; margin-left: 450px; border: #808080 1px solid;border-radius: 4px;display:none;
+}

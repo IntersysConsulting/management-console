@@ -78,6 +78,7 @@
                 <div>
                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="ROI_Goals_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                    <div class="updating" id="roi_goal_updating">Updated...</div>
                 </div>
 
 <!--            </div>  

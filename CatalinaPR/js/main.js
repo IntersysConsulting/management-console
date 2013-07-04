@@ -45,7 +45,7 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
         UpValue.push(UP_Value);
         return true;
     }
-    else if(col_val!=value)
+    else if(col_val!=value||(col_name!=column && col_val==value)||(metric_val!=metric_id_value && col_val==value))
     {
         col_val=value;
         col_name=column;
@@ -69,23 +69,13 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
 }
 function ProgramParams()
 {
-    jQuery('.home').stop().animate({
-        height: 670, 
-        marginTop: 30
-    }, 200);
-    jQuery('.controls').stop().animate({
-        height: 470
-    }, 200);
+    jQuery('.home').stop().animate({height: 670, marginTop: 30}, 200);
+    jQuery('.controls').stop().animate({height: 470}, 200);
 }
 function Controls()
 {
-    jQuery('.home').stop().animate({
-        height: 580, 
-        marginTop: 70
-    }, 200);
-    jQuery('.controls').stop().animate({
-        height: 370
-    }, 200);
+    jQuery('.home').stop().animate({height: 580, marginTop: 70}, 200);
+    jQuery('.controls').stop().animate({height: 370}, 200);
 }
 var make_button_active = function()
 {
@@ -104,8 +94,8 @@ var make_button_active = function()
 
 include(server + 'js/jquery-1.7.1.min.js', function() {
     include(server + 'js/jquery.validate.js', function() {
-        include(server + 'js/jquery.dataTables.min.js', function() {
-            include(server + 'js/jquery.jqGrid.min.js', function() {
+        include(server + 'js/jquery-ui.js', function() {
+            include(server + 'js/jquery.easy-confirm-dialog.js', function() {
                 $(document).ready(function() {
                     $('#userid_error').hide();
                     $('#passwrd_error').hide();
@@ -118,11 +108,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#guard_rails_err').hide();
                     $('#Val_control_err').hide();
                     $('#pgm_param_err').hide();
-                    jQuery('#Prod_cat_code').hide();
-                    jQuery('#Prod_cat_desc').hide();
-                    jQuery('#pc_value').hide();
-                    jQuery('#prod_cat_err').hide();
-
+                    $('#Prod_cat_code').hide();
+                    $('#Prod_cat_desc').hide();
+                    $('#pc_value').hide();
+                    $('#prod_cat_err').hide();
+                    $('#updating').hide();
+                    $('#roi_goal_updating').hide();
+                    $('#roi_adj_updating').hide();
+                    $('#pur_cyc_updating').hide();
+                    $('#cat_perf_updating').hide();
+                    $('#hh_perf_updating').hide();
+                    $('#pgm_param_updating').hide();
+                    $('#prod_cat_updating').hide();
                     $(".mainmenu ul li").click(make_button_active);
                     jQuery('#submit').click(function () {
                         var uname=document.getElementById("userid").value;
@@ -203,7 +200,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value)||(seg_val!=segment_id_val && col_val==value))
                                     {
                                        
                                         col_val=value;
@@ -241,32 +238,31 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
-            
+                    $("#save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}}); $("#updating").fadeOut(5000);
                     $('#save').click(function() {
-                                
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
+                       var Updated_Values = JSON.stringify(UpValue);
+                       //$('#updating').fadeIn(10000, callback);
+                      
+                      jQuery.ajax({
                             type: "POST",
                             url: server+"php/SalesChange_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('no need' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('updated'+ data);
-                            //                                                                
-                            //                            }
+                             if (data) {
+                                 $('#updating').show();
+                                }
+                              else {
+                                 $('#updating').html('No Update ');
+                                 $('#updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
                             }
-                        });  
-                    });
+                        });
+                     });
                     $("[name^=roi_goals]").each(function () {
                         $("[name^=roi_goals]").live('input', function() {
                             $(this).blur(function(){
@@ -298,7 +294,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value)||(seg_val!=segment_id_val && col_val==value))
+                                    
                                     {
                                        
                                         col_val=value;
@@ -336,6 +333,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#ROI_Goals_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#ROI_Goals_save').click(function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
@@ -345,16 +343,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('no need' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('updated'+ data);
-                            //                                                                
-                            //                            }
+                               if (data) {
+                                    $('#roi_goal_updating').html('No Update ');
+                                    $('#roi_goal_updating').show();
+                                }
+                              else {
+                                    $('#roi_goal_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -389,7 +385,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value))
                                     {
                                        
                                         col_val=value;
@@ -427,27 +423,24 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
-                
+                    $("#roi_adj_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#roi_adj_save').click(function() {
-                                
                         var Updated_Values = JSON.stringify(UpValue);
-                   
                         jQuery.ajax({
                             type: "POST",
                             url: server+"php/ROIAdj_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                 $('#roi_adj_updating').html('No Update ');
+                                 $('#roi_adj_updating').show();
+                                }
+                              else {
+                                 
+                                 $('#roi_adj_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -483,7 +476,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value)||(seg_val!=segment_id_val && col_val==value))
                                     {
                                         col_val=value;
                                         col_name=column;
@@ -520,6 +513,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#pur_cycle_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#pur_cycle_save').click(function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
@@ -531,14 +525,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             },
                     
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                 $('#pur_cyc_updating').html('No Update ');
+                                 $('#pur_cyc_updating').show();
+                                }
+                              else {
+                                 
+                                 $('#pur_cyc_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -574,7 +568,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
                                     {
                                         col_val=value;
                                         col_name=column;
@@ -611,6 +605,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#cat_perf_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#cat_perf_save').click(function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
@@ -620,16 +615,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                    $('#cat_perf_updating').html('No Update ');
+                                    $('#cat_perf_updating').show();
+                                }
+                              else {
+                                 
+                                 $('#cat_perf_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -664,7 +658,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
                                     {
                                         col_val=value;
                                         col_name=column;
@@ -701,8 +695,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#hh_perf_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#hh_perf_save').click(function() {
-                                
                         var Updated_Values = JSON.stringify(UpValue);
                         jQuery.ajax({
                             type: "POST",
@@ -710,16 +704,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                    $('#hh_perf_updating').html('No Update ');
+                                    $('#hh_perf_updating').show();
+                                }
+                              else {
+                                 
+                                 $('#hh_perf_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -729,7 +722,6 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $("[name^=guard_rails]").each(function () {
                         $("[name^=guard_rails]").live('input', function() {
                             $(this).blur(function(){
-                             
                                 value=this.value;
                                 column=$(this).attr('id');
                                 var name=$(this).attr('name');
@@ -837,8 +829,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#guard_rails_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#guard_rails_save').click(function() {
-                                
                         var Updated_Values = JSON.stringify(UpValue);
                         jQuery.ajax({
                             type: "POST",
@@ -848,14 +840,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             },
                     
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                    $('#updating').html('No Update ');
+                                    $('#updating').show();
+                                }
+                              else {
+                                 
+                                 $('#updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -1070,26 +1062,24 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
+                    $("#val_control_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#val_control_save').click(function() {
-                                
                         var Updated_Values = JSON.stringify(UpValue);
-                        //alert(Updated_Values);
                         jQuery.ajax({
                             type: "POST",
                             url: server+"php/ValControls_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                           }
+                            if (data) {
+                                $('#updating').html('No Update ');
+                                 $('#updating').show();
+                                }
+                              else {
+                                 
+                                 $('#updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -1257,26 +1247,24 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         parameter=8;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
+                    $("#pgm_param_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
                     $('#pgm_param_save').click(function() {
-                                
                         var Updated_Values = JSON.stringify(UpValue);
-                        //alert(Updated_Values);
                         jQuery.ajax({
                             type: "POST",
                             url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                                if (data) {
+                                    $('#pgm_param_updating').html('No Update ');
+                                    $('#pgm_param_updating').show();
+                                }
+                              else {
+                                 
+                                 $('#pgm_param_updating').show();
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -1296,10 +1284,12 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#sample #headings').hide();
                             $('#sample #drp_dwn_super_category').hide();
                             $('#sample #super').hide();
-                                     
+                            $('#sample .prod_cat_updating').hide();
+                            $('.prod_cat_updating').hide();
                             $('#sample #pro_cat_save').hide();
                             $('#sample #prod_cat_ancel').hide();
-                                    
+                            $('#prod_cat_err').hide();
+                                  
                         });
                     });
                     
@@ -1335,7 +1325,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         UpValue.push(UP_Value);
                                         return true;
                                     }
-                                    else if(col_val!=value)
+                                    else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
                                     {
                                         col_val=value;
                                         col_name=column;
@@ -1360,12 +1350,16 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                 else if(value=="")
                                 {
+                                     $('.prod_cat_updating').hide();
+                                    $('#sample .prod_cat_updating').hide();
                                     $('#prod_cat_err').html('please enter a value');
                                     $('#prod_cat_err').show();
                                     return false;
                                 }
                                 else
                                 {
+                                     $('.prod_cat_updating').hide();
+                                    $('#sample .prod_cat_updating').hide();
                                     $('#prod_cat_err').show();
                                     return false;
                                 }
@@ -1374,39 +1368,43 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             });
                         });
                     });
-                   
-                    $('#pro_cat_save').click(function() {
-                                
-                        var Updated_Values = JSON.stringify(UpValue);
                     
+                    //$("#pro_cat_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});  
+                    $('#pro_cat_save').click(function() {
+                        var Updated_Values = JSON.stringify(UpValue);
+                        var r=confirm('Do you Want to Update?')
+                        if(r==true){
                         jQuery.ajax({
                             type: "POST",
                             url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
-                    
                             success: function(data){
-                            //                            if (data) {
-                            //                                alert('updated' +data);
-                            //                            }
-                            //                                                     
-                            //                            else {
-                            //                                alert('no need'+ data);
-                            //                                                                
-                            //                            }
+                            if (data) {
+                                $('.prod_cat_updating').html('No Update ');
+                                 $('.prod_cat_updating').show();
+                                 
+                                }
+                              else {
+//                                  $('#sample .prod_cat_updating').attr('style', 'visibility:visible !important;');     
+//                                 $('.prod_cat_updating').attr('style', 'display:none;');
+                                 $('.prod_cat_updating').show();
+                                 $('#sample .prod_cat_updating').hide();
+                                 
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
                             }
                         });  
+                        }
                     });
 
            
             
-              
+                });
                 });     
-            });
         });
     });
 });
