@@ -5,10 +5,10 @@ var server = "http://localhost:8080/CatalinaPR/";
 var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value,super_cat_code,category_code;
 var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,val,super_cat_id;
 var timeout=25000;
-var vTable;
+
 var UpValue = [];
 var i=0;
-var uname;
+
 function include(filename, onload) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -29,6 +29,7 @@ function include(filename, onload) {
 }
 function GuardRails_Checking(value,column,user_val,metric_id_value)
 {
+    try{
     if(col_val=="")
     {
         col_val=value;
@@ -62,20 +63,41 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
 
         return true; 
     }
+    
     $('#pgm_param_err').hide();                       
     $('#guard_rails_err').hide();
     $('#Val_control_err').hide();
     return true; 
+    }
+    catch(e)
+    {
+        alert(e.message)
+    }
 }
 function ProgramParams()
-{
-    jQuery('.home').stop().animate({height: 670, marginTop: 30}, 200);
-    jQuery('.controls').stop().animate({height: 470}, 200);
+{ try{
+    jQuery('.home').stop().animate({
+        height: 670, 
+        marginTop: 30
+    }, 200);
+    jQuery('.controls').stop().animate({
+        height: 470
+    }, 200);
+    }
+    catch(e)
+    {
+        alert(e.message);
+    }
 }
 function Controls()
 {
-    jQuery('.home').stop().animate({height: 580, marginTop: 70}, 200);
-    jQuery('.controls').stop().animate({height: 370}, 200);
+    jQuery('.home').stop().animate({
+        height: 580, 
+        marginTop: 70
+    }, 200);
+    jQuery('.controls').stop().animate({
+        height: 370
+    }, 200);
 }
 var make_button_active = function()
 {
@@ -88,9 +110,9 @@ var make_button_active = function()
        
         $(this).removeClass('active');
     })
-//Add the clicked button class
+    //Add the clicked button class
     $(this).addClass('active');
- }
+}
 
 include(server + 'js/jquery-1.7.1.min.js', function() {
     include(server + 'js/jquery.validate.js', function() {
@@ -224,7 +246,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                 else if(value=="")
                                 {
-                                    $('#sales_change_err').html('please enter a value');
+                                    $('#sales_change_err').html('Please enter a value');
                                     $('#sales_change_err').show();
                                     return false;
                                 }
@@ -238,31 +260,37 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
-                    $("#save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}}); $("#updating").fadeOut(5000);
+                    $("#save").easyconfirm({
+                        locale: {
+                            title: 'Confirm', 
+                            button: ['No','Yes']
+                            }
+                        });
+                $("#updating").fadeOut(5000);
                     $('#save').click(function() {
-                       var Updated_Values = JSON.stringify(UpValue);
-                       //$('#updating').fadeIn(10000, callback);
+                        var Updated_Values = JSON.stringify(UpValue);
+                        //$('#updating').fadeIn(10000, callback);
                       
-                      jQuery.ajax({
+                        jQuery.ajax({
                             type: "POST",
                             url: server+"php/SalesChange_Update.php?arr="+Updated_Values,
                             data: {
                                 'Updated_Values':Updated_Values
                             },
                             success: function(data){
-                             if (data) {
-                                 $('#updating').show();
+                                if (data) {
+                                    $('#updating').show();
                                 }
-                              else {
-                                 $('#updating').html('No Update ');
-                                 $('#updating').show();
-                               }
+                                else {
+                                    $('#updating').html('Update Failed');
+                                    $('#updating').show();
+                                }
                             },
                             error:function(event){
                                 alert('error'+event.message);
                             }
                         });
-                     });
+                    });
                     $("[name^=roi_goals]").each(function () {
                         $("[name^=roi_goals]").live('input', function() {
                             $(this).blur(function(){
@@ -319,7 +347,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                 else if(value=="")
                                 {
-                                    $('#roi_goals_err').html('please enter a value');
+                                    $('#roi_goals_err').html('Please enter a value');
                                     $('#roi_goals_err').show();
                                     return false;
                                 }
@@ -333,1078 +361,1118 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                         });
                     });
-                    $("#ROI_Goals_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#ROI_Goals_save').click(function() {
-                                
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/ROIGoals_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                               if (data) {
-                                    $('#roi_goal_updating').html('No Update ');
-                                    $('#roi_goal_updating').show();
-                                }
-                              else {
-                                    $('#roi_goal_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
+                    $("#ROI_Goals_save").easyconfirm({
+                        locale: {
+                            title: 'Confirm', 
+                            button: ['No','Yes']
                             }
-                        });  
-                    });
-                    $("[name^=roi_adj]").each(function () {
-                        $("[name^=roi_adj]").live('input', function() {
-                            $(this).blur(function(){
+                        });
+                $('#ROI_Goals_save').click(function() {
+                                
+                    var Updated_Values = JSON.stringify(UpValue);
+                    jQuery.ajax({
+                        type: "POST",
+                        url: server+"php/ROIGoals_Update.php?arr="+Updated_Values,
+                        data: {
+                            'Updated_Values':Updated_Values
+                        },
+                        success: function(data){
+                            if (data) {
+                                $('#roi_goal_updating').html('Update Failed');
+                                $('#roi_goal_updating').show();
+                            }
+                            else {
+                                $('#roi_goal_updating').show();
+                            }
+                        },
+                        error:function(event){
+                            alert('error'+event.message);
+                        }
+                    });  
+                });
+                $("[name^=roi_adj]").each(function () {
+                    $("[name^=roi_adj]").live('input', function() {
+                        $(this).blur(function(){
                             
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("roi_adj_user_id['"+sb+"']").value;
-                                if((value>=(0.00))&&(value<=(0.20))&&(value!=""))
+                            value=this.value;
+                            column=$(this).attr('id');
+                            var name=$(this).attr('name');
+                            var sb=name.substr(9,1);
+                            user_val=document.getElementById("roi_adj_user_id['"+sb+"']").value;
+                            if((value>=(0.00))&&(value<=(0.20))&&(value!=""))
+                            {
+                                if(col_val=="")
                                 {
-                                    if(col_val=="")
-                                    {
                                     
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        //seg_val=segment_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val
+                                    col_val=value;
+                                    col_name=column;
+                                    user_val=user_val;
+                                    //seg_val=segment_id_val;
+                                    var UP_Value = {  
+                                        "col_nam" :col_name,                                
+                                        "col_value" :col_val,
+                                        "user_id_val" :user_val
                                         
-                                        };
+                                    };
                                     
-                                        UpValue.push(UP_Value);
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(col_name!=column && col_val==value))
-                                    {
+                                    UpValue.push(UP_Value);
+                                    return true;
+                                }
+                                else if(col_val!=value||(col_name!=column && col_val==value))
+                                {
                                        
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        //seg_val=segment_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val
+                                    col_val=value;
+                                    col_name=column;
+                                    user_val=user_val;
+                                    //seg_val=segment_id_val;
+                                    var UP_Value = {  
+                                        "col_nam" :col_name,                                
+                                        "col_value" :col_val,
+                                        "user_id_val" :user_val
                                        
-                                        };
+                                    };
                                     
-                                        UpValue.push(UP_Value);
+                                    UpValue.push(UP_Value);
 
-                                        return true; 
-                                    }
-                            
-                                    $('#roi_adj_err').hide();
                                     return true; 
                                 }
-                                else if(value=="")
-                                {
-                                    $('#roi_adj_err').html('please enter a value');
-                                    $('#roi_adj_err').show();
-                                    return false;
-                                }
-                                else
-                                {
-                                    $('#roi_adj_err').show();
-                                    return false;
-                                }
-                       
-                            });
-            
-                        });
-                    });
-                    $("#roi_adj_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#roi_adj_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/ROIAdj_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                                if (data) {
-                                 $('#roi_adj_updating').html('No Update ');
-                                 $('#roi_adj_updating').show();
-                                }
-                              else {
-                                 
-                                 $('#roi_adj_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                
-                    $("[name^=pur_cyc]").each(function () {
-                        $("[name^=pur_cyc]").live('input', function() {
-                            $(this).blur(function(){
                             
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("pur_cycle_user_id['"+sb+"']").value;
-                                segment_id_val=document.getElementById("pur_cycle_segment_id['"+sb+"']").value;
-                                if((value>=(30))&&(value<=(100))&&(value!=""))
-                                {
-                                    if(col_val=="")
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        seg_val=segment_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "seg_id_val":seg_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(col_name!=column && col_val==value)||(seg_val!=segment_id_val && col_val==value))
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        seg_val=segment_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "seg_id_val":seg_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-
-                                        return true; 
-                                    }
-                            
-                                    $('#pur_cycle_adj_err').hide();
-                                    return true; 
-                                }
-                                else if(value=="")
-                                {
-                                    $('#pur_cycle_adj_err').html('please enter a value');
-                                    $('#pur_cycle_adj_err').show();
-                                    return false;
-                                }
-                                else
-                                {
-                                    $('#pur_cycle_adj_err').show();
-                                    return false;
-                                }
+                                $('#roi_adj_err').hide();
+                                return true; 
+                            }
+                            else if(value=="")
+                            {
+                                $('#roi_adj_err').html('Please enter a value');
+                                $('#roi_adj_err').show();
+                                return false;
+                            }
+                            else
+                            {
+                                $('#roi_adj_err').show();
+                                return false;
+                            }
                        
-                            });
+                        });
             
-                        });
                     });
-                    $("#pur_cycle_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#pur_cycle_save').click(function() {
-                                
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/PurchaseCycle_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                    
-                            success: function(data){
-                                if (data) {
-                                 $('#pur_cyc_updating').html('No Update ');
-                                 $('#pur_cyc_updating').show();
-                                }
-                              else {
-                                 
-                                 $('#pur_cyc_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                
-                    $("[name^=cat_per]").each(function () {
-                        $("[name^=cat_per]").live('input', function() {
-                            $(this).blur(function(){
-                           
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("cat_per_user_id['"+sb+"']").value;
-                                index_id_val=document.getElementById("cat-per_index_id['"+sb+"']").value;
-                                if((value>=(5))&&(value<=(120))&&(value!=""))
-                                {
-                                    if(col_val=="")
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=index_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "ind_id_val":index_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=index_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "ind_id_val":index_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-
-                                        return true; 
-                                    }
-                            
-                                    $('#cat_perf_err').hide();
-                                    return true; 
-                                }
-                                else if(value=="")
-                                {
-                                    $('#cat_perf_err').html('please enter a value');
-                                    $('#cat_perf_err').show();
-                                    return false;
-                                }
-                                else
-                                {
-                                    $('#cat_perf_err').show();
-                                    return false;
-                                }
-                       
-                            });
-            
-                        });
-                    });
-                    $("#cat_perf_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#cat_perf_save').click(function() {
-                                
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/CategoryPerf_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                                if (data) {
-                                    $('#cat_perf_updating').html('No Update ');
-                                    $('#cat_perf_updating').show();
-                                }
-                              else {
-                                 
-                                 $('#cat_perf_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                    $("[name^=hh_perf]").each(function () {
-                        $("[name^=hh_perf]").live('input', function() {
-                            $(this).blur(function(){
-                           
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("hh_perf_user_id['"+sb+"']").value;
-                                index_id_val=document.getElementById("hh_perf_index_id['"+sb+"']").value;
-                                if((value>=(-0.05))&&(value<=(0.05))&&(value!=""))
-                                {
-                                    if(col_val=="")
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=index_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "ind_id_val":index_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=index_id_val;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "ind_id_val":index_val
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-
-                                        return true; 
-                                    }
-                            
-                                    $('#hh_perf_err').hide();
-                                    return true; 
-                                }
-                                else if(value=="")
-                                {
-                                    $('#hh_perf_err').html('please enter a value');
-                                    $('#hh_perf_err').show();
-                                    return false;
-                                }
-                                else
-                                {
-                                    $('#hh_perf_err').show();
-                                    return false;
-                                }
-                       
-                            });
-            
-                        });
-                    });
-                    $("#hh_perf_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#hh_perf_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/HHPerf_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                                if (data) {
-                                    $('#hh_perf_updating').html('No Update ');
-                                    $('#hh_perf_updating').show();
-                                }
-                              else {
-                                 
-                                 $('#hh_perf_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                    $("[name^=guard_rails]").each(function () {
-                        $("[name^=guard_rails]").live('input', function() {
-                            $(this).blur(function(){
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(13,1);
-                                user_val=document.getElementById("guard_rails_user_id['"+sb+"']").value;
-                                metric_id_value=document.getElementById("guard_rails_metric_id['"+sb+"']").value;
-                                if(metric_id_value=='1'||metric_id_value=='2'){
-                                    if((value>=(30))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#guard_rails_err').html('please enter a value');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#guard_rails_err').html('Please Enter Value between 30 and 120');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                }
-                                else if((metric_id_value=='3') && (column=='minimum'))
-                                {
-                                    if((value>=(2))&&(value<=(5))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#guard_rails_err').html('please enter a value');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#guard_rails_err').html('Please Enter Minimum Value between $2 and $5 ');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    } 
-                                    
-                                }
-                                else if((metric_id_value=='3') && (column=='maximum'))
-                                {
-                                    if((value>=(10))&&(value<=(100))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#guard_rails_err').html('please enter a value');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#guard_rails_err').html('Please Enter Minimum Value between $10 and $100 ');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    } 
-                                }
-                                else if((metric_id_value=='4') && (column=='minimum'))
-                                {
-                                    if((value>=(1))&&(value<=(2))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#guard_rails_err').html('please enter a value');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#guard_rails_err').html('Please Enter Minimum Value between $1 and $2 ');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }  
-                                }
-                                else if((metric_id_value=='4') && (column=='maximum'))
-                                {
-                                    if((value>=(5))&&(value<=(25))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#guard_rails_err').html('please enter a value');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#guard_rails_err').html('Please Enter Maximum Value between $5 and $25 ');
-                                        $('#guard_rails_err').show();
-                                        return false;
-                                    }  
-                                }
-                       
-                            });
-            
-                        });
-                    });
-                    $("#guard_rails_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#guard_rails_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/GuardRails_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                    
-                            success: function(data){
-                                if (data) {
-                                    $('#updating').html('No Update ');
-                                    $('#updating').show();
-                                }
-                              else {
-                                 
-                                 $('#updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                
-                    $("[name^=val_con]").each(function () {
-                        $("[name^=val_con]").live('input', function() {
-                            $(this).blur(function(){
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
-                                metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
-                                if((metric_id_value=='1')&&((column=='minimum'))){
-                                    if((value>=(0))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('Please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                }
-                                else if((metric_id_value=='1')&&((column=='maximum')))
-                                {
-                                    if((value>=(0))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('Please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                }
-                                else if((metric_id_value=='2'))
-                                {
-                                    if((value>=(10))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 10 and 120 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    } 
-                                    
-                                }
-                                else if((metric_id_value=='3'))
-                                {
-                                    if((value>=(1))&&(value<=(30))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 1 and 30 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    } 
-                                    
-                                }
-                                else if((metric_id_value=='4'))
-                                {
-                                    if((value>=(30))&&(value<=(100))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 30 and 100 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    } 
-                                }
-                                else if((metric_id_value=='5'))
-                                {
-                                    if((value>=(5))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 5 and 120 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    } 
-                                }
-                                else if((metric_id_value=='6'))
-                                {
-                                    if((value>=(30))&&(value<=(120))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 30 and 120 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }  
-                                }
-                                else if((metric_id_value=='7'))
-                                {
-                                    if((value>=(30))&&(value<=(50))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter  Value between 30 and 50 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }  
-                                }
-                                else if((metric_id_value=='8'))
-                                {
-                                    if((value>=(5))&&(value<=(100))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 5 and 100 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }  
-                                }
-                                else if((metric_id_value=='9'))
-                                {
-                                    if((value>=(1))&&(value<=(25))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#Val_control_err').html('please enter a value');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#Val_control_err').html('Please Enter Value between 1 and 25 ');
-                                        $('#Val_control_err').show();
-                                        return false;
-                                    }  
-                                }
-                       
-                            });
-            
-                        });
-                    });
-                    $("#val_control_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#val_control_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/ValControls_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                            if (data) {
-                                $('#updating').html('No Update ');
-                                 $('#updating').show();
-                                }
-                              else {
-                                 
-                                 $('#updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-              
-                    $("[name^=pgm_param]").each(function () {
-                        $("[name^=pgm_param]").live('input', function() {
-                            $(this).blur(function(){
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(11,1);
-                                user_val=document.getElementById("pgm_param_user_id['"+sb+"']").value;
-                                parameters=document.getElementById("pgm_parameter['"+sb+"']").value;
-                                parameter=document.getElementById("pgm_parameter_id['"+sb+"']").value;
-                                parameters=parameters.toUpperCase();
-                                if(parameters=='RETAIN PREVIOUS OFFERS(# OF PURCHASE CYCLES )'){
-                                    if((value>=1)&&(value<=10)&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('Please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between 1 and 10');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                }
-                                else if((parameters=='REWARD/PURCHASE CATEGORY REPETITION(NOT ALLOWED FOR # OF PURCHASE CYCLES)'))
-                                {
-                                    if((value>=(1))&&(value<=(5))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between 1 and 5 ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    } 
-                                    
-                                }
-                                else if((parameters=='ROUNDING CRITERIA FOR SPEND THRESHOLDS($ INCREMENT)'))
-                                {
-                                    if((value>=(1))&&(value<=(5))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between $1 and $5 ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    } 
-                                    
-                                }
-                                else if((parameters=='ROUNDING CRITERIA FOR REWARD AMOUNT($ INCREMENT)'))
-                                {
-                                    if((value>=(5))&&(value<=(7))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between $5 and $7 ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    } 
-                                }
-                                else if((parameters=='ALLOW COLLISIONS(SAME PURCHASE OR REWARD CATEGORIES IN MULTIPLE OFFERS)'))
-                                {
-                                    if((value==('YES'))||(value==('NO')||(value=='yes')||(value=='no'))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value YES/NO ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    } 
-                                }
-                                else if((parameters=='# OF DEFAULT OFFERS'))
-                                {
-                                    if((value>=(1))&&(value<=(5))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between 1 and 5 ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }  
-                                }
-                                else if((parameters=='ALLOW REWARD CATEGORY REPETITION IN CURRENT OFFERS'))
-                                {
-                                    if(((value=="YES")||(value=="NO")||(value=="yes")||(value=="no"))&&(value!=""))
-                                    {
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $('#pgm_param_err').html('please enter a value');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $('#pgm_param_err').html('Please Enter Value between 30 and 50 ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    }  
-                                }
-
-                            
-                       
-                            });
-            
-                        });
-                    });
-                    $('#drp_dwn_segment').live('change', function(e) {
-                        value=(e.target.options[e.target.selectedIndex].text);
-                        column='p_value';
-                        user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=8;
-                        GuardRails_Checking(value,column,user_val,parameter);
-                    });
-                    $("#pgm_param_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});
-                    $('#pgm_param_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                                if (data) {
-                                    $('#pgm_param_updating').html('No Update ');
-                                    $('#pgm_param_updating').show();
-                                }
-                              else {
-                                 
-                                 $('#pgm_param_updating').show();
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
-                    });
-                
-                    $('#drp_dwn_super_category').live('change', function(e) {
-                        desc=(e.target.options[e.target.selectedIndex].text);
-                        val=(e.target.options[e.target.selectedIndex].value);
-                        user_val=document.getElementById("username").value;
-                        $.post(server+'php/EligibleProduct.php?sup_id='+val, {
-                            "sup_id": val
-                        }, function (txt) {
-                                
-                            $('#sample').html(txt);
-                            $('#sample #headings').hide();
-                            $('#sample #drp_dwn_super_category').hide();
-                            $('#sample #super').hide();
-                            $('#sample .prod_cat_updating').hide();
-                            $('.prod_cat_updating').hide();
-                            $('#sample #pro_cat_save').hide();
-                            $('#sample #prod_cat_ancel').hide();
-                            $('#prod_cat_err').hide();
-                                  
-                        });
-                    });
-                    
-                    $("[name^=prod_cat]").each(function () {
-                        $("[name^=prod_cat]").live('input', function() { 
-                            $(this).blur(function(){
-                           
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
-                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
-                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
-                                if(((value=='YES')||(value=='NO')||(value=='yes')||(value=='no')||value=='Yes'||(value=='No'))&&(value!=""))
-                                {
-                                    
-                                    if(col_val=="")
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-
-                                        return true; 
-                                    }
-                            
-                                    $('#prod_cat_err').hide();
-                                    return true; 
-                                }
-                                else if(value=="")
-                                {
-                                     $('.prod_cat_updating').hide();
-                                    $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').html('please enter a value');
-                                    $('#prod_cat_err').show();
-                                    return false;
-                                }
-                                else
-                                {
-                                     $('.prod_cat_updating').hide();
-                                    $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').show();
-                                    return false;
-                                }
-                       
-                            
-                            });
-                        });
-                    });
-                    
-                    //$("#pro_cat_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});  
-                    $('#pro_cat_save').click(function() {
-                        var Updated_Values = JSON.stringify(UpValue);
-                        var r=confirm('Do you Want to Update?')
-                        if(r==true){
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                            if (data) {
-                                $('.prod_cat_updating').html('No Update ');
-                                 $('.prod_cat_updating').show();
-                                 
-                                }
-                              else {
-//                                  $('#sample .prod_cat_updating').attr('style', 'visibility:visible !important;');     
-//                                 $('.prod_cat_updating').attr('style', 'display:none;');
-                                 $('.prod_cat_updating').show();
-                                 $('#sample .prod_cat_updating').hide();
-                                 
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });  
+                });
+                $("#roi_adj_save").easyconfirm({
+                    locale: {
+                        title: 'Confirm', 
+                        button: ['No','Yes']
                         }
                     });
+            $('#roi_adj_save').click(function() {
+                var Updated_Values = JSON.stringify(UpValue);
+                jQuery.ajax({
+                    type: "POST",
+                    url: server+"php/ROIAdj_Update.php?arr="+Updated_Values,
+                    data: {
+                        'Updated_Values':Updated_Values
+                    },
+                    success: function(data){
+                        if (data) {
+                                 
+                            $('#roi_adj_updating').show();
+                        }
+                        else {
+                            $('#roi_adj_updating').html('Update Failed');
+                            $('#roi_adj_updating').show();
+                        }
+                    },
+                    error:function(event){
+                        alert('error'+event.message);
+                    }
+                });  
+            });
+                
+            $("[name^=pur_cyc]").each(function () {
+                $("[name^=pur_cyc]").live('input', function() {
+                    $(this).blur(function(){
+                            
+                        value=this.value;
+                        column=$(this).attr('id');
+                        var name=$(this).attr('name');
+                        var sb=name.substr(9,1);
+                        user_val=document.getElementById("pur_cycle_user_id['"+sb+"']").value;
+                        segment_id_val=document.getElementById("pur_cycle_segment_id['"+sb+"']").value;
+                        if((value>=(30))&&(value<=(100))&&(value!=""))
+                        {
+                            if(col_val=="")
+                            {
+                                col_val=value;
+                                col_name=column;
+                                user_val=user_val;
+                                seg_val=segment_id_val;
+                                var UP_Value = {  
+                                    "col_nam" :col_name,                                
+                                    "col_value" :col_val,
+                                    "user_id_val" :user_val,
+                                    "seg_id_val":seg_val
+                                };
+                                    
+                                UpValue.push(UP_Value);
+                                return true;
+                            }
+                            else if(col_val!=value||(col_name!=column && col_val==value)||(seg_val!=segment_id_val && col_val==value))
+                            {
+                                col_val=value;
+                                col_name=column;
+                                user_val=user_val;
+                                seg_val=segment_id_val;
+                                var UP_Value = {  
+                                    "col_nam" :col_name,                                
+                                    "col_value" :col_val,
+                                    "user_id_val" :user_val,
+                                    "seg_id_val":seg_val
+                                };
+                                    
+                                UpValue.push(UP_Value);
+
+                                return true; 
+                            }
+                            
+                            $('#pur_cycle_adj_err').hide();
+                            return true; 
+                        }
+                        else if(value=="")
+                        {
+                            $('#pur_cycle_adj_err').html('Please enter a value');
+                            $('#pur_cycle_adj_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#pur_cycle_adj_err').show();
+                            return false;
+                        }
+                       
+                    });
+            
+                });
+            });
+            $("#pur_cycle_save").easyconfirm({
+                locale: {
+                    title: 'Confirm', 
+                    button: ['No','Yes']
+                    }
+                });
+            $('#pur_cycle_save').click(function() {
+                                
+                var Updated_Values = JSON.stringify(UpValue);
+                jQuery.ajax({
+                    type: "POST",
+                    url: server+"php/PurchaseCycle_Update.php?arr="+Updated_Values,
+                    data: {
+                        'Updated_Values':Updated_Values
+                    },
+                    
+                    success: function(data){
+                        if (data) {
+                            $('#pur_cyc_updating').html('Update Failed');
+                            $('#pur_cyc_updating').show();
+                        }
+                        else {
+                                 
+                            $('#pur_cyc_updating').show();
+                        }
+                    },
+                    error:function(event){
+                        alert('error'+event.message);
+                    }
+                });  
+            });
+                
+            $("[name^=cat_per]").each(function () {
+                $("[name^=cat_per]").live('input', function() {
+                    $(this).blur(function(){
+                           
+                        value=this.value;
+                        column=$(this).attr('id');
+                        var name=$(this).attr('name');
+                        var sb=name.substr(9,1);
+                        user_val=document.getElementById("cat_per_user_id['"+sb+"']").value;
+                        index_id_val=document.getElementById("cat-per_index_id['"+sb+"']").value;
+                        if((value>=(5))&&(value<=(120))&&(value!=""))
+                        {
+                            if(col_val=="")
+                            {
+                                col_val=value;
+                                col_name=column;
+                                user_val=user_val;
+                                index_val=index_id_val;
+                                var UP_Value = {  
+                                    "col_nam" :col_name,                                
+                                    "col_value" :col_val,
+                                    "user_id_val" :user_val,
+                                    "ind_id_val":index_val
+                                };
+                                    
+                                UpValue.push(UP_Value);
+                                return true;
+                            }
+                            else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
+                            {
+                                col_val=value;
+                                col_name=column;
+                                user_val=user_val;
+                                index_val=index_id_val;
+                                var UP_Value = {  
+                                    "col_nam" :col_name,                                
+                                    "col_value" :col_val,
+                                    "user_id_val" :user_val,
+                                    "ind_id_val":index_val
+                                };
+                                    
+                                UpValue.push(UP_Value);
+
+                                return true; 
+                            }
+                            
+                            $('#cat_perf_err').hide();
+                            return true; 
+                        }
+                        else if(value=="")
+                        {
+                            $('#cat_perf_err').html('Please enter a value');
+                            $('#cat_perf_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#cat_perf_err').show();
+                            return false;
+                        }
+                       
+                    });
+            
+                });
+            });
+            $("#cat_perf_save").easyconfirm({
+                locale: {
+                    title: 'Confirm', 
+                    button: ['No','Yes']
+                    }
+                });
+        $('#cat_perf_save').click(function() {
+                                
+            var Updated_Values = JSON.stringify(UpValue);
+            jQuery.ajax({
+                type: "POST",
+                url: server+"php/CategoryPerf_Update.php?arr="+Updated_Values,
+                data: {
+                    'Updated_Values':Updated_Values
+                },
+                success: function(data){
+                    if (data) {
+                        $('#cat_perf_updating').html('Update Failed');
+                        $('#cat_perf_updating').show();
+                    }
+                    else {
+                                 
+                        $('#cat_perf_updating').show();
+                    }
+                },
+                error:function(event){
+                    alert('error'+event.message);
+                }
+            });  
+        });
+        $("[name^=hh_perf]").each(function () {
+            $("[name^=hh_perf]").live('input', function() {
+                $(this).blur(function(){
+                           
+                    value=this.value;
+                    column=$(this).attr('id');
+                    var name=$(this).attr('name');
+                    var sb=name.substr(9,1);
+                    user_val=document.getElementById("hh_perf_user_id['"+sb+"']").value;
+                    index_id_val=document.getElementById("hh_perf_index_id['"+sb+"']").value;
+                    if((value>=(-0.05))&&(value<=(0.05))&&(value!=""))
+                    {
+                        if(col_val=="")
+                        {
+                            col_val=value;
+                            col_name=column;
+                            user_val=user_val;
+                            index_val=index_id_val;
+                            var UP_Value = {  
+                                "col_nam" :col_name,                                
+                                "col_value" :col_val,
+                                "user_id_val" :user_val,
+                                "ind_id_val":index_val
+                            };
+                                    
+                            UpValue.push(UP_Value);
+                            return true;
+                        }
+                        else if(col_val!=value||(col_name!=column && col_val==value)||(index_val!=index_id_val && col_val==value))
+                        {
+                            col_val=value;
+                            col_name=column;
+                            user_val=user_val;
+                            index_val=index_id_val;
+                            var UP_Value = {  
+                                "col_nam" :col_name,                                
+                                "col_value" :col_val,
+                                "user_id_val" :user_val,
+                                "ind_id_val":index_val
+                            };
+                                    
+                            UpValue.push(UP_Value);
+
+                            return true; 
+                        }
+                            
+                        $('#hh_perf_err').hide();
+                        return true; 
+                    }
+                    else if(value=="")
+                    {
+                        $('#hh_perf_err').html('Please enter a value');
+                        $('#hh_perf_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#hh_perf_err').show();
+                        return false;
+                    }
+                       
+                });
+            
+            });
+        });
+        $("#hh_perf_save").easyconfirm({
+            locale: {
+                title: 'Confirm', 
+                button: ['No','Yes']
+                }
+            });
+        $('#hh_perf_save').click(function() {
+            var Updated_Values = JSON.stringify(UpValue);
+            jQuery.ajax({
+                type: "POST",
+                url: server+"php/HHPerf_Update.php?arr="+Updated_Values,
+                data: {
+                    'Updated_Values':Updated_Values
+                },
+                success: function(data){
+                    if (data) {
+                        $('#hh_perf_updating').html('Update Failed');
+                        $('#hh_perf_updating').show();
+                    }
+                    else {
+                                 
+                        $('#hh_perf_updating').show();
+                    }
+                },
+                error:function(event){
+                    alert('error'+event.message);
+                }
+            });  
+        });
+        $("[name^=guard_rails]").each(function () {
+            $("[name^=guard_rails]").live('input', function() {
+                $(this).blur(function(){
+                    value=this.value;
+                    column=$(this).attr('id');
+                    var name=$(this).attr('name');
+                    var sb=name.substr(13,1);
+                    user_val=document.getElementById("guard_rails_user_id['"+sb+"']").value;
+                    metric_id_value=document.getElementById("guard_rails_metric_id['"+sb+"']").value;
+                    if(metric_id_value=='1'||metric_id_value=='2'){
+                        if((value>=(30))&&(value<=(120))&&(value!=""))
+                        {
+                            GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                        }
+                        else if(value=="")
+                        {
+                            $('#guard_rails_err').html('Please enter a value');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#guard_rails_err').html('Please Enter Value between 30 and 120');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                    }
+                    else if((metric_id_value=='3') && (column=='minimum'))
+                    {
+                        if((value>=(2))&&(value<=(5))&&(value!=""))
+                        {
+                            GuardRails_Checking(value,column,user_val,metric_id_value);
+                        }
+                        else if(value=="")
+                        {
+                            $('#guard_rails_err').html('Please enter a value');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#guard_rails_err').html('Please Enter Minimum Value between $2 and $5 ');
+                            $('#guard_rails_err').show();
+                            return false;
+                        } 
+                                    
+                    }
+                    else if((metric_id_value=='3') && (column=='maximum'))
+                    {
+                        if((value>=(10))&&(value<=(100))&&(value!=""))
+                        {
+                            GuardRails_Checking(value,column,user_val,metric_id_value);
+                        }
+                        else if(value=="")
+                        {
+                            $('#guard_rails_err').html('Please enter a value');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#guard_rails_err').html('Please Enter Minimum Value between $10 and $100 ');
+                            $('#guard_rails_err').show();
+                            return false;
+                        } 
+                    }
+                    else if((metric_id_value=='4') && (column=='minimum'))
+                    {
+                        if((value>=(1))&&(value<=(2))&&(value!=""))
+                        {
+                            GuardRails_Checking(value,column,user_val,metric_id_value);
+                        }
+                        else if(value=="")
+                        {
+                            $('#guard_rails_err').html('Please enter a value');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#guard_rails_err').html('Please Enter Minimum Value between $1 and $2 ');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }  
+                    }
+                    else if((metric_id_value=='4') && (column=='maximum'))
+                    {
+                        if((value>=(5))&&(value<=(25))&&(value!=""))
+                        {
+                            GuardRails_Checking(value,column,user_val,metric_id_value);
+                        }
+                        else if(value=="")
+                        {
+                            $('#guard_rails_err').html('Please enter a value');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }
+                        else
+                        {
+                            $('#guard_rails_err').html('Please Enter Maximum Value between $5 and $25 ');
+                            $('#guard_rails_err').show();
+                            return false;
+                        }  
+                    }
+                       
+                });
+            
+            });
+        });
+        $("#guard_rails_save").easyconfirm({
+            locale: {
+                title: 'Confirm', 
+                button: ['No','Yes']
+                }
+            });
+    $('#guard_rails_save').click(function() {
+        var Updated_Values = JSON.stringify(UpValue);
+        jQuery.ajax({
+            type: "POST",
+            url: server+"php/GuardRails_Update.php?arr="+Updated_Values,
+            data: {
+                'Updated_Values':Updated_Values
+            },
+                    
+            success: function(data){
+                if (data) {
+                    $('#updating').html('Update Failed');
+                    $('#updating').show();
+                }
+                else {
+                                 
+                    $('#updating').show();
+                }
+            },
+            error:function(event){
+                alert('error'+event.message);
+            }
+        });  
+    });
+                
+    $("[name^=val_con]").each(function () {
+        $("[name^=val_con]").live('input', function() {
+            $(this).blur(function(){
+                value=this.value;
+                column=$(this).attr('id');
+                var name=$(this).attr('name');
+                var sb=name.substr(9,1);
+                user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
+                metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
+                if((metric_id_value=='1')&&((column=='minimum'))){
+                    if((value>=(0))&&(value<=(120))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                }
+                else if((metric_id_value=='1')&&((column=='maximum')))
+                {
+                    if((value>=(0))&&(value<=(120))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                }
+                else if((metric_id_value=='2'))
+                {
+                    if((value>=(10))&&(value<=(120))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 10 and 120 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    } 
+                                    
+                }
+                else if((metric_id_value=='3'))
+                {
+                    if((value>=(1))&&(value<=(30))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 1 and 30 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    } 
+                                    
+                }
+                else if((metric_id_value=='4'))
+                {
+                    if((value>=(30))&&(value<=(100))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 30 and 100 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    } 
+                }
+                else if((metric_id_value=='5'))
+                {
+                    if((value>=(5))&&(value<=(120))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 5 and 120 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    } 
+                }
+                else if((metric_id_value=='6'))
+                {
+                    if((value>=(30))&&(value<=(120))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 30 and 120 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    }  
+                }
+                else if((metric_id_value=='7'))
+                {
+                    if((value>=(30))&&(value<=(50))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter  Value between 30 and 50 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    }  
+                }
+                else if((metric_id_value=='8'))
+                {
+                    if((value>=(5))&&(value<=(100))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 5 and 100 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    }  
+                }
+                else if((metric_id_value=='9'))
+                {
+                    if((value>=(1))&&(value<=(25))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                    }
+                    else if(value=="")
+                    {
+                        $('#Val_control_err').html('Please enter a value');
+                        $('#Val_control_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#Val_control_err').html('Please Enter Value between 1 and 25 ');
+                        $('#Val_control_err').show();
+                        return false;
+                    }  
+                }
+                       
+            });
+            
+        });
+    });
+    $("#val_control_save").easyconfirm({
+        locale: {
+            title: 'Confirm', 
+            button: ['No','Yes']
+            }
+        });
+    $('#val_control_save').click(function() {
+        var Updated_Values = JSON.stringify(UpValue);
+        jQuery.ajax({
+            type: "POST",
+            url: server+"php/ValControls_Update.php?arr="+Updated_Values,
+            data: {
+                'Updated_Values':Updated_Values
+            },
+            success: function(data){
+                if (data) {
+                    $('#updating').html('Update Failed');
+                    $('#updating').show();
+                }
+                else {
+                                 
+                    $('#updating').show();
+                }
+            },
+            error:function(event){
+                alert('error'+event.message);
+            }
+        });  
+    });
+              
+    $("[name^=pgm_param]").each(function () {
+        $("[name^=pgm_param]").live('input', function() {
+            $(this).blur(function(){
+                value=this.value;
+                column=$(this).attr('id');
+                var name=$(this).attr('name');
+                var sb=name.substr(11,1);
+                user_val=document.getElementById("pgm_param_user_id['"+sb+"']").value;
+                parameters=document.getElementById("pgm_parameter['"+sb+"']").value;
+                parameter=document.getElementById("pgm_parameter_id['"+sb+"']").value;
+                parameters=parameters.toUpperCase();
+                if(parameters=='RETAIN PREVIOUS OFFERS(# OF PURCHASE CYCLES )'){
+                    if((value>=1)&&(value<=10)&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                                    
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between 1 and 10');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                }
+                else if((parameters=='REWARD/PURCHASE CATEGORY REPETITION(NOT ALLOWED FOR # OF PURCHASE CYCLES)'))
+                {
+                    if((value>=(1))&&(value<=(5))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between 1 and 5 ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    } 
+                                    
+                }
+                else if((parameters=='ROUNDING CRITERIA FOR SPEND THRESHOLDS($ INCREMENT)'))
+                {
+                    if((value>=(1))&&(value<=(5))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between $1 and $5 ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    } 
+                                    
+                }
+                else if((parameters=='ROUNDING CRITERIA FOR REWARD AMOUNT($ INCREMENT)'))
+                {
+                    if((value>=(5))&&(value<=(7))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between $5 and $7 ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    } 
+                }
+                else if((parameters=='ALLOW COLLISIONS(SAME PURCHASE OR REWARD CATEGORIES IN MULTIPLE OFFERS)'))
+                {
+                    if((value==('YES'))||(value==('NO')||(value=='yes')||(value=='no'))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value YES/NO ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    } 
+                }
+                else if((parameters=='# OF DEFAULT OFFERS'))
+                {
+                    if((value>=(1))&&(value<=(5))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between 1 and 5 ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }  
+                }
+                else if((parameters=='ALLOW REWARD CATEGORY REPETITION IN CURRENT OFFERS'))
+                {
+                    if(((value=="YES")||(value=="NO")||(value=="yes")||(value=="no"))&&(value!=""))
+                    {
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    }
+                    else if(value=="")
+                    {
+                        $('#pgm_param_err').html('Please enter a value');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }
+                    else
+                    {
+                        $('#pgm_param_err').html('Please Enter Value between 30 and 50 ');
+                        $('#pgm_param_err').show();
+                        return false;
+                    }  
+                }
+
+                            
+                       
+            });
+            
+        });
+    });
+    $('#drp_dwn_segment').live('change', function(e) {
+        value=(e.target.options[e.target.selectedIndex].text);
+        column='p_value';
+        user_val=document.getElementById("pgm_param_user_id['0']").value;
+        parameter=8;
+        GuardRails_Checking(value,column,user_val,parameter);
+    });
+    $("#pgm_param_save").easyconfirm({
+        locale: {
+            title: 'Confirm', 
+            button: ['No','Yes']
+            }
+        });
+$('#pgm_param_save').click(function() {
+    var Updated_Values = JSON.stringify(UpValue);
+    jQuery.ajax({
+        type: "POST",
+        url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
+        data: {
+            'Updated_Values':Updated_Values
+        },
+        success: function(data){
+            if (data) {
+                $('#pgm_param_updating').html('Update Failed');
+                $('#pgm_param_updating').show();
+            }
+            else {
+                                 
+                $('#pgm_param_updating').show();
+            }
+        },
+        error:function(event){
+            alert('error'+event.message);
+        }
+    });  
+});
+                
+$('#drp_dwn_super_category').live('change', function(e) {
+    desc=(e.target.options[e.target.selectedIndex].text);
+    val=(e.target.options[e.target.selectedIndex].value);
+    user_val=document.getElementById("username").value;
+    $.post(server+'php/EligibleProduct.php?sup_id='+val, {
+        "sup_id": val
+    }, function (txt) {
+                                
+        $('#sample').html(txt);
+        $('#sample #headings').hide();
+        $('#sample #drp_dwn_super_category').hide();
+        $('#sample #super').hide();
+        $('#sample .prod_cat_updating').hide();
+        $('.prod_cat_updating').hide();
+        $('#sample #pro_cat_save').hide();
+        $('#sample #prod_cat_ancel').hide();
+        $('#prod_cat_err').hide();
+                                  
+    });
+});
+                    
+$("[name^=prod_cat]").each(function () {
+    $("[name^=prod_cat]").live('input', function() { 
+        $(this).blur(function(){
+                           
+            value=this.value;
+            column=$(this).attr('id');
+            var name=$(this).attr('name');
+            var sb=name.substr(9,1);
+            user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
+            super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
+            super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+            if(((value=='YES')||(value=='NO')||(value=='yes')||(value=='no')||value=='Yes'||(value=='No'))&&(value!=""))
+            {
+                                    
+                if(col_val=="")
+                {
+                    col_val=value;
+                    col_name=column;
+                    user_val=user_val;
+                    index_val=super_cat_id;
+                    category_code=super_cat_code;
+                    var UP_Value = {  
+                        "col_nam" :col_name,                                
+                        "col_value" :col_val,
+                        "user_id_val" :user_val,
+                        "sup_id_val":index_val,
+                        "cat_code":category_code
+                    };
+                                    
+                    UpValue.push(UP_Value);
+                    return true;
+                }
+                else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
+                {
+                    col_val=value;
+                    col_name=column;
+                    user_val=user_val;
+                    index_val=super_cat_id;
+                    category_code=super_cat_code;
+                    var UP_Value = {  
+                        "col_nam" :col_name,                                
+                        "col_value" :col_val,
+                        "user_id_val" :user_val,
+                        "sup_id_val":index_val,
+                        "cat_code":category_code
+                    };
+                                    
+                    UpValue.push(UP_Value);
+
+                    return true; 
+                }
+                            
+                $('#prod_cat_err').hide();
+                return true; 
+            }
+            else if(value=="")
+            {
+                $('.prod_cat_updating').hide();
+                $('#sample .prod_cat_updating').hide();
+                $('#prod_cat_err').html('Please enter a value');
+                $('#prod_cat_err').show();
+                return false;
+            }
+            else
+            {
+                $('.prod_cat_updating').hide();
+                $('#sample .prod_cat_updating').hide();
+                $('#prod_cat_err').show();
+                return false;
+            }
+                       
+                            
+        });
+    });
+});
+                    
+//$("#pro_cat_save").easyconfirm({locale: {title: 'Update', button: ['No','Yes']}});  
+$('#pro_cat_save').click(function() {
+    var Updated_Values = JSON.stringify(UpValue);
+    var r=confirm('Do you Want to Update?')
+    if(r==true){
+        jQuery.ajax({
+            type: "POST",
+            url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
+            data: {
+                'Updated_Values':Updated_Values
+            },
+            success: function(data){
+                if (data) {
+                    $('.prod_cat_updating').html('Update Failed ');
+                    $('.prod_cat_updating').show();
+                                 
+                }
+                else {
+                    //                                  $('#sample .prod_cat_updating').attr('style', 'visibility:visible !important;');     
+                    //                                 $('.prod_cat_updating').attr('style', 'display:none;');
+                    $('.prod_cat_updating').show();
+                    $('#sample .prod_cat_updating').hide();
+                                 
+                }
+            },
+            error:function(event){
+                alert('error'+event.message);
+            }
+        });  
+    }
+});
 
            
             
-                });
-                });     
-        });
-    });
+});
+});     
+});
+});
 });

@@ -21,7 +21,7 @@ $error = $_GET['err'];
                         <li><a href="php/SalesChange.php">Controls </a></li>
                         <li><a href="php/GuardRails.php">Guard Rails </a></li>
                         <li><a href="php/ValidationControls.php">Validation Rules </a></li>
-                        <li><a href="php/ROIReports.php">Reports </a></li>
+                        <li><a href="php/ROIReportChart.php">Reports </a></li>
                     </ul>
                 </div>
 

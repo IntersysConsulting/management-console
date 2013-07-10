@@ -17,7 +17,7 @@
     $.easyconfirm.locales = {};
     $.easyconfirm.locales.enUS = {
         title: 'Are you sure?',
-        text: 'Are you sure that you want to perform this action?',
+        text: 'Do you want to update?',
         button: ['Cancel', 'Confirm'],
         closeText: 'close'
     };

@@ -1,11 +1,11 @@
 <?php
 session_start();
 if (isset($_SESSION['myusername'])) {
-                                    $myusername = $_SESSION['myusername'];
-                                }
-                                else {
-                                    header("location:../index.php");
-                                }
+    $myusername = $_SESSION['myusername'];
+}
+else {
+   header("location:../index.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,7 +47,8 @@ if (isset($_SESSION['myusername'])) {
                         <li class="active"><a href="SalesChange.php">Controls </a></li>
                         <li><a href="GuardRails.php">Guard Rails </a></li>
                         <li><a href="ValidationControls.php">Validation Rules </a></li>
-                        <li><a href="ROIReports.php">Reports </a></li>
+<!--                        <li><a href="ROIReports.php">Reports </a></li>-->
+                        <li><a href="ROIReportChart.php">Reports</a></li>
                     </ul>
                 </div>
             </div>

@@ -2,11 +2,11 @@
 session_start();
 include "connection.php";
 if (isset($_SESSION['myusername'])) {
-                    $myusername = $_SESSION['myusername'];
-                }
-                else {
-                    header("location:../index.php");
-                }
+      $myusername = $_SESSION['myusername'];
+}
+else {
+     header("location:../index.php");
+}
 // Select all the rows in the markers table
 $query = "SELECT * FROM PR_AG_PRODCAT";
 $result = mysql_query($query);
@@ -15,13 +15,13 @@ if (!$result) {
 }
 $num = mysql_num_rows($result);
 while($row=@mysql_fetch_assoc($result)){
-        $row=@mysql_fetch_assoc($result);
+        //$row=@mysql_fetch_assoc($result);
         $prod[] = $row["prodtypdesc"];
 	$brand[] = $row["branddesc"];
 	$sum_amount[] = $row["sumamt"];
         $sum_qty[]=$row["sumqty"];
         $sum_trip[]=$row["sumtrip"];
-	$year[] = $row["ch_year"];
+	$year[] = $row["year"];
 }
 ?>
 <!DOCTYPE html>
@@ -134,7 +134,8 @@ while($row=@mysql_fetch_assoc($result)){
                         <li><a href="SalesChange.php">Controls </a></li>
                         <li><a href="GuardRails.php">Guard Rails </a></li>
                         <li><a href="ValidationControls.php">Validation Rules </a></li>
-                        <li><a href="ROIReports.php">Reports </a></li>
+<!--                        <li><a href="ROIReports.php">Reports </a></li>-->
+                        <li><a href="ROIReportChart.php">Reports</a></li>
                      </ul>
                 </div>
 

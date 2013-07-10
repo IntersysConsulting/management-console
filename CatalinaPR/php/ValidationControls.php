@@ -40,7 +40,8 @@ session_start();
                         <li><a href="SalesChange.php">Controls </a></li>
                         <li><a href="GuardRails.php">Guard Rails </a></li>
                         <li  class="active"><a href="ValidationControls.php">Validation Rules </a></li>
-                        <li><a href="ROIReports.php">Reports </a></li>
+<!--                        <li><a href="ROIReports.php">Reports </a></li>-->
+                        <li><a href="ROIReportChart.php">Reports</a></li>
                     </ul>
                 </div>
             </div>
