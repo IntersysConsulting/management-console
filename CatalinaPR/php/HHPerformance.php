@@ -23,8 +23,7 @@
             </div>
         </div>
 
-<!--        <form action="HHPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:20px;">-->
-<!--            <div style="width:550px; margin-left:20px;">-->
+
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -58,14 +57,14 @@
                 </table>
                 <?php mysql_close($con); ?>
                 <div id="hh_perf_err"><label> Please enter value between -0.05 and 0.05 </label></div>
-                <div>
+                <div class="updating" id="hh_perf_updating" style="margin-left:300px;">Updated...</div>
+                <div style="margin-left:75px;">
                     <div><input style="margin-left:190px; margin-top:15px; font-size: 13px;" type="button" name="save" id="hh_perf_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 290px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                    <div class="updating" id="hh_perf_updating">Updated...</div>
+                    <div style="margin-top: -25px; margin-left: 290px;"><input style=" font-size: 13px;" type="button" name="cancel" id="hh_perf_cancel" value="cancel"/></div>
+                    
                 </div>
 
-<!--            </div>  -->
-<!--        </form>-->
+
     </body>
 </html>
 

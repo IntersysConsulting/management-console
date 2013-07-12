@@ -60,10 +60,11 @@
                 </table>
                 <?php mysql_close($con); ?>
                 <div id="pur_cycle_adj_err"><label> Please enter value between 30 and 100 </label></div>
-                <div>
+                 <div class="updating" id="pur_cyc_updating">Updated...</div>
+                <div style="margin-left:30px;">
                     <div><input style="margin-left:200px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pur_cycle_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                    <div class="updating" id="pur_cyc_updating">Updated...</div>
+                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="purch_cylce_adj_cancel" value="cancel"/></div>
+                   
                 </div>
 
 <!--            </div>  

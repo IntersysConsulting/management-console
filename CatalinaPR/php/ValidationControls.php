@@ -27,7 +27,7 @@ session_start();
         <title>Validation Control</title>
     </head>
     <body>
-        <div class="home" style="height:580px;">
+        <div class="home" style="height:620px;">
             <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
             <div style="margin-left: 50px;"><img src="../images/logo.JPG"/></div>
             <div id="logout" >
@@ -52,7 +52,7 @@ session_start();
                     <li><a href="EligibleProduct.php" onclick="ProgramParams();">&nbsp;Eligible Product&nbsp;</a></li>
 
                 </ul>
-                <div class="controls" style="height:370px;">
+                <div class="controls" style="height:400px;">
 
                     <div id="tabs-1">
                         <div class="heading" style="width:330px; margin-left: 255px;">
@@ -105,10 +105,11 @@ session_start();
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="Val_control_err"><label> Please enter value between -.10 and .20 </label></div>
+                                <div class="updating" id="updating" style="margin-left:300px;">Updated...</div>
                                 <div>
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="val_control_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                                    <div class="updating" id="updating">Updated...</div>
+                                    
                                 </div>
 <!--                            </div>  -->
 <!--                        </form>-->

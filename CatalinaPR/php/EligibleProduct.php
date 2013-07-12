@@ -86,11 +86,12 @@ session_start();
          ?>
          <div id="sample"></div>
                                
-                <div id="prod_cat_err"><label> Please enter value between -.10 and .20 </label></div>
+                <div id="prod_cat_err"><label> Please enter value YES/NO </label></div>
+                <div class="prod_cat_updating" >Updated...</div>
                 <div style="margin-top: 20px;">
                     <div><input style="margin-left:220px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pro_cat_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="prod_cat_ancel" value="cancel"/></div>
-                    <div class="prod_cat_updating" >Updated...</div>
+                    
                 </div>
 
          </div>  

@@ -75,10 +75,11 @@
                 </table>
                     <?php mysql_close($con); ?>
                 <div id="roi_goals_err"><label> Please enter value between 10 and 120 </label></div>
+                <div class="updating" id="roi_goal_updating" style="margin-left:300px;">Updated...</div>
                 <div>
                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="ROI_Goals_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                    <div class="updating" id="roi_goal_updating">Updated...</div>
+                    <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="roi_goals_cancel" value="cancel"/></div>
+                    
                 </div>
 
 <!--            </div>  
