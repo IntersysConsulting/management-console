@@ -7,7 +7,7 @@ var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,va
 var timeout=25000;
 
 var UpValue = [];
-var i=0,f=true;
+var i=0,f=false,edit=false;
 ;
 
 function include(filename, onload) {
@@ -71,6 +71,8 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
             f=true;
             return true; 
         }
+    
+   
     }
     catch(e)
     {
@@ -226,6 +228,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $.data(this, 'edited', this.value != "");
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
+                            $('#updating').hide();
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -272,6 +276,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     f=true;
                                     return true; 
                                 }
+                           
                             }
                             else
                             {
@@ -290,10 +295,12 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             f=false;
 
                         }
-                  
-                 
+                   
+                   
+                    
                     });
-                            
+             
+                    
                          
                     $('#save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
@@ -324,8 +331,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
-                            $('#sales_change_err').html('Please enter value between -0.10 and 0.20');
-                            $('#sales_change_err').show();
+                            if(edit==true){
+                                $('#sales_change_err').html('Please enter value between -0.10 and 0.20');
+                                $('#sales_change_err').show();
+                            }
+                            else
+                            {
+                                $('#sales_change_err').html('No Changes');
+                                $('#sales_change_err').show();
+                            }
                         }
                     });
                     
@@ -341,7 +355,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
                             
-                            
+                            edit=true;
+                            $('#roi_goal_updating').hide();
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -447,8 +462,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
-                            $('#roi_goals_err').html('Please enter value between 10 to 120');
-                            $('#roi_goals_err').show();  
+                            if(edit==true){
+                                $('#roi_goals_err').html('Please enter value between 10 to 120');
+                                $('#roi_goals_err').show(); 
+                            }
+                            else
+                            {
+                                $('#roi_goals_err').html('No Changes');
+                                $('#roi_goals_err').show();      
+                            }
                         }
                     });
                     $("[name^=roi_adj]").each(function () {
@@ -464,6 +486,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         if ($.data(this, 'edited')) {
                             
                             $('#roi_adj_updating').hide();
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -478,7 +501,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     col_val=value;
                                     col_name=column;
                                     user_val=user_val;
-                                   
+                                    
                                     var UP_Value = {  
                                         "col_nam" :col_name,                                
                                         "col_value" :col_val,
@@ -511,7 +534,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     return true; 
                                 }
                             
-                           
+                            
                             }
                             
                             else
@@ -531,7 +554,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             f=false;
                             return false;
                         }
-                   
+                    
                     });
                     
                     $('#roi_adj_save').click(function() {
@@ -563,7 +586,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
+                            if(edit==true){
                             $('#roi_adj_err').show();  
+                            }
+                            else
+                            {
+                                $('#roi_adj_err').html('NO Changes'); 
+                                $('#roi_adj_err').show(); 
+                            }
                         }
                     });
                 
@@ -579,7 +609,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
                             
-                            $('#pur_cyc_updating').hide();   
+                            $('#pur_cyc_updating').hide();
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -649,7 +680,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     
                     });
-                   
+                    
                     $('#pur_cycle_save').click(function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
@@ -681,7 +712,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
+                            if(edit==true){
                             $('#pur_cycle_adj_err').show(); 
+                            }
+                            else
+                             {
+                                $('#pur_cycle_adj_err').html('No Changes');
+                                $('#pur_cycle_adj_err').show();
+                             }
                         }
                     });
                 
@@ -698,6 +736,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         if ($.data(this, 'edited')) {
                             
                             $('#cat_perf_updating').hide();
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -766,7 +805,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     
                     });
-                    
+                   
                     $('#cat_perf_save').click(function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
@@ -797,7 +836,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
+                            if(edit==true){
                             $('#cat_perf_err').show(); 
+                            }
+                            else{
+                                $('#cat_perf_err').html('No Changes'); 
+                                $('#cat_perf_err').show(); 
+                            }
                         }
                     });
                     $("[name^=hh_perf]").each(function () {
@@ -812,7 +857,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
                             
-                            $('#hh_perf_updating').hide();  
+                            $('#hh_perf_updating').hide(); 
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -911,7 +957,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
+                            if(edit==true){
                             $('#hh_perf_err').show();
+                            }
+                            else{
+                                $('#hh_perf_err').html('No Changes');
+                                $('#hh_perf_err').show();
+                            }
                         }
                     });
                     $("[name^=guard_rails]").each(function () {
@@ -925,9 +977,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $.data(this, 'edited', this.value != "");
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
-                            //            $("[name^=guard_rails]").live('input', function() {
-                            //                $(this).blur(function(){
+                            
                             $('#updating').hide();
+                            edit=true;
                             value=this.value;
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
@@ -1063,16 +1115,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             f=false;
                             return false; 
                         }
-                    //                });
-                    //            
-                    //            });
+                    
                     });
-                    //        $("#guard_rails_save").easyconfirm({
-                    //            locale: {
-                    //                title: 'Confirm', 
-                    //                button: ['No','Yes']
-                    //                }
-                    //            });
+                    
                     $('#guard_rails_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
@@ -1103,7 +1148,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                         else
                         {
+                            if(edit==true){
                             $('#guard_rails_err').show();
+                            }
+                            else{
+                               $('#guard_rails_err').html('No Changes'); 
+                               $('#guard_rails_err').show();
+                            }
                         }
                     });
                 
@@ -1118,9 +1169,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $.data(this, 'edited', this.value != "");
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
-//                        $("[name^=val_con]").live('input', function() {
-//                            $(this).blur(function(){
+
                                 $('#updating').hide();
+                                edit=true;
                                 value=this.value;
                                 column=$(this).attr('id');
                                 var name=$(this).attr('name');
@@ -1378,22 +1429,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         f=false;
                                         return false;
                                     }
-//                            });
-//            
-//                        });
+
                     });
-//                    $("#val_control_save").easyconfirm({
-//                        locale: {
-//                            title: 'Confirm', 
-//                            button: ['No','Yes']
-//                        }
-//                    });
+
                     $('#val_control_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
                             var r=confirm('Do you Want to update?');
                             if(r==true){  
-                        jQuery.ajax({
+                          jQuery.ajax({
                             type: "POST",
                             url: server+"php/ValControls_Update.php?arr="+Updated_Values,
                             data: {
@@ -1412,13 +1456,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             error:function(event){
                                 alert('error'+event.message);
                             }
-                        });
-                            }
+                          });
+                          }
                         }
                         else
-                            {
-                              $('#Val_control_err').show();  
+                        {
+                            if(edit==true){
+                              $('#Val_control_err').show(); 
                             }
+                            else{
+                                $('#Val_control_err').html("No Changes");
+                                $('#Val_control_err').show();
+                            }
+                        }
                     });
               
                     $("[name^=pgm_param]").each(function () {
@@ -1432,9 +1482,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $.data(this, 'edited', this.value != "");
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
-//                        $("[name^=pgm_param]").live('input', function() {
-//                            $(this).blur(function(){
+
                                 $('#pgm_param_updating').hide();
+                                edit=true;
                                 value=this.value;
                                 column=$(this).attr('id');
                                 var name=$(this).attr('name');
@@ -1621,9 +1671,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         f=false;
                                         return false;
                                     }
-//                            });
-//            
-//                        });
+
                     });
                     $('#drp_dwn_segment').live('change', function(e) {
                         value=(e.target.options[e.target.selectedIndex].text);
@@ -1632,12 +1680,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         parameter=8;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
-//                    $("#pgm_param_save").easyconfirm({
-//                        locale: {
-//                            title: 'Confirm', 
-//                            button: ['No','Yes']
-//                        }
-//                    });
+
                     $('#pgm_param_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
@@ -1666,9 +1709,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                       } 
                     }
                     else
-                        {
-                          $('#pgm_param_err').show();  
+                    {
+                        if(edit==true){
+                          $('#pgm_param_err').show(); 
                         }
+                        else{
+                            $('#pgm_param_err').html('No Changes'); 
+                            $('#pgm_param_err').show(); 
+                        }
+                    }
                     });
                 
                     $('#drp_dwn_super_category').live('change', function(e) {
@@ -1703,10 +1752,10 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $.data(this, 'edited', this.value != "");
                     }).blur(function() {
                         if ($.data(this, 'edited')) {
-//                        $("[name^=prod_cat]").live('input', function() { 
-//                            $(this).blur(function(){
+
                                 $('.prod_cat_updating').hide();
-                                        $('#sample .prod_cat_updating').hide();
+                                $('#sample .prod_cat_updating').hide();
+                                edit=true;
                                 value=this.value;
                                 column=$(this).attr('id');
                                 var name=$(this).attr('name');
@@ -1778,7 +1827,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     $('#sample .prod_cat_updating').hide();
                                     $('#prod_cat_err').html('Please enter  value YES/NO');
                                     $('#prod_cat_err').show();
-                                    f=true;
+                                    f=false;
                                     return false;
                                 }
                         }
@@ -1793,16 +1842,15 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     return false;
                                 }
                             
-//                            });
-//                        });
+
                     });
                     
       
                     $('#pro_cat_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                        var r=confirm('Do you Want to Update?')
-                        if(r==true){
+                          var r=confirm('Do you Want to Update?')
+                          if(r==true){
                             jQuery.ajax({
                                 type: "POST",
                                 url: server+"php/EligibleProducts_Update.php?arr="+Updated_Values,
@@ -1826,7 +1874,22 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     alert('error'+event.message);
                                 }
                             });  
+                         }
                         }
+                        else
+                        {
+                            if(edit==true)   {
+                               $('.prod_cat_updating').hide();
+                                    $('#sample .prod_cat_updating').hide();
+                                    $('#prod_cat_err').html('Please enter a value YES/NO');
+                                    $('#prod_cat_err').show(); 
+                            } 
+                            else{
+                                $('.prod_cat_updating').hide();
+                                    $('#sample .prod_cat_updating').hide();
+                                    $('#prod_cat_err').html('No Changes');
+                                    $('#prod_cat_err').show();
+                            }
                         }
                     });
 
