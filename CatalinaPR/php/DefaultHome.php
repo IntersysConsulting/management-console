@@ -1,4 +1,5 @@
 <?php
+/*
 session_start();
 include "connection.php";
 if (isset($_SESSION['myusername'])) {
@@ -23,6 +24,7 @@ while($row=@mysql_fetch_assoc($result)){
         $sum_trip[]=$row["sumtrip"];
 	$year[] = $row["year"];
 }
+*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -122,24 +124,65 @@ while($row=@mysql_fetch_assoc($result)){
     </head>
     <body>
         <div class="home">
-            <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
-            <div style="margin-left: 50px;"><img src="../images/logo.JPG"/></div>
-            <div id="logout" >
-                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 610px;">Logout</a>
-            </div>
-            <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-               <div class="mainmenu">
-                    <ul>
-                        <li  class="active"><a href="DefaultHome.php">Home </a></li>
-                        <li><a href="SalesChange.php">Controls </a></li>
-                        <li><a href="GuardRails.php">Guard Rails </a></li>
-                        <li><a href="ValidationControls.php">Validation Rules </a></li>
-<!--                        <li><a href="ROIReports.php">Reports </a></li>-->
-                        <li><a href="ROIReportChart.php">Reports</a></li>
-                     </ul>
-                </div>
 
+<div id="logout" >
+                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
+            <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:120px;"><a>Personalized Rewards</a></div>
+            <div style="display:inline-block;"><img src="../images/logo.JPG"/></div>
+
+            <div style="height: 29px;background-color: #BACBEB;">
+                <?php //require 'Mainmenu.php'; ?>
+
+
+                <div class="mainmenu">
+                    <ul>
+                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+
+                                        <ul>
+                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
+                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                   </ul>
+                </li>
+                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                                 <ul>
+                                        <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
+                                        <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
+                                        <li><a href="ROIAdj.php">&nbsp;ROI Adj.&nbsp;</a></li>
+                                        <li><a href="PurchaseCycleAdj.php">&nbsp;Purchase Cycle Adj.&nbsp;</a></li>
+                                         <li><a href="CategoryPerformance.php">&nbsp;Category Performance&nbsp;</a></li>
+                                        <li class="last"><a href="HHPerformance.php">&nbsp;HH Performance&nbsp;</a></li>
+                                   </ul>
+                        </li>
+                        <li class="has-sub"><a href="GuardRails.php">Guard Rails </a>
+                                                 <ul>
+                                        <li class="last"><a href="GuardRails.php">&nbsp;Guard Rails&nbsp;</a></li>
+
+</ul>
+                        </li>
+                        <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
+                            <ul>
+                        <li><a href="ValidationControls.php" onclick="Controls();">&nbsp;Controls&nbsp;</a></li>
+                        <li><a href="ProgramParameter.php" onclick="ProgramParams();">&nbsp;Program Parameters&nbsp;</a></li>
+                        <li class="last"><a href="EligibleProduct.php" onclick="ProgramParams();">&nbsp;Eligible Product&nbsp;</a></li>
+                                   </ul>
+
+                        </li>
+                        <li class="has-sub"><a href="ROIReports.php">Reports </a>
+                      <ul>
+                    <li class="last"><a href="ROIReports.php" onclick="ProgramParams();">&nbsp;ROI Report&nbsp;</a></li>
+
+                </ul>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+<div id="content">
 <!--
 <div style="margin-bottom: 10px; padding: 5px; border: 1px solid gray; background-color: buttonface;">
       <form action="">
@@ -153,9 +196,12 @@ while($row=@mysql_fetch_assoc($result)){
         </form>
       </div>
 -->
+<div id="chartarea">
     <div id="visualization" style="width: 600px; height: 300px; margin-left:80px;"></div>
 
         </div>
+</div>
+</div>
         
     </body>
     
