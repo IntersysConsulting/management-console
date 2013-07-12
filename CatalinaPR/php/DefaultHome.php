@@ -1,5 +1,4 @@
 <?php
-/*
 session_start();
 include "connection.php";
 if (isset($_SESSION['myusername'])) {
@@ -24,7 +23,6 @@ while($row=@mysql_fetch_assoc($result)){
         $sum_trip[]=$row["sumtrip"];
 	$year[] = $row["year"];
 }
-*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -107,19 +105,6 @@ while($row=@mysql_fetch_assoc($result)){
     }
     
   </script>
-        <script>
-            $(function() {
-                $( "#tabs" ).tabs({
-                    beforeLoad: function( event, ui ) {
-                        ui.jqXHR.error(function() {
-                            ui.panel.html(
-                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                                "If this wouldn't be a demo." );
-                        });
-                    }
-                });
-            });
-        </script>
         <title>Home</title>
     </head>
     <body>

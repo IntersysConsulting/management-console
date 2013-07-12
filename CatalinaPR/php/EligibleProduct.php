@@ -5,9 +5,11 @@ session_start();
     <head>
         <meta charset="utf-8" />
         <title>Eligible Products.</title>
+        <link rel="stylesheet" href="../css/jquery-ui.css" />
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
+        <script src="../js/jquery.validate.js"></script>
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
     </head>
     <body>

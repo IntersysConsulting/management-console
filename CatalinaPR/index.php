@@ -12,22 +12,19 @@ $error = $_GET['err'];
     </head>
     <body>
         <div class="home">
-            <div style="margin-left: 300px;margin-top: 20px;">Personalized Rewards</div>
-            <div style="margin-left: 50px;"><img src="images/logo.JPG"/></div>
-            <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 650px; ">
-                <div class="mainmenu">
-                    <ul>
-                        <li class="active"><a href="php/DefaultHome.php" >Home </a></li>
-                        <li><a href="php/SalesChange.php">Controls </a></li>
-                        <li><a href="php/GuardRails.php">Guard Rails </a></li>
-                        <li><a href="php/ValidationControls.php">Validation Rules </a></li>
-                        <li><a href="php/ROIReportChart.php">Reports </a></li>
-                    </ul>
-                </div>
 
+<div id="logout">
+<a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
-           
-            <div class="login">
+            <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:120px;"><a>Personalized Rewards</a></div>
+            <div style="display:inline-block;"><img src="../images/logo.JPG"/></div>
+
+            <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
+                <?php //require 'Mainmenu.php'; ?>
+</div>
+
+<div id="content">
+            <div class="login" style="margin-left:auto; margin-right:auto;margin-bottom:100px;">
                 <div style="margin-top: 10px;margin-left: 200px;">Login</div>
                 <form  method='post' action='php/Login.php' id='login' name="login" >
                     <div style="margin-top: 30px;margin-left: 50px;">
@@ -53,6 +50,11 @@ $error = $_GET['err'];
                 </form>
             </div>
         </div>
+    <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
+                <?php //require 'Mainmenu.php'; ?>
+</div>
+
+</div>
     </body>
     <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>

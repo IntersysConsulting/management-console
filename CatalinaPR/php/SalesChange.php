@@ -1,11 +1,11 @@
-<?php/*
+<?php
 session_start();
 if (isset($_SESSION['myusername'])) {
     $myusername = $_SESSION['myusername'];
 }
 else {
    header("location:../index.php");
-}*/
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,19 +17,6 @@ else {
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
         <script src="../js/jquery.validate.js"></script>
-        <script>
-            $(function() {
-                $( "#tabs" ).tabs({
-                    beforeLoad: function( event, ui ) {
-                        ui.jqXHR.error(function() {
-                            ui.panel.html(
-                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                                "If this wouldn't be a demo." );
-                        });
-                    }
-                });
-            });
-        </script>
         <title>Sales Change Goals</title>
     </head>
     <body>
@@ -42,7 +29,6 @@ else {
 
             <div style="height: 29px;background-color: #BACBEB;">
                 <?php //require 'Mainmenu.php'; ?>
-
 
                 <div class="mainmenu">
                     <ul>
@@ -88,10 +74,6 @@ else {
                     </ul>
                 </div>
             </div>
-
-
-
-
 
 
 

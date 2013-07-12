@@ -5,6 +5,12 @@
         <title>Category Performance..</title>
         <script type="text/javascript" src="../js/main.js"></script>
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
+        <link rel="stylesheet" href="../css/jquery-ui.css" />
+        <script type="text/javascript" src="../js/main.js"></script>
+        <script src="../js/jquery-1.9.1.js"></script>
+        <script src="../js/jquery-ui.js"></script>
+        <script src="../js/jquery.validate.js"></script>
+
     </head>
     <body>
 
