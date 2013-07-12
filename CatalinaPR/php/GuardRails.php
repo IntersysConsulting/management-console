@@ -141,10 +141,11 @@ session_start();
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="guard_rails_err"><label> Please enter value between 0 and 30 </label></div>
-                                <div>
+                                <div class="updating" id="updating" style="margin-left:370px;">Updated...</div>
+                                <div style="margin-left:60px;">
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="guard_rails_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                                    <div class="updating" id="updating">Updated...</div>
+                                    
                                 </div>
 <!--                            </div>  -->
 <!--                        </form>-->

@@ -85,10 +85,9 @@ session_start();
                     </ul>
                 </div>
             </div>
-<div id="content" style="margin-top: 10px;" >
+<div id="content" >
 
                 <div class="controls" id="chartarea">
-
                     <div id="tabs-1">
                         <div class="heading" style="width:330px; margin-left: 255px;">
                             <div style="text-align: center; font-weight: bold; font-size: 14px;">Control Validation Rules</div>
@@ -140,10 +139,11 @@ session_start();
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="Val_control_err"><label> Please enter value between -.10 and .20 </label></div>
+                                <div class="updating" id="updating" style="margin-left:300px;">Updated...</div>
                                 <div>
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="val_control_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                                    <div class="updating" id="updating">Updated...</div>
+                                    
                                 </div>
 <!--                            </div>  -->
 <!--                        </form>-->

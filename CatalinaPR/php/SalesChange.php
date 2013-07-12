@@ -163,10 +163,11 @@ else {
                                 </table>
                                 <?php mysql_close($con); ?>
                                 <div id="sales_change_err"><label> Please enter value between -.10 and .20 </label></div>
+                                <div class="updating" id="updating">Updated...</div>
                                 <div style="margin-left:-30px;">
                                     <div style="width:100px;"><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px; width:100px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                                    <div class="updating" id="updating">Updated...</div>
+                                    
                                 </div>
                                 
 <!--                            </div>  

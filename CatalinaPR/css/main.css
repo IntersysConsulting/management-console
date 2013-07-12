@@ -82,7 +82,7 @@ margin-top:10px;
     border-radius: 10px;  
 }
 .controls{
-    /*  margin-left: 50px;*/
+
     margin-top: -1px;
     border-style: solid;
     width: 650px;
@@ -110,7 +110,7 @@ login_error{
 }
 .segment{
     background-color: rgba(201, 235, 252, 0.48);
-/*    margin-left: 5px;*/
+
     width: 130px;
     height: 15px;
     font-size: 13px;
@@ -155,7 +155,7 @@ login_error{
     text-align: center;
 }
 #userid_error{
-    /*   visibility:hidden;*/
+
     margin-left: 90px;
     font-style: italic;
     font-size: 12px;
@@ -163,7 +163,7 @@ login_error{
 }
 #passwrd_error
 {
-    /*   visibility: hidden; */
+
     margin-left: 90px;
     font-style: italic;
     font-size: 12px;
@@ -183,7 +183,7 @@ login_error{
 }
 #sales_change_err
 {
-    margin-left: 120px;
+    margin-left: 250px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -191,7 +191,7 @@ login_error{
 }
 #roi_goals_err
 {
-    margin-left: 120px;
+    margin-left: 250px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -199,23 +199,23 @@ login_error{
 }
 #roi_adj_err
 {
-    margin-left: 120px;
-    margin-top: 10px;
+    margin-left: 200px;
+    margin-top: 20px;
     font-style: italic;
     font-size: 12px;
     color:red;
 }
 #pur_cycle_adj_err
 {
-    margin-left: 150px !important;
-    margin-top: 10px;
+    margin-left: 230px !important;
+    margin-top: 15px;
     font-style: italic;
     font-size: 12px;
     color:red;
 }
 #cat_perf_err
 {
-    margin-left: 150px;
+    margin-left: 280px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -223,7 +223,7 @@ login_error{
 }
 #hh_perf_err
 {
-    margin-left: 150px;
+    margin-left: 280px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -231,15 +231,16 @@ login_error{
 }
 #guard_rails_err
 {
-    margin-left: 150px;
+    margin-left: 230px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
     color:red;
+    text-align:center;
 }
 #Val_control_err
 {
-    margin-left: 150px;
+    margin-left: 280px;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -247,7 +248,7 @@ login_error{
 }
 #pgm_param_err
 {
-    margin-left: 10px !important;
+    margin-left: -70px !important;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
@@ -255,23 +256,34 @@ login_error{
 }
 #prod_cat_err
 {
-    margin-left: 10px !important;
+    margin-left: 255px !important;
     margin-top: 10px;
     font-style: italic;
     font-size: 12px;
     color:red;
 }
-/*#roitable{
-    border: black 1px solid;
-}*/
+
 #roitable tr td{
     border: #999191 1px solid;
     text-align: center;
 }
 .updating{
-    background-color: lightblue; width:90px; height:20px;margin-top: -25px; margin-left: 450px; border: #808080 1px solid;border-radius: 4px;
+    width:90px; height:20px;
+    margin-left: 250px;
+    margin-top: 10px;
+    font-style: italic;
+    font-size: 15px;
+    color: #F00;
 }
 .prod_cat_updating
 {
-    background-color: lightblue; width:90px; height:20px;margin-top: -25px; margin-left: 450px; border: #808080 1px solid;border-radius: 4px;display:none;
+
+    width:90px; 
+    height:20px;
+    margin-top: 25px !important; 
+    margin-left: 250px; 
+    font-style: italic;
+    font-size: 15px;
+    color: #F00;
+     display:none;
 }

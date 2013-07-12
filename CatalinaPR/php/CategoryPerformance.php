@@ -117,10 +117,11 @@
                 </table>
                 <?php mysql_close($con); ?>
                 <div id="cat_perf_err"><label> Please enter value between 5 and 120 </label></div>
-                <div>
+                <div class="updating" id="cat_perf_updating" style="margin-left:300px;">Updated...</div>
+                <div style="margin-left:60px;">
                     <div><input style="margin-left:200px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-                    <div class="updating" id="cat_perf_updating">Updated...</div>
+                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cat_perf_cancel" value="cancel"/></div>
+                    
                 </div>
 </div>
 </div>
