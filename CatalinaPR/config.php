@@ -1,3 +1,3 @@
 <?php
-define('SERVER', 'http://localhost:8080/CatalinaPR/');
+define('SERVER', 'http://stptmpplnxv01/');
 ?>

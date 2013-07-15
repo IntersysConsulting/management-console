@@ -1,7 +1,7 @@
 var min_length=8;
 var unamemaxlength=20;
 var passmaxlength=15;
-var server = "http://localhost:8080/CatalinaPR/";
+var server = "http://stptmpplnxv01/";
 var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value,super_cat_code,category_code;
 var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,val,super_cat_id;
 var timeout=25000;
