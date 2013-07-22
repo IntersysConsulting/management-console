@@ -74,6 +74,7 @@
 
 <div id="content">
 <div class="controls" id="chartarea">
+    <div style="margin-left:20px; margin-top:20px;">
         <div class="heading" style="width:265px; margin-left: 180px;">
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Purchase Cycle Adjustment</div>
             <div style="text-align:center; font-style: italic;">Super Categories</div>
@@ -102,7 +103,7 @@
                 }
                
                 $query = "SELECT a.user_id,a.segment_id,b.segment_desc,  a.food, a.drug, a.gm FROM pr_purch_cycle_adj a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($query, $con) or die("Error performing query");
                 $i = 0;
                 ?>
 
@@ -131,6 +132,7 @@
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="purch_cylce_adj_cancel" value="cancel"/></div>
                    
                 </div>
+</div>
 </div>
 </div>
 

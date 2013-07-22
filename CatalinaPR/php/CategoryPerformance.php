@@ -73,7 +73,7 @@
 
 <div id="content">
 <div class="controls" id="chartarea">
-
+    <div style="margin-left:20px; margin-top:20px;">
         <div class="heading" style="width:263px; margin-left: 217px;">
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Category Performance</div>
             <div style="text-align:center; font-style: italic;">ROI adjustment based on category Performance</div>
@@ -102,7 +102,7 @@
                 }
 
                 $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_category_perf a INNER JOIN pr_index b ON a.index_id = b.index_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($query, $con) or die("Error performing query");
                 $i = 0;
                 ?>
 
@@ -129,6 +129,7 @@
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cat_perf_cancel" value="cancel"/></div>
                     
                 </div>
+</div>
 </div>
 </div>
 

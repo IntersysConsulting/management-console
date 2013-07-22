@@ -80,7 +80,7 @@ else {
             <div id="tabs" style="margin-top:10px;">
                 <div class="controls" id="chartarea">
 
-                    <div id="tabs-1">
+                    <div id="tabs-1" style="margin-left: 20px; margin-top: 20px;">
                         <div class="heading">
                             <div style="text-align: center; font-weight: bold; font-size: 14px;">Sales Change Goals</div>
                             <div style="font-style: italic; text-align: center;">Quintile Change-current Period vs Previous Period or same period Last Year</div>
@@ -115,7 +115,7 @@ else {
                                     header("location:../index.php");
                                 }
                                 $query = "SELECT a.user_id,a.segment_id,b.segment_desc, a.n5_val, a.n4_val, a.n3_val, a.n2_val, a.n1_val, a.zed_val, a.p5_val, a.p4_val, a.p3_val, a.p2_val, a.p1_val FROM pr_sales_change a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                                $results = mysql_query($query, $con) or die("Error performing query");
+                                $results = mysqli_query($query, $con) or die("Error performing query");
                                 $i = 0;
                                 ?>
 

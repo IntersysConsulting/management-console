@@ -77,7 +77,7 @@ session_start();
             <div id="content" >
                 <div class="controls" id="chartarea">
 
-                    <div id="tabs-1">
+                    <div id="tabs-1" style="margin-left:20px; margin-top:20px;">
                         <div class="heading" style="width:290px; margin-left: 260px;">
                             <div style="text-align: center; font-weight: bold; font-size: 14px;">Program Guard Rails</div>
                             <div style=" font-style: italic; text-align: center;">Minimum and Maximum Offer Values</div>
@@ -105,7 +105,7 @@ session_start();
                                     header("location:../index.php");
                                 }
                                 $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                                $results = mysql_query($query, $con) or die("Error performing query");
+                                $results = mysqli_query($query, $con) or die("Error performing query");
                                 $i = 0;
                                 ?>
 
