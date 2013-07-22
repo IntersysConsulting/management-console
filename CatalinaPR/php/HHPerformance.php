@@ -1,26 +1,27 @@
 <?php session_start(); ?>
+<!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>Category Performance..</title>
-        <script type="text/javascript" src="../js/main.js"></script>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
         <script src="../js/jquery.validate.js"></script>
+	<title>Category Performance</title>
 
     </head>
     <body>
 
         <div class="home">
 
+
 <div id="logout" >
-                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
-            <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:120px;"><a>Personalized Rewards</a></div>
-            <div style="display:inline-block;"><img src="../images/logo.JPG"/></div>
+ <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
+            <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
 
             <div style="height: 29px;background-color: #BACBEB;">
                 <?php //require 'Mainmenu.php'; ?>
@@ -57,15 +58,15 @@
                         </li>
                         <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
                             <ul>
-                        <li><a href="ValidationControls.php" onclick="Controls();">&nbsp;Controls&nbsp;</a></li>
-                        <li><a href="ProgramParameter.php" onclick="ProgramParams();">&nbsp;Program Parameters&nbsp;</a></li>
-                        <li class="last"><a href="EligibleProduct.php" onclick="ProgramParams();">&nbsp;Eligible Product&nbsp;</a></li>
+                        <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
+                        <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
+                        <li class="last"><a href="EligibleProduct.php" >&nbsp;Eligible Product&nbsp;</a></li>
                                    </ul>
 
                         </li>
-                        <li class="has-sub"><a href="ROIReports.php">Reports </a>
+                        <li class="has-sub"><a href="ROIReportChart.php">Reports </a>
                       <ul>
-                    <li class="last"><a href="ROIReports.php" onclick="ProgramParams();">&nbsp;ROI Report&nbsp;</a></li>
+                    <li class="last"><a href="ROIReportChart.php" >&nbsp;ROI Report&nbsp;</a></li>
 
                 </ul>
 

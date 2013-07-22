@@ -1,10 +1,8 @@
 <?php
-
 session_start();
 require 'connection.php';
 $tbl_name = "pr_user"; // Table name 
 // Connect to server and select databse.
-
 
 // username and password sent from form 
 $myusername = $_POST['userid'];
@@ -15,12 +13,11 @@ $myusername = stripslashes($myusername);
 $mypassword = stripslashes($mypassword);
 $myusername = mysql_real_escape_string($myusername);
 $mypassword = mysql_real_escape_string($mypassword);
-$sql = "SELECT * FROM $tbl_name WHERE user_id='$myusername' and password='$mypassword'";
-$result = mysql_query($sql);
+$sql = "SELECT * FROM $tbl_name WHERE user_id='$myusername' and password='$mypassword';";
+$result = mysqli_query($con,$sql);
 
 // Mysql_num_row is counting table row
-$count = mysql_num_rows($result);
-
+$count = mysqli_num_rows($result);
 // If result matched $myusername and $mypassword, table row must be 1 row
 if ($count == 1) {
 
@@ -39,8 +36,9 @@ if ($count == 1) {
 }
 else {
 //echo "Wrong Username or Password";
-    $err = "Insufficient Privileges or unable to authenticate,please contact  xxxx for further assistance";
+    $err = "aInsufficient Privileges or unable to authenticate,please contact xxxx for further assistance";
 //header("location:../LoginDesign?err=" . $err);
-    header("location:../index.php?err=" . $err);
+   header("location:../index.php?err=" . $err);
 }
+
 ?>

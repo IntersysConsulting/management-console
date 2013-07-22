@@ -100,14 +100,14 @@ session_start();
                                 header("location:../index.php");
                             }
                             $query = "select distinct a.enddate from pr_roi_report a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "' order by a.enddate desc limit 5; ";
-                            $results = mysql_query($query, $con) or die("Error performing query");
+                            $results = mysqli_query($con, $query) or die("Error performing query");
                             $i = 0;
                             ?>
                             <div style="border: black 1px solid;">
                                 <div  style="width: 125px">Period Ending</div>
                                 <div class="headers" style="width:500px; background-color: transparent;margin-left:200px; border:transparent; ">
                                     <ul style="float: left; list-style-type: none;">
-                                        <?php while ($row = mysql_fetch_array($results)) {  ?>
+                                        <?php while ($row = mysqli_fetch_array($results)) {  ?>
                                             <li style="width:85px !important"><b><?php echo $newDate = date("m/d/Y", strtotime($row[0]));; ?></b></li>
                                         <?php } ?>
                                     </ul>
@@ -117,9 +117,9 @@ session_start();
                             <?php
                             require 'connection.php';
                             $query = "select b.program_desc,a.VAL_ENDDATE,b.rep_flag,a.program_id  from pr_roi_report a join pr_roi_program b on a.PROGRAM_ID = b.PROGRAM_ID INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id = '" . $myusername . "' order by a.PROGRAM_ID,a.enddate ";
-                            $results = mysql_query($query, $con) or die("Error performing query");
+                            $results = mysqli_query($con,$query) or die("Error performing query");
                             $i = 0;
-                            if (mysql_num_rows($results) == 0) {
+                            if (mysqli_num_rows($results) == 0) {
                                 $content = '<td>No Items</td></tr>';
                             }
                             else {
@@ -128,7 +128,7 @@ session_start();
                                 $row_count = 1;
                                 $content = '<table id="roitable" style="width:630px;" cellpadding="0" cellspacing="0"><tr>';
                                 
-                                while ($row = mysql_fetch_array($results)) {
+                                while ($row = mysqli_fetch_array($results)) {
                                    
                                     if ($row_count % 4 === 0 && $previous_row_count != $row_count && ($row[2]=='N'||$row[2]=='P' ) ) {
                                         

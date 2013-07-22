@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "connection.php";
-include "connection.php";
 if (isset($_SESSION['myusername'])) {
       $myusername = $_SESSION['myusername'];
 }
@@ -28,13 +27,13 @@ $query = "select b.program_desc,a.val_enddate,a.enddate,b.rep_flag
    where a.enddate >=(select distinct min(enddate) from pr_roi_report order by enddate desc limit 5)
      and a.enddate <=(select distinct max(enddate) from pr_roi_report order by enddate desc limit 5) 
 order by a.enddate desc,b.program_id";
-$result = mysql_query($query);
+$result = mysqli_query($con,$query);
 if (!$result) {
-    die("Invalid query: " . mysql_error());
+    die("Invalid query: " . mysqli_error());
 }
-$num = mysql_num_rows($result);
+$num = mysqli_num_rows($result);
 $program_desc = array();
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
 
     if ($end_date != $row[2]) {
 
@@ -87,6 +86,7 @@ for ($i = 0; $i < count($program_desc) / 5; $i++) {
 }
 $pgm_id = $pgm_ids[0];
 ?>
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -96,19 +96,6 @@ $pgm_id = $pgm_ids[0];
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
         <script src="../js/jquery.validate.js"></script>
-        <script>
-            $(function() {
-                $( "#tabs" ).tabs({
-                    beforeLoad: function( event, ui ) {
-                        ui.jqXHR.error(function() {
-                            ui.panel.html(
-                            "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-                                "If this wouldn't be a demo." );
-                        });
-                    }
-                });
-            });
-        </script>
         <title>
             ROI Report
         </title>
@@ -186,31 +173,64 @@ for ($j = 0; $j < count($value_zero); $j++) {
         </script>
     </head>
     <body>
-        <div class="home" style="width:900px !important; height:800px !important;">
-            <div style="margin-left: 350px;margin-top: 20px;">Personalized Rewards</div>
-            <div style="margin-left: 50px;"><img src="../images/logo.JPG"/></div>
-            <div id="logout" >
-                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;margin-left: 800px;">Logout</a>
-            </div>
-            <div style="margin-left: 50px;height: 29px;background-color: #BACBEB;width: 820px; ">
-                <div class="mainmenu">
-                    <ul style="margin-top: 7px;">
-                        <li><a href="DefaultHome.php">Home </a></li>
-                        <li><a href="SalesChange.php">Controls </a></li>
-                        <li><a href="GuardRails.php">Guard Rails </a></li>
-                        <li><a href="ValidationControls.php">Validation Rules </a></li>
-                        <li class="active"><a href="ROIReportChart.php">Reports</a></li>
-                    </ul>
-                </div>
 
+ <div class="home">
+
+<div id="logout" >
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
-            <div id="tabs" style="margin-left: 50px;margin-top: 35px;width: 780px; height: 828px;">
-                <ul>
-                    <li><a href="#tabs-1">&nbsp;ROI Report&nbsp;</a></li>
+ <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
+            <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
+
+<div style="height: 29px;background-color: #BACBEB;">
+<?php //require 'Mainmenu.php'; ?>
+
+                <div class="mainmenu">
+                    <ul>
+                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+
+                                        <ul>
+                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
+                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                   </ul>
+                </li>
+                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                                 <ul>
+                                        <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
+                                        <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
+                                        <li><a href="ROIAdj.php">&nbsp;ROI Adj.&nbsp;</a></li>
+                                        <li><a href="PurchaseCycleAdj.php">&nbsp;Purchase Cycle Adj.&nbsp;</a></li>
+                                         <li><a href="CategoryPerformance.php">&nbsp;Category Performance&nbsp;</a></li>
+                                        <li class="last"><a href="HHPerformance.php">&nbsp;HH Performance&nbsp;</a></li>
+                                   </ul>
+                        </li>
+                        <li class="has-sub"><a href="GuardRails.php">Guard Rails </a>
+                                                 <ul>
+                                        <li class="last"><a href="GuardRails.php">&nbsp;Guard Rails&nbsp;</a></li>
+
+</ul>
+                        </li>
+                        <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
+                            <ul>
+                        <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
+                        <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
+                        <li class="last"><a href="EligibleProduct.php" >&nbsp;Eligible Product&nbsp;</a></li>
+                                  </ul>
+
+                        </li>
+                        <li class="has-sub"><a href="ROIReports.php">Reports </a>
+                      <ul>
+                    <li class="last"><a href="ROIReports.php" >&nbsp;ROI Report&nbsp;</a></li>
 
                 </ul>
 
-                <div class="controls" style="height:580px; width:790px;">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="tabs" style="margin-top: 10px;>
+                <div class="controls" id="chartarea">
 
                     <div id="tabs-1">
                         <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 18px; font-weight: bolder;  ">

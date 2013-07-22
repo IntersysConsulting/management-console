@@ -16,13 +16,11 @@ session_start();
     <body>
         <div class="home">
 
-
 <div id="logout" >
-                <a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
-            <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:120px;"><a>Personalized Rewards</a></div>
-            <div style="display:inline-block;"><img src="../images/logo.JPG"/></div>
-
+ <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
+            <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
             <div style="height: 29px;background-color: #BACBEB;">
                 <?php //require 'Mainmenu.php'; ?>
 
@@ -55,14 +53,14 @@ session_start();
                         </li>
                         <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
                             <ul>
-                        <li><a href="ValidationControls.php" onclick="Controls();">&nbsp;Controls&nbsp;</a></li>
-                        <li><a href="ProgramParameter.php" onclick="ProgramParams();">&nbsp;Program Parameters&nbsp;</a></li>
-                        <li class="last"><a href="EligibleProduct.php" onclick="ProgramParams();">&nbsp;Eligible Product&nbsp;</a></li>
+                        <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
+                        <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
+                        <li class="last"><a href="EligibleProduct.php" >&nbsp;Eligible Product&nbsp;</a></li>
                                    </ul>
                        </li>
-                        <li class="has-sub"><a href="ROIReports.php">Reports </a>
+                        <li class="has-sub"><a href="ROIReportChart.php">Reports </a>
                       <ul>
-                    <li class="last"><a href="ROIReports.php" onclick="ProgramParams();">&nbsp;ROI Report&nbsp;</a></li>
+                    <li class="last"><a href="ROIReportChart.php" >&nbsp;ROI Report&nbsp;</a></li>
 
                 </ul>
 

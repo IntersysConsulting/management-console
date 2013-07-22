@@ -25,7 +25,7 @@ foreach($decodedata as $data)
 
     {
          
-        $result = mysql_query("UPDATE pr_sales_change SET ".$data->col_nam."='".$data->col_value."',update_date='".$today."' WHERE  user_id='".$data->user_id_val."'  AND segment_id='".$data->seg_id_val."'  ",$con) or die ('Unable to update row.');
+        $result = mysqli_query($con,"UPDATE pr_sales_change SET ".$data->col_nam."='".$data->col_value."',update_date='".$today."' WHERE  user_id='".$data->user_id_val."'  AND segment_id='".$data->seg_id_val."'  ") or die ('Unable to update row.');
     }
 
 

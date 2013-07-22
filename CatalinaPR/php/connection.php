@@ -1,9 +1,8 @@
 <?php
-$host="ec2-54-214-119-155.us-west-2.compute.amazonaws.com"; // Host name 
-$username="root"; // Mysql username 
-$password="ema7&7nuel"; // Mysql password 
+$host="localhost"; // Host name 
+$username="app"; // Mysql username 
+$password="itIStop53cr3t"; // Mysql password 
 $db_name="mpr"; // Database name 
-$con=mysql_connect("$host", "$username", "$password")or die("Unable to connect to MySQL.");
-mysql_select_db("$db_name")or die("Unable to select database");
+$con=mysqli_connect("$host", "$username", "$password", "$db_name")or die("Unable to connect to MySQL.");
 ?>
 

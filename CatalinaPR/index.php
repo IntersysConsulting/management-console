@@ -12,12 +12,8 @@ $error = $_GET['err'];
     </head>
     <body>
         <div class="home">
-
-<div id="logout">
-<a href="LogOut.php" id="logout" style="text-decoration: none;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
-            </div>
-            <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:120px;"><a>Personalized Rewards</a></div>
-            <div style="display:inline-block;"><img src="../images/logo.JPG"/></div>
+            <div style="display:inline-block;float:right;position:relative;margin-top:10px;margin-right:200px;"><img src="../images/logo.png"/></div>
+            <div style="display:inline-block;position:relative;"><img src="../images/footer.png"/></div>
 
             <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
                 <?php //require 'Mainmenu.php'; ?>
@@ -50,6 +46,7 @@ $error = $_GET['err'];
                 </form>
             </div>
         </div>
+
     <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
                 <?php //require 'Mainmenu.php'; ?>
 </div>
