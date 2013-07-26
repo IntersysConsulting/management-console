@@ -13,9 +13,6 @@
     </head>
     <body>
 <div class="home">
-
-
-
 <div id="logout" >
                 <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
             </div>
@@ -27,15 +24,15 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="active has-sub"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>

@@ -27,12 +27,12 @@ session_start();
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -45,7 +45,7 @@ session_start();
                                         <li class="last"><a href="HHPerformance.php">&nbsp;HH Performance&nbsp;</a></li>
                                    </ul>
                         </li>
-                        <li class="has-sub"><a href="GuardRails.php">Guard Rails </a>
+                        <li class="active has-sub"><a href="GuardRails.php">Guard Rails </a>
                                                  <ul>
                                         <li class="last"><a href="GuardRails.php">&nbsp;Guard Rails&nbsp;</a></li>
 
@@ -92,8 +92,8 @@ session_start();
                             </div>
                         </div>
 
-<!--                        <form action="GuardRails_Update.php" method="POST" id="update">-->
-<!--                            <div style="margin-top: 10px; margin-left: 3px;">-->
+                        <form action="GuardRails_Update.php" method="POST" id="update">
+                            <div style="margin-top: 10px; margin-left: 3px;">
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -103,12 +103,12 @@ session_start();
                                     header("location:../index.php");
                                 }
                                 $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                                $results = mysql_query($query, $con) or die("Error performing query");
+                                $results = mysqli_query($con, $query) or die("Error performing query");
                                 $i = 0;
                                 ?>
 
                                 <table style="width:550px;" cellpadding='0' cellspacing='0'>
-                                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr style=" height:10px" class="sales_change_row">
 
                                             <td class="segmentdesc" style="width:240px; border:#868282 1px solid;"><label id="metric" name="metric"><?php echo $row[2]; ?></label></td>
@@ -124,7 +124,7 @@ session_start();
                                  <?php $i++;
                                   } ?>
                                 </table>
-                                <?php mysql_close($con); ?>
+                                <?php mysqli_close($con); ?>
                                 <div id="guard_rails_err"><label> Please enter value between 0 and 30 </label></div>
                                 <div class="updating" id="updating" style="margin-left:370px;">Updated...</div>
                                 <div style="margin-left:60px;">
@@ -132,8 +132,8 @@ session_start();
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                     
                                 </div>
-<!--                            </div>  -->
-<!--                        </form>-->
+                            </div>  
+                        </form>
 
                     </div>
                 </div>

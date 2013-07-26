@@ -28,12 +28,12 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -52,7 +52,7 @@
 
 </ul>
                         </li>
-                        <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
+                        <li class="active has-sub"><a href="ValidationControls.php">Validation Rules </a>
                             <ul>
                         <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
                         <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
@@ -86,11 +86,11 @@
             header("location:../index.php");
         }
         $query = "SELECT a.p_parameter FROM pr_program_param a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-        $results = mysql_query($query, $con) or die("Error performing query");
+        $results = mysqli_query($con, $query) or die("Error performing query");
         ?>
         <div style="margin-top:20px; margin-left:70px;">
             <table>
-                <?php while ($row = mysql_fetch_array($results)) { ?>
+                <?php while ($row = mysqli_fetch_array($results)) { ?>
                     <tr style=" float:left; height:35px">
 
                         <td style="width:280px; text-decoration:none; height:30px; text-align: left;" class="segment"><label id="param" name="param"><?php echo $row[0]; ?></label></td>
@@ -112,12 +112,12 @@
                 }
 
                 $query = "SELECT a.user_id,a.p_parameter,a.p_parameter_id,a.p_value FROM pr_program_param a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "' ";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($con, $query) or die("Error performing queryi");
                 $i = 0;
                 ?>
 
                 <table>
-                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" float:left; height:35px" class="Pgm_Param_row">
                             <td><input id="pgm_param_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                             <td><input id="pgm_parameter['<?php echo $i ?>']" type="hidden" name="parameter" value="<?php echo $row[1]; ?>" /></td>
@@ -131,10 +131,10 @@
                                 else {
                                     require 'connection.php';
                                     $sql = "SELECT a.segment_desc FROM pr_segment a";
-                                    $result = mysql_query($sql);
+                                    $result = mysqli_query($sql);
 
                                     echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
-                                    while ($row = mysql_fetch_array($result)) {
+                                    while ($row = mysqli_fetch_array($result)) {
                                         echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
                                     }
                                     echo "</select>";
@@ -147,7 +147,7 @@
                         <?php $i++;
                     } ?>
                 </table>
-                <?php mysql_close($con); ?>
+                <?php mysqli_close($con); ?>
                 <div id="pgm_param_err"><label> Please enter value between -.10 and .20 </label></div>
                 <div class="updating" id="pgm_param_updating" style="margin-left: -45px !important;">Updated...</div>
                 <div>

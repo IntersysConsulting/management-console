@@ -12,9 +12,7 @@ $error = $_GET['err'];
     </head>
     <body>
         <div class="home">
-            <div style="display:inline-block;float:right;position:relative;margin-top:10px;margin-right:200px;"><img src="../images/logo.png"/></div>
-            <div style="display:inline-block;position:relative;"><img src="../images/footer.png"/></div>
-
+            <div style="display:inline-block;position:relative;margin-top:10px;"><img src="../images/logo.png"/></div>
             <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
                 <?php //require 'Mainmenu.php'; ?>
 </div>
@@ -47,9 +45,10 @@ $error = $_GET['err'];
             </div>
         </div>
 
-    <div style="height: 29px;background-color: #BACBEB; margin-bottom:50px;">
+    <div style="height: 29px;background-color: #BACBEB;">
                 <?php //require 'Mainmenu.php'; ?>
 </div>
+  <!--         <div style="display:inline-block;position:relative;margin-left:20px;float:right;"><img style="width:450px;" src="../images/footer.png"/></div> -->
 
 </div>
     </body>

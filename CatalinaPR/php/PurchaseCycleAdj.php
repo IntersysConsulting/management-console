@@ -28,15 +28,15 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="active has-sub"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
@@ -91,8 +91,8 @@
             </div>
         </div>
 
-<!--        <form action="PurchaseCycle_Update.php" method="POST" id="update">
-            <div>-->
+        <form action="PurchaseCycle_Update.php" method="POST" id="update">
+            <div>
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -103,12 +103,12 @@
                 }
                
                 $query = "SELECT a.user_id,a.segment_id,b.segment_desc,  a.food, a.drug, a.gm FROM pr_purch_cycle_adj a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>
 
                 <table style=" width:455px; " cellpadding='0' cellspacing='0'>
-                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style="height:8px" class="pur_cycle_row">
 
                             <td class="segmentdesc" style="width:180px; border:#868282 1px solid;"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
@@ -124,7 +124,7 @@
                         <?php $i++;
                     } ?>
                 </table>
-                <?php mysql_close($con); ?>
+                <?php mysqli_close($con); ?>
                 <div id="pur_cycle_adj_err"><label> Please enter value between 30 and 100 </label></div>
                  <div class="updating" id="pur_cyc_updating">Updated...</div>
                 <div style="margin-left:30px;">
@@ -135,7 +135,7 @@
 </div>
 </div>
 
-<!--            </div>  
-        </form>-->
+            </div>  
+        </form>
     </body>
 </html>

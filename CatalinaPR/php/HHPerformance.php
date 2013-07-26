@@ -29,15 +29,15 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Scatter Chart&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="active has-sub"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
@@ -104,12 +104,12 @@
                 ?>
                 <?php
                 $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_hh_perform a INNER JOIN pr_index b ON a.index_id = b.index_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>
 
                 <table style="margin-left: 25px; width:490px; " cellpadding='0' cellspacing='0'>
-                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" height:10px;" class="sales_change_row">
 
                             <td class="segmentdesc" style="width:180px; border:#868282 1px solid;"><label id="index" name="index"><?php echo $row[2]; ?></label></td>
@@ -124,7 +124,7 @@
                         <?php $i++;
                     } ?>
                 </table>
-                <?php mysql_close($con); ?>
+                <?php mysqli_close($con); ?>
                 <div id="hh_perf_err"><label> Please enter value between -0.05 and 0.05 </label></div>
                 <div class="updating" id="hh_perf_updating" style="margin-left:300px;">Updated...</div>
                 <div style="margin-left:75px;">

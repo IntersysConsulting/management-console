@@ -29,15 +29,15 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="has-sub active"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
@@ -91,8 +91,8 @@
             </div>
         </div>
 
-<!--        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:70px;">
-            <div>-->
+        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:70px;">
+            <div>
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -103,12 +103,12 @@
                 }
 
                 $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_category_perf a INNER JOIN pr_index b ON a.index_id = b.index_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 72px;" cellpadding='0' cellspacing='0'>
-                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                <table style="margin-left: 5px;" cellpadding='0' cellspacing='0'>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style="height:18px" class="sales_change_row">
 
                             <td class="segmentdesc" style="width:130px; border:#868282 1px solid;"><label id="Index" name="Index"><?php echo $row[2]; ?></label></td>
@@ -122,18 +122,18 @@
                         <?php $i++;
                     } ?>
                 </table>
-                <?php mysql_close($con); ?>
+                <?php mysqli_close($con); ?>
                 <div id="cat_perf_err"><label> Please enter value between 5 and 120 </label></div>
                 <div class="updating" id="cat_perf_updating" style="margin-left:300px;">Updated...</div>
                 <div style="margin-left:60px;">
-                    <div><input style="margin-left:200px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cat_perf_cancel" value="cancel"/></div>
+                    <div><input style="margin-left:130px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
+                    <div style="margin-top: -25px; margin-left: 250px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cat_perf_cancel" value="cancel"/></div>
                     
                 </div>
 </div>
 </div>
 
-<!--            </div>  
-        </form>-->
+            </div>  
+        </form>
     </body>
 </html>

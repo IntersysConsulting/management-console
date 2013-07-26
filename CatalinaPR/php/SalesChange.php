@@ -13,6 +13,7 @@ else {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
+	<link rel="stylesheet" href="../css/bootstrap.css" />
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
@@ -33,15 +34,15 @@ else {
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="active has-sub"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
@@ -78,32 +79,10 @@ else {
 
 
 
-            <div id="tabs" style="margin-top:10px;">
+            <div id="tabs" style="margin-top:30px;">
                 <div class="controls" id="chartarea">
 
                     <div id="tabs-1">
-                        <div class="heading">
-                            <div style="text-align: center; font-weight: bold; font-size: 14px;">Sales Change Goals</div>
-                            <div style="font-style: italic; text-align: center;">Quintile Change-current Period vs Previous Period or same period Last Year</div>
-                        </div>
-                        <div>
-                            <div class="segment">Segment</div>
-                            <div class="headers">
-                                <ul style="float: left; list-style-type: none;">
-                                    <li> <b>-5</b></li>
-                                    <li> <b>-4</b></li>
-                                    <li> <b>-3</b></li>
-                                    <li> <b>-2</b></li>
-                                    <li> <b>-1</b></li>
-                                    <li> <b>0</b></li>
-                                    <li> <b>1</b></li>
-                                    <li> <b>2</b></li>
-                                    <li> <b>3</b></li>
-                                    <li> <b>4</b></li>
-                                    <li> <b>5</b></li>
-                                </ul>
-                            </div>
-                        </div>
                        <form action="SalesChange_Update.php" method="POST" id="update"> 
                             <div>
                                 <?php
@@ -117,19 +96,36 @@ else {
                                 $query = "SELECT a.user_id,a.segment_id,b.segment_desc, a.n5_val, a.n4_val, a.n3_val, a.n2_val, a.n1_val, a.zed_val, a.p5_val, a.p4_val, a.p3_val, a.p2_val, a.p1_val FROM pr_sales_change a INNER JOIN pr_segment b ON a.segment_id = b.segment_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
                                 $results = mysqli_query($con,$query) or die("Error performing query");
                                 $i = 0;
-$num = mysqli_num_rows($result);
-echo "4343" . "$num";
                                 ?>
 
-                                <table style=" width:605px; " cellpadding='0' cellspacing='0'>
+                                <table class="table table-striped" cellpadding='0' cellspacing='0'>
+		<thead>
+		<tr>
+			<td style="width:150px;"><label><b>Segment</b></label></td>
+ <td style="width:0px;"><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
+                                            <td style="width:0px;"><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
+                                             <td style="">&nbsp;</td>
+			            <td style="text-align:center;"> <b>-5</b></td>
+                                    <td style="text-align:center;"> <b>-4</b></td>
+                                    <td style="text-align:center;"> <b>-3</b></td>
+                                    <td style="text-align:center;"> <b>-2</b></td>
+                                    <td style="text-align:center;"> <b>-1</b></td>
+                                    <td style="text-align:center;"> <b>0</b></td>
+                                    <td style="text-align:center;"> <b>1</b></td>
+                                    <td style="text-align:center;"> <b>2</b></td>
+                                    <td style="text-align:center;"> <b>3</b></td>
+                                    <td style="text-align:center;"> <b>4</b></td>
+                                    <td style="text-align:center;"> <b>5</b></td>
+		</tr>
+		</thead>
+		<tbody>
                                 <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr style="height:8px;" class="sales_change_row">
-				<?php echo "Test row"; ?>
 
-                                            <td class="segmentdesc" style="width:120px; border:#868282 1px solid;"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
+                                            <td class="" style="width:150px;"><?php echo $row[2]; ?></label></td>
                                             <td style="width:0px;"><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                                             <td style="width:0px;"><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
-                                             <td style="width:15px;">&nbsp;</td>
+                                             <td style="">&nbsp;</td>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n4_val" class="saleschange_inpu_text"  style="width:37px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[5], 2, '.', ''); ?>"/></td>
@@ -145,13 +141,14 @@ echo "4343" . "$num";
                                         </tr>
                                  <?php $i++;
                                   } ?>
+				</tbody>
                                 </table>
                                 <?php mysqli_close($con); ?>
                                 <div id="sales_change_err"><label> Please enter value between -.10 and .20 </label></div>
                                 <div class="updating" id="updating">Updated...</div>
-                                <div style="margin-left:-30px;">
-                                    <div style="width:100px;"><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="save" value="save"/></div>
-                                    <div style="margin-top: -25px; margin-left: 350px; width:100px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
+                                <div style="float:right;margin-right:30px;width:200px;">
+                                    <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;" type="button" name="save" id="save" value="save"/></div>
+                                    <div style="display:inline-block;width:50px;"><input style="" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                     
                                 </div>
                                 

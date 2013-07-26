@@ -27,12 +27,12 @@ session_start();
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -51,7 +51,7 @@ session_start();
 
 </ul>
                         </li>
-                        <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
+                        <li class="active has-sub"><a href="ValidationControls.php">Validation Rules </a>
                             <ul>
                         <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
                         <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
@@ -89,8 +89,8 @@ session_start();
                             </div>
                         </div>
 
-<!--                        <form action="ValControls_Update.php" method="POST" id="update">-->
-<!--                            <div>-->
+                        <form action="ValControls_Update.php" method="POST" id="update">
+                            <div>
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -101,12 +101,12 @@ session_start();
                                 }
 
                                 $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                                $results = mysql_query($query, $con) or die("Error performing query");
-                                $i = 0;
+                                $results = mysqli_query($con, $query) or die("Error performing query");
+                                $i = 1;
                                 ?>
 
                                 <table style="width:589px;" cellpadding='0' cellspacing='0'>
-                                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                                         <tr style="  height:10px;" class="val_control_row">
 
                                             <td class="segmentdesc" style="width:240px; padding-top:1px; border:#868282 1px solid ;"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
@@ -121,7 +121,7 @@ session_start();
                                     <?php $i++;
                                     } ?>
                                 </table>
-                                <?php mysql_close($con); ?>
+                                <?php mysqli_close($con); ?>
                                 <div id="Val_control_err"><label> Please enter value between -.10 and .20 </label></div>
                                 <div class="updating" id="updating" style="margin-left:300px;">Updated...</div>
                                 <div>
@@ -129,8 +129,8 @@ session_start();
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
                                     
                                 </div>
-<!--                            </div>  -->
-<!--                        </form>-->
+                            </div>  
+                        </form>
 
                     </div>
                 </div>

@@ -187,12 +187,12 @@ for ($j = 0; $j < count($value_zero); $j++) {
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -219,7 +219,7 @@ for ($j = 0; $j < count($value_zero); $j++) {
                                   </ul>
 
                         </li>
-                        <li class="has-sub"><a href="ROIReports.php">Reports </a>
+                        <li class="active has-sub"><a href="ROIReports.php">Reports </a>
                       <ul>
                     <li class="last"><a href="ROIReports.php" >&nbsp;ROI Report&nbsp;</a></li>
 

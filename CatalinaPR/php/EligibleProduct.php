@@ -29,12 +29,12 @@ session_start();
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -54,7 +54,7 @@ session_start();
 
 </ul>
                         </li>
-                        <li class="has-sub"><a href="ValidationControls.php">Validation Rules </a>
+                        <li class="active has-sub"><a href="ValidationControls.php">Validation Rules </a>
                             <ul>
                         <li><a href="ValidationControls.php" >&nbsp;Controls&nbsp;</a></li>
                         <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
@@ -94,11 +94,11 @@ session_start();
                 header("location:../index.php");
             }
                                     $sql = "SELECT a.super_category_desc,a.super_category_id FROM pr_super_category a";
-                                    $result = mysql_query($sql);
+                                    $result = mysqli_query($sql);
 
                                     echo "<select id='drp_dwn_super_category' name='super_category_desc' style='margin-left: -7px;width: 175px; height: 38px;font-size:16px; font-weight:bold; font-family:calibri;'>";
                                     echo "<option style='text-align:center;' value=''></option>";
-                                    while ($row = mysql_fetch_array($result)) {
+                                    while ($row = mysqli_fetch_array($result)) {
                                         
                                         echo "<option style='text-align:center;' value='" . $row[1] . "'>" . $row[0] . "</option>";
                                     }
@@ -116,7 +116,7 @@ session_start();
             <div class="heading" id="pc_value" style="width: 132px;margin-top: -22px;margin-left: 458px;height: 20px;text-align: center;text-decoration: underline;font-weight: bold;">Value</div>
             
         </div>
-<!--        <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">-->
+        <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">
           <div style="margin-top:5px;">
         <?php
         
@@ -130,10 +130,10 @@ session_start();
             $val=$_GET['sup_id'];
              if($val!=null){
                     $sql = "SELECT a.user_id,a.super_category_id,a.product_category_code,a.product_category_desc,a.pc_value FROM pr_product_category a WHERE a.user_id='".$myusername."' AND a.super_category_id=".$val."";
-                    $result = mysql_query($sql);
+                    $result = mysqli_query($sql);
                     $i=0;
                     echo "<table style='width:630px; margin-left:5px;' cellpadding='0' cellspacing='0'>";
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysqli_fetch_array($result)) {
                         echo "<tr style='height:20px;' >";
                         echo "<td class='segmentdesc' style='width:120px; padding-top:1px; border:#868282 1px solid;'><label id='segment' name='segment'>"; echo $row[2];  echo "</label></td>";
                         echo '<td style="width:15px"><input id="prod_cat_user_id['; echo $i; echo']" type="hidden" name="user_id" value="'; echo $row[0]; echo'"/></td>';
@@ -164,6 +164,6 @@ session_start();
 </div>
 
          </div>  
-       <!--    </form>-->
+           </form>
  </body>
 </html>

@@ -25,7 +25,7 @@ foreach($decodedata as $data)
 
     {
          echo $data->col_value . "\n";
-        $result = mysql_query("UPDATE pr_roi_adj SET ".$data->col_nam."='".$data->col_value."',update_date='".$today."' WHERE  user_id='".$data->user_id_val."' ",$con) or die ('Unable to update row.');
+        $result = mysqli_query($con,"UPDATE pr_roi_adj SET ".$data->col_nam."='".$data->col_value."',update_date='".$today."' WHERE  user_id='".$data->user_id_val."' ") or die ('Unable to update row.');
     }
 
 

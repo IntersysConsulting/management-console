@@ -37,35 +37,29 @@ while($row=@mysqli_fetch_assoc($result)){
         <script src="../js/jquery.validate.js"></script> 
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript">
-    google.load('visualization', '1', {packages: ['motionchart']});
+    google.load('visualization', '1', {packages: ['corechart']});
 
     function drawVisualization() {
 
-       var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Product Type');
-        data.addColumn('number', 'Date');
-        data.addColumn('number', 'Sum Amount');
-        data.addColumn('number', 'Sum Quantity');
-        data.addColumn('number', 'Sum Trip')
-        data.addColumn('string', 'Brand');
-	data.addRows([
-	<?php
-	$j=0;
-	for($j=0;$j<$num;$j++){
-	if ($j != ($num-1)){
-	echo "['$prod[$j]',$year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]'],\n";
-	}else{
-        echo "['$prod[$j]',$year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]']\n";
-	}
-	}
-	?>
-	]);
+          var data = new google.visualization.DataTable();
+          data.addColumn('number', 'Sum Trips');
+          data.addColumn('number', 'Groceries');
+          data.addColumn('number', 'Drugs');
+          for (var i = 0; i < 500; ++i) {
+            data.addRow([Math.sin(i / 5) * 0.25, Math.cos(i / 25), null])
+          }
+          for (var i = 0; i < 500; i++) {
+            data.addRow([Math.sin(i / 25), null, Math.cos(i / 10) * 0.5]);
+          }
 
-
-      var motionchart = new google.visualization.MotionChart(
-          document.getElementById('visualization'));
-      motionchart.draw(data, {'width': 900, 'height': 450});
-    }
+          var chart = new google.visualization.ScatterChart(
+              document.getElementById('visualization'));
+          chart.draw(data, {title: 'Aggregate Sales in Dollars vs Aggregate Trip Count per Super Category',
+                            width: 900, height: 550,
+                            vAxis: {title: "Aggregate Sales", titleTextStyle: {color: "green"}},
+                            hAxis: {title: "Aggregate Trip Count", titleTextStyle: {color: "green"}}}
+                    );
+      }
 
 
     google.setOnLoadCallback(drawVisualization);
@@ -100,7 +94,7 @@ while($row=@mysqli_fetch_assoc($result)){
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
                                         <li><a href="ROIAdj.php">&nbsp;ROI Adj.&nbsp;</a></li>
                                         <li><a href="PurchaseCycleAdj.php">&nbsp;Purchase Cycle Adj.&nbsp;</a></li>
-                                         <li><a href="CategoryPerformance.php">&nbsp;Category Performance&nbsp;</a></li>
+                                        <li><a href="CategoryPerformance.php">&nbsp;Category Performance&nbsp;</a></li>
                                         <li class="last"><a href="HHPerformance.php">&nbsp;HH Performance&nbsp;</a></li>
                                    </ul>
                         </li>
@@ -146,7 +140,7 @@ while($row=@mysqli_fetch_assoc($result)){
       </div>
 -->
 <div id="chartarea">
-    <div id="visualization" style="z-index:-1;width: 900px; height: 450px;margin-left:auto;margin-right:auto; "></div>
+    <div id="visualization" style="z-index:-1;width: 900px; height: 550px; margin-left:auto;margin-right:auto;"></div>
 
         </div>
 </div>
@@ -160,3 +154,4 @@ while($row=@mysqli_fetch_assoc($result)){
 
             
 </html>
+

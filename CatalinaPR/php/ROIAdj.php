@@ -26,15 +26,15 @@
 
                 <div class="mainmenu">
                     <ul>
-                        <li class="active has-sub"><a href="DefaultHome.php">Home </a>
+                        <li class="has-sub"><a href="DefaultHome.php">Home </a>
 
                                         <ul>
-                                        <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
-                                        <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
+                                        <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
                                    </ul>
                 </li>
-                        <li class="has-sub"><a href="SalesChange.php">Controls </a>
+                        <li class="active has-sub"><a href="SalesChange.php">Controls </a>
                                  <ul>
                                         <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                         <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
@@ -96,8 +96,8 @@
             </div>
         </div>
 
-<!--        <form action="ROIAdj_Update.php" method="POST" id="update" style="margin-left: 75px;">
-            <div>-->
+        <form action="ROIAdj_Update.php" method="POST" id="update" style="margin-left: 75px;">
+            <div>
                 <?php
                 require 'connection.php';
                 if (isset($_SESSION['myusername'])) {
@@ -108,12 +108,12 @@
                 }
 
                 $query = "SELECT a.user_id, a.n5_val, a.n4_val, a.n3_val, a.n2_val, a.n1_val, a.zed_val, a.p5_val, a.p4_val, a.p3_val, a.p2_val, a.p1_val FROM pr_roi_adj a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                $results = mysql_query($query, $con) or die("Error performing query");
+                $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>
 
-                <table style="margin-left:80px;">
-                    <?php while ($row = mysql_fetch_array($results)) { ?>
+                <table>
+                    <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" float:left; height:18px" class="sales_change_row">
 
 
@@ -135,18 +135,18 @@
                         <?php $i++;
                     } ?>
                 </table>
-                <?php mysql_close($con); ?>
+                <?php mysqli_close($con); ?>
                 <div id="roi_adj_err"><label> Please enter value between 0.00 and 0.20 </label></div>
                 <div class="updating" id="roi_adj_updating" style="margin-top:20px;">Updated...</div>
-                <div style="margin-left: 30px;">
-                    <div><input style="margin-left:150px; margin-top:20px; font-size: 13px;" type="button" name="save" id="roi_adj_save" value="save"/></div>
+                <div>
+                    <div><input style="margin-left:100px; margin-top:20px; font-size: 13px;" type="button" name="save" id="roi_adj_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: 300px;"><input style=" font-size: 13px;" type="button" name="cancel" id="roi_adj_cancel" value="cancel"/></div>
                     
                 </div>
 </div>
 </div>
 
-<!--            </div>  
-        </form>-->
+            </div>  
+        </form>
     </body>
 </html>
