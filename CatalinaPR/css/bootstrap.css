@@ -222,11 +222,10 @@ textarea {
 }
 
 body {
-  margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 11px;
   color: #333333;
-  background-color: #ffffff;
+  background-color:#F5F5F5;
 }
 
 a {
@@ -1014,7 +1013,7 @@ input,
 button,
 select,
 textarea {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   line-height: 20px;
 }
@@ -1957,11 +1956,12 @@ table {
   background-color: transparent;
   border-collapse: collapse;
   border-spacing: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .table {
-  width: 100%;
   margin-bottom: 20px;
+width:100%;
 }
 
 .table th,

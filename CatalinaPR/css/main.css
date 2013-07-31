@@ -14,10 +14,6 @@
 root { 
     display: block;
 }
-* {
-
-    font-family: calibri;
-}
 .home {
     margin-left:auto;
     margin-right: auto;
@@ -34,10 +30,10 @@ root {
 .mainmenu ul li.has-sub:hover > a:after{top:0; bottom:0;}
 .mainmenu > ul > li.has-sub > a:before{position:absolute; top:18px; right:6px; border:5px solid transparent; border-top:5px solid #fff; }
 .mainmenu > ul > li.has-sub:hover > a:before{top:19px;}
-.mainmenu ul li.has-sub:hover > a{ background:#BACBEB;  z-index:999; }
+.mainmenu ul li.has-sub:hover > a{ background:#0093d0;  z-index:999; }
 .mainmenu li.has-sub:hover > ul, .mainmenu ul li.has-sub:hover > div{display:block;}
-.mainmenu ul li.has-sub > a:hover{background:#BACBEB;}
-.mainmenu ul li > ul, .mainmenu ul li > div{ display:none; width:auto; position:absolute; padding:10px 0; background:#BACBEB; border-radius:0 0 5px 5px; z-index:999; }
+.mainmenu ul li.has-sub > a:hover{background:#0093d0;}
+.mainmenu ul li > ul, .mainmenu ul li > div{ display:none; width:auto; position:absolute; padding:10px 0; background:#0093d0; border-radius:0 0 5px 5px; z-index:999; }
 .mainmenu ul li > ul{width:200px;}
 .mainmenu ul li > ul li{display:block; list-style:inside none; padding:0; margin:0; position:relative;}
 .mainmenu ul li > ul li a{ outline:none; display:block; position:relative; margin:0; padding:8px 20px; font:9pt Arial, Helvetica, sans-serif; color:#fff; text-decoration:none; text-shadow:1px 1px 0 rgba(0,0,0, 0.5); }
@@ -60,8 +56,6 @@ root {
 
 #content{
     margin-top:10px;
-}
-#tabs{
 margin-left:auto;
 margin-right:auto;
 }
@@ -69,16 +63,17 @@ margin-right:auto;
 display:inline-block;
 float:right;
 margin-right:50px;
-margin-top:10px;
+margin-top:20px;
 
 }
 .login{
 
-    margin-left: 150px;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 45px;
     border-style: solid;
     width: 470px;
-    height: 230px;
+    height: 300px;
     -webkit-box-shadow: 0px 1px 10px 1px #CCC;
     -moz-box-shadow: 0px 1px 10px 1px #CCC;
     box-shadow: 0px 1px 10px 1px #E7E4E4;
@@ -97,14 +92,13 @@ login_error{
     visibility: hidden;
 }
 .heading{
-    background-color: rgba(239, 247, 207, 0.34);
     margin-right:auto;
     margin-left:auto;
-    margin-bottom:10px;
+    margin-bottom:15px;
+    margin-top:20px;
     width: 460px;
     height: 40px;
     font-size: 12px;
-    border:#000 1px solid;
 }
 .segment{
 }

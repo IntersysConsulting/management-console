@@ -8,7 +8,7 @@ var timeout=25000;
 
 var UpValue = [];
 var i=0,f=false,edit=false;
-;
+
 
 function include(filename, onload) {
     var head = document.getElementsByTagName('head')[0];
@@ -44,7 +44,7 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
                 "metric_id_val":metric_val
             };
                                     
-            UpValue.push(UP_Value);
+            UpValue.push(UP_Value);f=true;
             $('#pgm_param_err').hide();                       
             $('#guard_rails_err').hide();
             $('#Val_control_err').hide();
@@ -64,7 +64,7 @@ function GuardRails_Checking(value,column,user_val,metric_id_value)
                 "metric_id_val":metric_val
             };
                                     
-            UpValue.push(UP_Value);
+            UpValue.push(UP_Value);f=true;
             $('#pgm_param_err').hide();                       
             $('#guard_rails_err').hide();
             $('#Val_control_err').hide();
@@ -447,10 +447,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     },
                                     success: function(data){
                                         if (data) {
-                                            $('#roi_goal_updating').html('Update Failed');
+                                        //    $('#roi_goal_updating').html('Update Failed');
                                             $('#roi_goal_updating').show();
                                         }
                                         else {
+					    $('#roi_goal_updating').html('Update Failed');
                                             $('#roi_goal_updating').show();
                                         }
                                     },
@@ -696,11 +697,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     
                                     success: function(data){
                                         if (data) {
-                                            $('#pur_cyc_updating').html('Update Failed');
+                                       //     $('#pur_cyc_updating').html('Update Failed');
                                             $('#pur_cyc_updating').show();
                                         }
                                         else {
-                                 
+                                	     $('#pur_cyc_updating').html('Update Failed'); 
                                             $('#pur_cyc_updating').show();
                                         }
                                     },
@@ -820,11 +821,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     },
                                     success: function(data){
                                         if (data) {
-                                            $('#cat_perf_updating').html('Update Failed');
+                                           // $('#cat_perf_updating').html('Update Failed');
                                             $('#cat_perf_updating').show();
                                         }
                                         else {
-                                 
+                                	   $('#cat_perf_updating').html('Update Failed'); 
                                             $('#cat_perf_updating').show();
                                         }
                                     },
@@ -941,11 +942,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     },
                                     success: function(data){
                                         if (data) {
-                                            $('#hh_perf_updating').html('Update Failed');
+                                           // $('#hh_perf_updating').html('Update Failed');
                                             $('#hh_perf_updating').show();
                                         }
                                         else {
-                                 
+                                	    $('#hh_perf_updating').html('Update Failed'); 
                                             $('#hh_perf_updating').show();
                                         }
                                     },
@@ -1132,11 +1133,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     
                                     success: function(data){
                                         if (data) {
-                                            $('#updating').html('Update Failed');
+                                           // $('#updating').html('Update Failed');
                                             $('#updating').show();
                                         }
                                         else {
-                                 
+                                	    $('#updating').html('Update Failed'); 
                                             $('#updating').show();
                                         }
                                     },
@@ -1445,12 +1446,12 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             },
                             success: function(data){
                                 if (data) {
-                                    $('#updating').html('Update Failed');
+                                    //$('#updating').html('Update Failed');
                                     $('#updating').show();
                                 }
                                 else {
-                                 
-                                    $('#updating').show();
+				$('#updating').html('Update Failed');
+				$('#updating').show();
                                 }
                             },
                             error:function(event){
@@ -1492,11 +1493,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 user_val=document.getElementById("pgm_param_user_id['"+sb+"']").value;
                                 parameters=document.getElementById("pgm_parameter['"+sb+"']").value;
                                 parameter=document.getElementById("pgm_parameter_id['"+sb+"']").value;
-                                parameters=parameters.toUpperCase();
+                                //parameters=parameters.toUpperCase();
                                 if(parameter=='1'){
                                     if((value>=1)&&(value<=10)&&(value!=""))
                                     {
-                                        $(this).css("background-color","white");
+                                        $(this).css("background-color","white");f=true;
                                         GuardRails_Checking(value,column,user_val,parameter);
                                     
                                     }
@@ -1694,11 +1695,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             },
                             success: function(data){
                                 if (data) {
-                                    $('#pgm_param_updating').html('Update Failed');
+                                   // $('#pgm_param_updating').html('Update Failed');
                                     $('#pgm_param_updating').show();
                                 }
                                 else {
-                                 
+                                    $('#pgm_param_updating').html('Update Failed'); 
                                     $('#pgm_param_updating').show();
                                 }
                             },
@@ -1729,7 +1730,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }, function (txt) {
                                 
                             $('#sample').html(txt);
-                            $('#sample #headings').hide();
+                            $('#sample #prheading').hide();
+			    $('#sample #headings').hide();
+			    $('#sample .mainmenu').hide();
+			    $('#sample #logout').hide();
+			    $('#sample #logo').hide();
+			    $('#sample #mainmenubg').hide();
+			    $('#sample #bottomstripe').hide();
                             $('#sample #drp_dwn_super_category').hide();
                             $('#sample #super').hide();
                             $('#sample .prod_cat_updating').hide();
@@ -1741,7 +1748,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });
                     });
                     
-                    $("[name^=prod_cat]").each(function () {
+/*                    $("[name^=prod_cat]").each(function () {
                         $.data(this, 'default', this.value);
                     }).css("color","black")
                     .focus(function() {
@@ -1843,9 +1850,65 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                             
 
-                    });
+                    }); */
                     
-      
+      		   $("[name^=prod_cat1]").each(function () {
+                     $('[name^=prod_cat1]').live('change', function(e) {
+                      var val=(e.target.options[e.target.selectedIndex].text);
+                       $('.prod_cat_updating').hide();
+                        $('#sample .prod_cat_updating').hide();
+                        edit=true;
+                        column=$(this).attr('id');
+                                var name=$(this).attr('name');
+                                var sb=name.substr(10,1);
+                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
+                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
+                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                                //alert(column);
+                                 if(col_val=="")
+                                    {
+                                        col_val=val;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);f=true;
+                                        $('#prod_cat_err').hide();
+                                        
+                                        return true;
+                                    }
+                                    else if(col_val!=val||(category_code!=super_cat_code&&col_val==val))
+                                    {
+                                        col_val=val;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);f=true;
+                                        $('#prod_cat_err').hide();
+                                        
+                                        return true; 
+                                    }
+                   	 });
+                  
+                  	}); 
+                     
                     $('#pro_cat_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
@@ -1859,12 +1922,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 },
                                 success: function(data){
                                     if (data) {
-                                        $('.prod_cat_updating').html('Update Failed ');
+                                       
                                         $('.prod_cat_updating').show();
+					$('#sample .prod_cat_updating').hide();
                                  
                                     }
                                     else {
-                                        
+                                        $('.prod_cat_updating').html('Update Failed ');
                                         $('.prod_cat_updating').show();
                                         $('#sample .prod_cat_updating').hide();
                                  

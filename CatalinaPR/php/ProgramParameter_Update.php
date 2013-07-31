@@ -23,6 +23,6 @@ $decodedata = json_decode($updated_values);
 
 foreach ($decodedata as $data) {
 //    echo $data->metric_id_val . "\n";
-    $result = mysqli_query($con, "UPDATE pr_program_param SET " . $data->col_nam . "='" . $data->col_value . "',update_date='" . $today . "' WHERE  user_id='" . $data->user_id_val . "'  AND p_parameter_id='" . $data->metric_id_val . "'  ") or die('Unable to update row.');
+    $result = mysqli_query($con, "UPDATE pr_program_param SET " . $data->col_nam . "='" . $data->col_value . "',update_date='" . $today . "' WHERE  user_id='" . $data->user_id_val . "'  AND p_param_id='" . $data->metric_id_val . "'  ") or die('Unable to update row.');
 }
 ?>

@@ -91,6 +91,7 @@ $pgm_id = $pgm_ids[0];
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
+	<link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="../css/jquery-ui.css" />
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
@@ -177,12 +178,12 @@ for ($j = 0; $j < count($value_zero); $j++) {
  <div class="home">
 
 <div id="logout" >
-                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #0093d0;font-weight: bolder;">Logout</a>
             </div>
  <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
             <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
 
-<div style="height: 29px;background-color: #BACBEB;">
+<div style="height: 29px;background-color: #0093d0;">
 <?php //require 'Mainmenu.php'; ?>
 
                 <div class="mainmenu">
@@ -233,13 +234,16 @@ for ($j = 0; $j < count($value_zero); $j++) {
                 <div class="controls" id="chartarea">
 
                     <div id="tabs-1">
-                        <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 18px; font-weight: bolder;  ">
+                        <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 18px; font-weight: boulder;  ">
                             PROGRAM AND ROI TRENDS
                         </div>
                         <div id="chart_div" style=" margin-top:20px;width: 99%; height: 100%;"></div>
                     </div>
 
                 </div>
+   <div style="margin-top:70px;height: 29px;background-color:#0093d0 ">
+                <?php //require 'Mainmenu.php'; ?>
+</div>
             </div>
 
     </body>

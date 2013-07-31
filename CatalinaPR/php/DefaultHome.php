@@ -31,6 +31,7 @@ while($row=@mysqli_fetch_assoc($result)){
         <title>Home</title>
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
+	<link rel="stylesheet" href="../css/bootstrap.css" />
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
@@ -76,11 +77,11 @@ while($row=@mysqli_fetch_assoc($result)){
         <div class="home">
 
 <div id="logout" >
-                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #0093d0;font-weight: bolder;">Logout</a>
             </div>
  <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
             <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
-            <div style="height: 29px;background-color: #BACBEB;">
+            <div style="height: 29px;background-color: #0093d0;">
                 <?php //require 'Mainmenu.php'; ?>
 
 
@@ -149,6 +150,9 @@ while($row=@mysqli_fetch_assoc($result)){
     <div id="visualization" style="z-index:-1;width: 900px; height: 450px;margin-left:auto;margin-right:auto; "></div>
 
         </div>
+</div>
+ <div style="margin-top:20px;height: 29px;background-color: #0093d0;">
+                <?php //require 'Mainmenu.php'; ?>
 </div>
 </div>
         

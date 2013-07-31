@@ -5,6 +5,8 @@
         <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
+	
+	<link rel="stylesheet" href="../css/bootstrap.css">
         <script type="text/javascript" src="../js/main.js"></script>
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
@@ -18,12 +20,12 @@
 
 
 <div id="logout" >
-                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #7A98D1;font-weight: bolder;">Logout</a>
+                <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #0093d0;font-weight: bolder;">Logout</a>
             </div>
  <div style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
             <div style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
 
-            <div style="height: 29px;background-color: #BACBEB;">
+            <div style="height: 29px;background-color: #0093d0;">
                 <?php //require 'Mainmenu.php'; ?>
 
 
@@ -75,23 +77,14 @@
 <div id="content">
 <div class="controls" id="chartarea">
 
-        <div class="heading" style="width:263px; margin-left: 217px;">
+        <div class="heading" style=" margin-left: 100px;">
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Category Performance</div>
-            <div style="text-align:center; font-style: italic;">ROI adjustment based on category Performance</div>
+            <div style="text-align:center;">ROI adjustment based on category Performance</div>
         </div>
-        <div style="margin-left:70px;">
-            <div class="segment" style="margin-left: 7px;width: 125px">Index</div>
-            <div class="headers" style="width:263px; margin-left: 147px;">
-                <ul style="float: left; list-style-type: none;">
-                    <li style="width:128px !important"><b>Bottom Quartile</b></li>
-                    <li style="width:88px !important"><b>Top Quartile</b></li>
+        
+           
 
-
-                </ul>
-            </div>
-        </div>
-
-        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px; margin-left:70px;">
+        <form action="CategoryPerf_Update.php" method="POST" id="update" style="width:550px;">
             <div>
                 <?php
                 require 'connection.php';
@@ -107,32 +100,53 @@
                 $i = 0;
                 ?>
 
-                <table style="margin-left: 5px;" cellpadding='0' cellspacing='0'>
+                <!--<table style="margin-left: 5px;" cellpadding='0' cellspacing='0'>-->
+		<table class="table table-striped" cellpadding='0' cellspacing='0'>
+        <thead>
+        <tr>
+        <td style="width:150px;"><label><b>Index</b></label></td>
+<td style="width:0px;"></td>
+<td style="width:0px;"></td>
+
+
+
+<td style="text-align:center;"> <b>Bottom Quartile</b></td>
+<td style="text-align:center;"> <b>Top Quartile</b></td>
+
+
+</tr>
+</thead>
+<tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style="height:18px" class="sales_change_row">
 
-                            <td class="segmentdesc" style="width:130px; border:#868282 1px solid;"><label id="Index" name="Index"><?php echo $row[2]; ?></label></td>
+                            <td class="segmentdesc" style="width:130px;
+"><label id="Index" name="Index"><?php echo $row[2]; ?></label></td>
                             <td style="width:10px;"><input id="cat_per_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                             <td style="width:10px;"><input id="cat-per_index_id['<?php echo $i ?>']" type="hidden" name="indext_id" value="<?php echo $row[1]; ?>" /></td>
                             <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; height:20px; width:130px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
                             <td style="width:130px;"><input name="cat_per['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; height:20px; width:130px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
-
+			
                         <?php $i++;
                     } ?>
+		</tbody>
                 </table>
                 <?php mysqli_close($con); ?>
                 <div id="cat_perf_err"><label> Please enter value between 5 and 120 </label></div>
                 <div class="updating" id="cat_perf_updating" style="margin-left:300px;">Updated...</div>
-                <div style="margin-left:60px;">
-                    <div><input style="margin-left:130px; margin-top:15px; font-size: 13px;" type="button" name="save" id="cat_perf_save" value="save"/></div>
-                    <div style="margin-top: -25px; margin-left: 250px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cat_perf_cancel" value="cancel"/></div>
+                <div style="float:right;margin-right:30px;width:200px;">
+                    <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="save" id="cat_perf_save" value="Save"/></div>
+                    <div style="display:inline-block;width:50px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="cancel" id="cat_perf_cancel" value="Cancel"/></div>
                     
                 </div>
 </div>
 </div>
 
+   <div style="margin-top:90px;height: 29px;background-color:#0093d0 ">
+                <?php //require 'Mainmenu.php'; ?>
+</div>
             </div>  
         </form>
     </body>
