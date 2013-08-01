@@ -1850,7 +1850,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                             
 
-                    }); */
+                    }); 
                     
       		   $("[name^=prod_cat1]").each(function () {
                      $('[name^=prod_cat1]').live('change', function(e) {
@@ -1907,9 +1907,63 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     }
                    	 });
                   
-                  	}); 
+                  	});*/ 
                      
                     $('#pro_cat_save').click(function() {
+			$("input[type=checkbox]:checked").each ( function() {
+                            //alert ( $(this).val() );
+                                edit=true;
+                                value=$(this).val();
+                                column=$(this).attr('id');
+                                var name=$(this).attr('name');
+                                var sb=name.substr(7,1);
+                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
+                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
+                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                                if(col_val=="")
+                                    {
+                                        col_val=value;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);
+                                        $('#prod_cat_err').hide();
+                                        f=true;
+                                        return true;
+                                    }
+                                    else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
+                                    {
+                                        col_val=value;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);
+                                        $('#prod_cat_err').hide();
+                                        f=true;
+                                        return true; 
+                                    }
+//                            
+                                    $('#prod_cat_err').hide();
+                                    return true;
+                    });
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
                           var r=confirm('Do you Want to Update?')
@@ -1945,7 +1999,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             if(edit==true)   {
                                $('.prod_cat_updating').hide();
                                     $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').html('Please enter a value YES/NO');
+                                    $('#prod_cat_err').html('Please check a value YES/NO');
                                     $('#prod_cat_err').show(); 
                             } 
                             else{

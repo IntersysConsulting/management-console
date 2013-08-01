@@ -261,3 +261,8 @@ login_error{
     color: #F00;
      display:none;
 }
+#sample #prheading,#sample #headings,#sample .mainmenu,#sample #logout,#sample #logo,#sample #mainmenubg,#sample #bottomstripe,#sample #drp_dwn_super_category,
+#sample #super,#sample .prod_cat_updating,#sample #pro_cat_save,#sample #prod_cat_ancel
+{
+    display:none !important;
+}
