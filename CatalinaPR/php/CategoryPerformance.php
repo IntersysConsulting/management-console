@@ -95,7 +95,7 @@
                     header("location:../index.php");
                 }
 
-                $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_category_perf a INNER JOIN pr_index b ON a.index_id = b.index_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
+                $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_category_perf a INNER JOIN pr_index b ON a.index_id = b.index_id  AND a.user_id ='app'";
                 $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>

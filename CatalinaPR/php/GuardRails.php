@@ -103,7 +103,7 @@ session_start();
                                 else {
                                     header("location:../index.php");
                                 }
-                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
+                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id  AND a.user_id ='app'";
                                 $results = mysqli_query($con, $query) or die("Error performing query");
                                 $i = 0;
                                 ?>
