@@ -76,6 +76,7 @@
 <div class="controls" id="chartarea">
         <div class="heading" >
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Program ROI Adjustment</div>
+            <div style="text-align: center;">Monthly Segment Change-Recency, Frequency, Monetary Value</div>
         </div>
 
 
@@ -98,11 +99,9 @@
                 <table class="table table-striped" cellpadding='0' cellspacing='0'>
 		<thead>
 		<tr>
-			<td style="width:150px;"><label><b>Segment</b></label></td>
- <td style="width:0px;"><input id="user_id['0']" type="hidden" name="user_id" value="" /></td>
-                                            <td style="width:0px;"><input id="segment_id['0']" type="hidden" name="segment_id" value="" /></td>
-                                             <td style="">&nbsp;</td>
-			            <td style="text-align:center;"> <b>-5</b></td>
+                                    <td style="">&nbsp;</td>
+                                    <td style="width:150px;"><label><b></b></label></td>
+                                    <td style="text-align:center;"> <b>-5</b></td>
                                     <td style="text-align:center;"> <b>-4</b></td>
                                     <td style="text-align:center;"> <b>-3</b></td>
                                     <td style="text-align:center;"> <b>-2</b></td>
@@ -118,11 +117,8 @@
 		<tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" height:18px" class="sales_change_row">
- <td style="width:0px;"><input id="user_id['0']" type="hidden" name="user_id" value="" /></td>
-                                            <td style="width:0px;"><input id="segment_id['0']" type="hidden" name="segment_id" value="" /></td>
-                                             <td style="">&nbsp;</td>
-
-
+                            
+                            <td style="">&nbsp;</td>
                             <td><input id="roi_adj_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                             <td><input name="roi_adj['<?php echo $i ?>']"  id="n5_val" class="inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[1], 2, '.', ''); ?>"/></td>
                             <td><input name="roi_adj['<?php echo $i ?>']"  id="n4_val" class="inpu_text"  style="width:38px;"   value="<?php echo number_format($row[2], 2, '.', ''); ?>"/></td>

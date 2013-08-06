@@ -121,8 +121,33 @@ var make_button_active = function()
 }
 
 include(server + 'js/jquery-1.7.1.min.js', function() {
-    include(server + 'js/jquery.validate.js', function() {
-        include(server + 'js/jquery-ui.js', function() {
+//    include(server + 'js/jquery.validate.js', function() {
+  //      include(server + 'js/jquery-ui.js', function() {
+		jQuery(window).load(function() {
+                    $('#userid_error').hide();
+                    $('#passwrd_error').hide();
+                    $('#sales_change_err').hide();
+                    $('#roi_goals_err').hide();
+                    $('#roi_adj_err').hide();
+                    $('#pur_cycle_adj_err').hide();
+                    $('#cat_perf_err').hide();
+                    $('#hh_perf_err').hide();
+                    $('#guard_rails_err').hide();
+                    $('#Val_control_err').hide();
+                    $('#pgm_param_err').hide();
+                    $('#Prod_cat_code').hide();
+                    $('#Prod_cat_desc').hide();
+                    $('#pc_value').hide();
+                    $('#prod_cat_err').hide();
+                    $('#updating').hide();
+                    $('#roi_goal_updating').hide();
+                    $('#roi_adj_updating').hide();
+                    $('#pur_cyc_updating').hide();
+                    $('#cat_perf_updating').hide();
+                    $('#hh_perf_updating').hide();
+                    $('#pgm_param_updating').hide();
+                    $('#prod_cat_updating').hide();
+                });
                 $(document).ready(function() {
                     $('#userid_error').hide();
                     $('#passwrd_error').hide();
@@ -305,7 +330,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to Update?')
+                            var r=confirm('Are you sure you want to update this value?')
                             if(r==true){
                       
                                 jQuery.ajax({
@@ -365,7 +390,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             segment_id_val=document.getElementById("roi_goals_segment_id['"+sb+"']").value;
                          
                                  
-                            if((this.value>=(10))&&(this.value<=(120))&&(this.value!=""))
+                            if((this.value>=(0))&&(this.value<=(1))&&(this.value!=""))
                             {
                                 $(this).css("background-color","white");
                                 if(col_val=="")
@@ -415,7 +440,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             else{
                                 
                                 $(this).css("background-color","red");
-                                $('#roi_goals_err').html('Please enter value between 10 to 120');
+                                $('#roi_goals_err').html('Please enter value between 0 to 1');
                                 $('#roi_goals_err').show();
                                 f=false;
                                 return false;
@@ -424,7 +449,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         if(this.value=="")
                         {
                             $(this).css("background-color","yellow");
-                            $('#roi_goals_err').html('Please enter a value');
+                            $('#roi_goals_err').html('Please enter a value between 0 to 1');
                             $('#roi_goals_err').show();
                             f=false;
                             return false;
@@ -437,7 +462,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to Update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -561,7 +586,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#roi_adj_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to Update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -686,7 +711,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -811,7 +836,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){    
                                 jQuery.ajax({
                                     type: "POST",
@@ -932,7 +957,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#hh_perf_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){   
                                 jQuery.ajax({
                                     type: "POST",
@@ -1122,7 +1147,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#guard_rails_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){  
                                 jQuery.ajax({
                                     type: "POST",
@@ -1436,7 +1461,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#val_control_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){  
                           jQuery.ajax({
                             type: "POST",
@@ -1592,7 +1617,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     } 
                                 }
-                                else if((parameter=='5'))
+                               /* else if((parameter=='5'))
                                 {
                                     if((value==('YES'))||(value==('NO')||(value=='yes')||(value=='no'))&&(value!=""))
                                     {
@@ -1614,7 +1639,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         $('#pgm_param_err').show();
                                         return false;
                                     } 
-                                }
+                                }*/
                                 else if((parameter=='6'))
                                 {
                                     if((value>=(1))&&(value<=(5))&&(value!=""))
@@ -1639,7 +1664,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }  
                                 }
-                                else if((parameter=='7'))
+                               /* else if((parameter=='7'))
                                 {
                                     if(((value=="YES")||(value=="NO")||(value=="yes")||(value=="no"))&&(value!=""))
                                     {
@@ -1662,7 +1687,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         f=false;
                                         return false;
                                     }  
-                                }
+                                }*/
                             }
                           if(this.value=="")
                                     {
@@ -1674,18 +1699,32 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     }
 
                     });
-                    $('#drp_dwn_segment').live('change', function(e) {
+		   $('#drp_dwn_5').change(function(e) {
                         value=(e.target.options[e.target.selectedIndex].text);
                         column='p_value';
                         user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=8;
+                        parameter=5;edit=true;
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    });
+                    $('#drp_dwn_7').change(function(e) {
+                        value=(e.target.options[e.target.selectedIndex].text);
+                        column='p_value';
+                        user_val=document.getElementById("pgm_param_user_id['0']").value;
+                        parameter=7;edit=true;
+                        GuardRails_Checking(value,column,user_val,parameter);
+                    });
+                    $('#drp_dwn_segment').change(function(e) {
+                        value=(e.target.options[e.target.selectedIndex].text);
+                        column='p_value';
+                        user_val=document.getElementById("pgm_param_user_id['0']").value;
+                        parameter=8;edit=true;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
 
                     $('#pgm_param_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                            var r=confirm('Do you Want to update?');
+                            var r=confirm('Are you sure you want to update this value?');
                             if(r==true){ 
                         jQuery.ajax({
                             type: "POST",
@@ -1721,7 +1760,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     }
                     });
                 
-                    $('#drp_dwn_super_category').live('change', function(e) {
+                    $('#drp_dwn_super_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         val=(e.target.options[e.target.selectedIndex].value);
                         user_val=document.getElementById("username").value;
@@ -1908,12 +1947,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                    	 });
                   
                   	});*/ 
-                     
-                    $('#pro_cat_save').click(function() {
-			$("input[type=checkbox]:checked").each ( function() {
-                            //alert ( $(this).val() );
+                    $("input[type=checkbox]").each ( function() {
+                         $("input[type=checkbox]").change( function() {
+
+                              if(this.checked) {
+                                //alert('checked');
                                 edit=true;
-                                value=$(this).val();
+                                value='YES';
                                 column=$(this).attr('id');
                                 var name=$(this).attr('name');
                                 var sb=name.substr(7,1);
@@ -1963,10 +2003,70 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
 //                            
                                     $('#prod_cat_err').hide();
                                     return true;
-                    });
+                         
+                            }
+                            else
+                                {
+                                    //alert('not checked');
+                                    edit=true;
+                                value='NO';
+                                column=$(this).attr('id');
+                                var name=$(this).attr('name');
+                                var sb=name.substr(7,1);
+                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
+                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
+                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                                if(col_val=="")
+                                    {
+                                        col_val=value;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);
+                                        $('#prod_cat_err').hide();
+                                        f=true;
+                                        return true;
+                                    }
+                                    else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
+                                    {
+                                        col_val=value;
+                                        col_name=column;
+                                        user_val=user_val;
+                                        index_val=super_cat_id;
+                                        category_code=super_cat_code;
+                                        var UP_Value = {  
+                                            "col_nam" :col_name,                                
+                                            "col_value" :col_val,
+                                            "user_id_val" :user_val,
+                                            "sup_id_val":index_val,
+                                            "cat_code":category_code
+                                        };
+                                    
+                                        UpValue.push(UP_Value);
+                                        $('#prod_cat_err').hide();
+                                        f=true;
+                                        return true; 
+                                    }
+//                            
+                                    $('#prod_cat_err').hide();
+                                    return true;
+                         
+                                }
+                           });     
+                        }); 
+                    $('#pro_cat_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                          var r=confirm('Do you Want to Update?')
+                          var r=confirm('Are you sure you want to update this value?');
                           if(r==true){
                             jQuery.ajax({
                                 type: "POST",
@@ -2015,6 +2115,6 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
             
                
             });     
-        });
-    });
+     //   });
+   // });
 });

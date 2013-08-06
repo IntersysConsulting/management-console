@@ -156,8 +156,12 @@ session_start();
                         //   echo '<option style="text-align:center;" value="YES">YES</option>';
                         // echo '<option style="text-align:center;" value="NO">NO</option>';
                         // echo '</select></td>';
-                        echo '<td style="width:130px;display:block !important;"><input type="checkbox" style="display:inline !important;"  name="val_ye[';echo $i; echo ']"  id="pc_value" value="YES">YES</input>&nbsp;
-                                    <input type="checkbox"  name="val_no['; echo $i; echo']" id="pc_value" value="NO">NO</input></td>';
+                        if($row[4]=='YES'){
+                          echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo '" style="display:inline !important" checked="true" value="';echo $row[4]; echo '"</input></td>'; 
+                        }
+                        else{
+                          echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo '" style="display:inline !important" value="';echo $row[4]; echo '"</input></td>'; 
+                        }
                         echo "</tr>";
                         $i++;
                     }
@@ -171,7 +175,7 @@ session_start();
          ?>
               <div id="sample"></div>
               <div id="prod_cat_err"><label> Please enter value YES/NO </label></div>
-              <div class="prod_cat_updating" >Updated...</div>
+              <div class="prod_cat_updating" >Your updates were saved</div>
               <div style="float:right;margin-right:30px;width:200px;">
                   <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button"class="btn" name="save" id="pro_cat_save" value="Save"/></div>
                   <div style="display:inline-block;width:50px;"><input style="font-weight:600; font-size: 13px;" type="button"class="btn" name="cancel" id="prod_cat_ancel" value="Cancel"/></div>
