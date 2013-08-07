@@ -5,10 +5,10 @@ var server = "http://stptmpplnxv01/";
 var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value,super_cat_code,category_code;
 var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,val,super_cat_id;
 var timeout=25000;
-
+ 
 var UpValue = [];
 var i=0,f=false,edit=false;
-
+var k=0;
 
 function include(filename, onload) {
     var head = document.getElementsByTagName('head')[0];
@@ -184,24 +184,58 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }  
                         else if((passwrd.length >= min_length && passwrd.length <= passmaxlength) && uname.length <= min_length || uname.length >= unamemaxlength  ) 
                         {       
-            
+                            $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
                             $('#userid_error').show();
                             return false;     
                         } 
                         else if((passwrd.length <= min_length || passwrd.length >= passmaxlength) && uname.length >= min_length && uname.length <= unamemaxlength)  
                         {       
-            
+                            $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#passwrd_error').show();
                             return false;     
                         }  
                         else  
                         {       
-          
+                            $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
+                            $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#userid_error').show();
                             $('#passwrd_error').show();
                             return false;     
                         } 
                     });
+                    //if(document.URL=='http://localhost:8080/CatalinaPR/management-console/CatalinaPR/index.php?err=aInsufficient%20Privileges%20or%20unable%20to%20authenticate,please%20contact%20xxxx%20for%20further%20assistance')
+                    if(document.URL=='http://stptmpplnxv01/index.php?err=You%20are%20not%20authorized%20to%20access%20the%20application,please%20contact%20support%20for%20assistance')
+                        {
+                          jQuery('#submit').click(function () {
+                        var uname=document.getElementById("userid").value;
+                        var passwrd=document.getElementById("passwrd").value;
+                        if(uname.length >= min_length && uname.length <= unamemaxlength && passwrd.length >= min_length && passwrd.length <= passmaxlength)  
+                        {   
+                            return true;      
+                        }  
+                        else if((passwrd.length >= min_length && passwrd.length <= passmaxlength) && uname.length <= min_length || uname.length >= unamemaxlength  ) 
+                        {       
+                            $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
+                            $('#userid_error').show();
+                            return false;     
+                        } 
+                        else if((passwrd.length <= min_length || passwrd.length >= passmaxlength) && uname.length >= min_length && uname.length <= unamemaxlength)  
+                        {       
+                            $('#passwrd_error').html('Please input password between 8 and 15 characters');
+                            $('#passwrd_error').show();
+                            return false;     
+                        }  
+                        else  
+                        {       
+                            $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
+                            $('#passwrd_error').html('Please input password between 8 and 15 characters');
+                            $('#userid_error').show();
+                            $('#passwrd_error').show();
+                            return false;     
+                        } 
+                    });  
+                        }
+                        
                     jQuery('#login_cancel').click(function () {
                         document.getElementById("userid").value="";
                         document.getElementById("passwrd").value=""; 
@@ -262,6 +296,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             user_val=document.getElementById("user_id['"+sb+"']").value;
                             segment_id_val=document.getElementById("segment_id['"+sb+"']").value;
                             if((this.value>=(-0.10))&&(this.value<=(0.20))&&(this.value!="")){
+                                //if(this.value.toPrecision){$(this).val(this.value.toPrecision(2));}
+                                var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
+                                if(value.match(decimal))   
+                                {   
+                                }  
+                                else  
+                                { if(value==0){$(this).val(value); }
+                                  else if(value>0){ $(this).val('0'+value);  }
+                                  else{var valsplit=value.toString().split("-")
+                                      $(this).val('-0'+valsplit[1]);}
+                                }   
+
                                 $(this).css("background-color","white");
                                 if(col_val=="")
                                 {
@@ -301,7 +347,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     f=true;
                                     return true; 
                                 }
-                           
+                                
                             }
                             else
                             {
@@ -328,10 +374,22 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     
                          
                     $('#save').click(function() {
+                        var sales_each=0,sales_range=0,not_range_sales=0;
+                         $("[name^=inp_text]").each(function () {
+                             sales_each++;
+                             var values=this.value;
+                             if((this.value>=(-0.10))&&(this.value<=(0.20))&&(this.value!="")){
+                                 sales_range++;
+                             }
+                             else{
+                                   not_range_sales++;
+                            }
+                        });                     
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
-                            var r=confirm('Are you sure you want to update this value?')
-                            if(r==true){
+                        if(f==true && sales_range==sales_each && not_range_sales==0 ){
+                            
+                            var conbox=confirm('Are you sure you want to update this value?');
+                            if(conbox==true){
                       
                                 jQuery.ajax({
                                     type: "POST",
@@ -388,10 +446,16 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             var sb=name.substr(11,1);
                             user_val=document.getElementById("roi_goals_user_id['"+sb+"']").value;
                             segment_id_val=document.getElementById("roi_goals_segment_id['"+sb+"']").value;
-                         
-                                 
                             if((this.value>=(0))&&(this.value<=(1))&&(this.value!=""))
                             {
+                                var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
+                                if(value.match(decimal))   
+                                {   
+                                }  
+                                else  
+                                { if(value==0 || value==1){$(this).val(value); }
+                                  else{$(this).val('0'+value); }
+                                }  
                                 $(this).css("background-color","white");
                                 if(col_val=="")
                                 {
@@ -459,10 +523,22 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     
                     $('#ROI_Goals_save').click(function() {
-                                
+                         var goals_each=0,goals_range=0,not_range_goals=0; 
+                         $("[name^=roi_goals]").each(function () {
+                             goals_each++;
+                             var values=this.value;
+                             if((this.value>=(0))&&(this.value<=(1))&&(this.value!="")){
+                                  goals_range++;
+                             }
+                             else{
+                                   not_range_goals++;
+                             }
+                         });        
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && goals_each==goals_range && not_range_goals==0){
+                            
                             var r=confirm('Are you sure you want to update this value?');
+                            
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -489,7 +565,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         else
                         {
                             if(edit==true){
-                                $('#roi_goals_err').html('Please enter value between 10 to 120');
+                                $('#roi_goals_err').html('Please enter value between 0 to 1');
                                 $('#roi_goals_err').show(); 
                             }
                             else
@@ -520,6 +596,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             user_val=document.getElementById("roi_adj_user_id['"+sb+"']").value;
                             if((this.value>=(0.00))&&(this.value<=(0.20))&&(this.value!=""))
                             {
+                                var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
+                                if(value.match(decimal))   
+                                {   
+                                }  
+                                else  
+                                { if(value==0){$(this).val(value); }
+                                  else{ $(this).val('0'+value);  }
+                                } 
                                 $(this).css("background-color","white");
                                 if(col_val=="")
                                 {
@@ -584,8 +668,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     
                     $('#roi_adj_save').click(function() {
+                        var adj_each=0,adj_range=0,not_range_adj=0; 
+                         $("[name^=roi_adj]").each(function () {
+                             adj_each++;
+                             var values=this.value;
+                             if((this.value>=(0))&&(this.value<=(0.20))&&(this.value!="")){
+                                  adj_range++;
+                             }
+                             else{
+                                   not_range_adj++;
+                             }
+                        });  
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && adj_each==adj_range && not_range_adj==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){
                                 jQuery.ajax({
@@ -708,9 +803,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     
                     $('#pur_cycle_save').click(function() {
-                                
+                        var purch_each=0,purch_range=0,not_range_purch=0; 
+                         $("[name^=pur_cyc]").each(function () {
+                             purch_each++;
+                             var values=this.value;
+                             if((this.value>=(30))&&(this.value<=(100))&&(this.value!="")){
+                                  purch_range++;
+                             }
+                             else{
+                                   not_range_purch++;
+                             }
+                        });        
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && purch_each==purch_range && not_range_purch==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){
                                 jQuery.ajax({
@@ -833,9 +938,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                    
                     $('#cat_perf_save').click(function() {
-                                
+                        var categ_each=0,categ_range=0,not_range_categ=0; 
+                         $("[name^=cat_per]").each(function () {
+                             categ_each++;
+                             var values=this.value;
+                             if((this.value>=(5))&&(this.value<=(120))&&(this.value!="")){
+                                  categ_range++;
+                             }
+                             else{
+                                   not_range_categ++;
+                             }
+                        });        
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && categ_each==categ_range && not_range_categ==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){    
                                 jQuery.ajax({
@@ -893,6 +1008,16 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             index_id_val=document.getElementById("hh_perf_index_id['"+sb+"']").value;
                             if((this.value>=(-0.05))&&(this.value<=(0.05))&&(this.value!=""))
                             {
+                                var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
+                                if(value.match(decimal))   
+                                {   
+                                }  
+                                else  
+                                { if(value==0){$(this).val(value); }
+                                  else if(value>0){ $(this).val('0'+value);  }
+                                  else{var valsplit=value.toString().split("-")
+                                      $(this).val('-0'+valsplit[1]);}
+                                } 
                                 $(this).css("background-color","white");
                                 if(col_val=="")
                                 {
@@ -955,8 +1080,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     
                     $('#hh_perf_save').click(function() {
+                        var hh_each=0,hh_range=0,not_range_hh=0; 
+                         $("[name^=hh_perf]").each(function () {
+                             hh_each++;
+                             var values=this.value;
+                             if((this.value>=(-0.05))&&(this.value<=(0.05))&&(this.value!="")){
+                                  hh_range++;
+                             }
+                             else{
+                                   not_range_hh++;
+                             }
+                        });
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && hh_each==hh_range && not_range_hh==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){   
                                 jQuery.ajax({
@@ -1145,8 +1281,39 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     
                     $('#guard_rails_save').click(function() {
+                        var guard_each=0,guard_range=0,not_range_guard=0; 
+                         $("[name^=guard_rails]").each(function () {
+                             guard_each++;
+                             var values=this.value;
+                             column=$(this).attr('id');
+                             var name=$(this).attr('name');
+                            var sb=name.substr(13,1);
+                            user_val=document.getElementById("guard_rails_user_id['"+sb+"']").value;
+                            metric_id_value=document.getElementById("guard_rails_metric_id['"+sb+"']").value;
+                            if((metric_id_value=='1'||metric_id_value=='2')&&(this.value>=(30))&&(this.value<=(120))&&(this.value!="")){
+                                guard_range++;
+                            }else if((metric_id_value=='3') && (column=='minimum')&& (values>=(2))&&(values<=(5))&&(values!=""))
+                            {
+                                guard_range++;
+                            }
+                            else if((metric_id_value=='3') && (column=='maximum')&& (values>=(10))&&(values<=(100))&&(values!=""))
+                            {
+                                guard_range++;
+                            }
+                            else if((metric_id_value=='4') && (column=='minimum')&& (values>=(1))&&(values<=(2))&&(values!=""))
+                            {
+                               guard_range++; 
+                            }
+                            else if((metric_id_value=='4') && (column=='maximum')&& (values>=(5))&&(values<=(25))&&(values!=""))
+                            {
+                               guard_range++; 
+                            }
+                            else{
+                               not_range_guard++;
+                            }
+                         });
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && guard_each==guard_range && not_range_guard==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){  
                                 jQuery.ajax({
@@ -1204,7 +1371,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 var sb=name.substr(9,1);
                                 user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
                                 metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
-                                if((metric_id_value=='1')&&((column=='minimum'))){
+                                if((metric_id_value=='1')){
                                     if((value>=(0))&&(value<=(120))&&(value!=""))
                                     {
                                         $(this).css("background-color","white");
@@ -1228,31 +1395,31 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }
                                 }
-                                else if((metric_id_value=='1')&&((column=='maximum')))
-                                {
-                                    if((value>=(0))&&(value<=(120))&&(value!=""))
-                                    {
-                                        $(this).css("background-color","white");
-                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-                                    
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $(this).css("background-color","yellow");
-                                        $('#Val_control_err').html('Please enter a value');
-                                        $('#Val_control_err').show();
-                                        f=false;
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $(this).css("background-color","red");
-                                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
-                                        $('#Val_control_err').show();
-                                        f=false;
-                                        return false;
-                                    }
-                                }
+//                                else if((metric_id_value=='1')&&((column=='maximum')))
+//                                {
+//                                    if((value>=(0))&&(value<=(120))&&(value!=""))
+//                                    {
+//                                        $(this).css("background-color","white");
+//                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+//                                    
+//                                    }
+//                                    else if(value=="")
+//                                    {
+//                                        $(this).css("background-color","yellow");
+//                                        $('#Val_control_err').html('Please enter a value');
+//                                        $('#Val_control_err').show();
+//                                        f=false;
+//                                        return false;
+//                                    }
+//                                    else
+//                                    {
+//                                        $(this).css("background-color","red");
+//                                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
+//                                        $('#Val_control_err').show();
+//                                        f=false;
+//                                        return false;
+//                                    }
+//                                }
                                 else if((metric_id_value=='2'))
                                 {
                                     if((value>=(10))&&(value<=(120))&&(value!=""))
@@ -1459,8 +1626,54 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
 
                     $('#val_control_save').click(function() {
+                        var control_each=0,control_range=0,not_range_control=0; 
+                         $("[name^=val_con]").each(function () {
+                             control_each++;
+                             var values=this.value;
+                             var name=$(this).attr('name');
+                                var sb=name.substr(9,1);
+                                user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
+                                metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
+                            if((metric_id_value=='1')&&(this.value>=(0))&&(this.value<=(120))&&(this.value!="")){
+                                control_range++;
+                            }else if((metric_id_value=='2') &&(values>=(10))&&(values<=(120))&&(values!=""))
+                            {
+                                control_range++;
+                            }
+                            else if((metric_id_value=='3')&& (values>=(1))&&(values<=(30))&&(values!=""))
+                            {
+                                control_range++;
+                            }
+                            else if((metric_id_value=='4')&& (values>=(30))&&(values<=(100))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else if((metric_id_value=='5')&& (values>=(5))&&(values<=(120))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else if((metric_id_value=='6')&& (values>=(30))&&(values<=(120))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else if((metric_id_value=='7')&& (values>=(30))&&(values<=(50))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else if((metric_id_value=='8')&& (values>=(5))&&(values<=(100))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else if((metric_id_value=='9')&& (values>=(1))&&(values<=(25))&&(values!=""))
+                            {
+                               control_range++; 
+                            }
+                            else{
+                               not_range_control++;
+                            }
+                         });
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && control_each==control_range && not_range_control==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){  
                           jQuery.ajax({
@@ -1617,30 +1830,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     } 
                                 }
-                               /* else if((parameter=='5'))
-                                {
-                                    if((value==('YES'))||(value==('NO')||(value=='yes')||(value=='no'))&&(value!=""))
-                                    {
-                                        $(this).css("background-color","white");
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $(this).css("background-color","yellow");
-                                        $('#pgm_param_err').html('Please enter a value');
-                                        $('#pgm_param_err').show();
-                                        f=false;
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $(this).css("background-color","red");
-                                        $('#pgm_param_err').html('Please Enter Value YES/NO ');
-                                        $('#pgm_param_err').show();
-                                        return false;
-                                    } 
-                                }*/
-                                else if((parameter=='6'))
+                               else if((parameter=='6'))
                                 {
                                     if((value>=(1))&&(value<=(5))&&(value!=""))
                                     {
@@ -1664,30 +1854,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }  
                                 }
-                               /* else if((parameter=='7'))
-                                {
-                                    if(((value=="YES")||(value=="NO")||(value=="yes")||(value=="no"))&&(value!=""))
-                                    {
-                                        $(this).css("background-color","white");
-                                        GuardRails_Checking(value,column,user_val,parameter);
-                                    }
-                                    else if(value=="")
-                                    {
-                                        $(this).css("background-color","yellow");
-                                        $('#pgm_param_err').html('Please enter a value');
-                                        $('#pgm_param_err').show();
-                                        f=false;
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        $(this).css("background-color","red");
-                                        $('#pgm_param_err').html('Please Enter Value YES/NO ');
-                                        $('#pgm_param_err').show();
-                                        f=false;
-                                        return false;
-                                    }  
-                                }*/
+                               
                             }
                           if(this.value=="")
                                     {
@@ -1722,8 +1889,29 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
 
                     $('#pgm_param_save').click(function() {
+                        var pgm_each=0,pgm_range=0,not_range_pgm=0; 
+                         $("[name^=pgm_param]").each(function () {
+                             pgm_each++;
+                             var values=this.value;
+                             var name=$(this).attr('name');
+                             var sb=name.substr(11,1);
+                             parameter=document.getElementById("pgm_parameter_id['"+sb+"']").value;
+                            if((parameter=='1')&&(this.value>=(1))&&(this.value<=(10))&&(this.value!="")){
+                                pgm_range++;
+                            }
+                            else if(((parameter=='2') || (parameter=='3') || (parameter=='6')) &&(values>=(1))&&(values<=(5))&&(values!="")){
+                                pgm_range++;
+                            }
+                            else if((parameter=='4')&& (values>=(5))&&(values<=(7))&&(values!=""))
+                            {
+                               pgm_range++; 
+                            }
+                            else{
+                               not_range_pgm++;
+                            }
+                        });
                         var Updated_Values = JSON.stringify(UpValue);
-                        if(f==true){
+                        if(f==true && pgm_each==pgm_range && not_range_pgm==0){
                             var r=confirm('Are you sure you want to update this value?');
                             if(r==true){ 
                         jQuery.ajax({
