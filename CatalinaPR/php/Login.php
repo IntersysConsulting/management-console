@@ -36,7 +36,7 @@ if ($count == 1) {
 }
 else {
 //echo "Wrong Username or Password";
-    $err = "aInsufficient Privileges or unable to authenticate,please contact xxxx for further assistance";
+    $err = "You are not authorized to access the application, please contact support for assistance";
 //header("location:../LoginDesign?err=" . $err);
    header("location:../index.php?err=" . $err);
 }

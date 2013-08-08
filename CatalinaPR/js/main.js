@@ -121,7 +121,7 @@ var make_button_active = function()
 }
 
 include(server + 'js/jquery-1.7.1.min.js', function() {
-//    include(server + 'js/jquery.validate.js', function() {
+    include(server + 'js/json2.js', function() {
   //      include(server + 'js/jquery-ui.js', function() {
 		jQuery(window).load(function() {
                     $('#userid_error').hide();
@@ -398,13 +398,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         'Updated_Values':Updated_Values
                                     },
                                     success: function(data){
-                                        if (data) {
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#updating').html(data);
                                             $('#updating').show();
                                         }
-                                        else {
-                                            $('#updating').html('Update Failed');
-                                            $('#updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#updating').html('Your updates were saved');
+                                            $('#updating').show(); 
+                                       }
+                                       else{
+                                           $('#updating').html('Update Failed');
+                                           $('#updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -547,14 +552,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         'Updated_Values':Updated_Values
                                     },
                                     success: function(data){
-                                        if (data) {
-                                        //    $('#roi_goal_updating').html('Update Failed');
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#roi_goal_updating').html(data);
                                             $('#roi_goal_updating').show();
                                         }
-                                        else {
-					    $('#roi_goal_updating').html('Update Failed');
-                                            $('#roi_goal_updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#roi_goal_updating').html('Your updates were saved');
+                                            $('#roi_goal_updating').show(); 
+                                       }
+                                       else{
+                                           $('#roi_goal_updating').html('Update Failed');
+                                           $('#roi_goal_updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -690,14 +699,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         'Updated_Values':Updated_Values
                                     },
                                     success: function(data){
-                                        if (data) {
-                                 
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#roi_adj_updating').html(data);
                                             $('#roi_adj_updating').show();
                                         }
-                                        else {
-                                            $('#roi_adj_updating').html('Update Failed');
-                                            $('#roi_adj_updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#roi_adj_updating').html('Your updates were saved');
+                                            $('#roi_adj_updating').show(); 
+                                       }
+                                       else{
+                                           $('#roi_adj_updating').html('Update Failed');
+                                           $('#roi_adj_updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -826,14 +839,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     },
                     
                                     success: function(data){
-                                        if (data) {
-                                       //     $('#pur_cyc_updating').html('Update Failed');
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#pur_cyc_updating').html(data);
                                             $('#pur_cyc_updating').show();
                                         }
-                                        else {
-                                	     $('#pur_cyc_updating').html('Update Failed'); 
-                                            $('#pur_cyc_updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#pur_cyc_updating').html('Your updates were saved');
+                                            $('#pur_cyc_updating').show(); 
+                                       }
+                                       else{
+                                           $('#pur_cyc_updating').html('Update Failed');
+                                           $('#pur_cyc_updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -960,14 +977,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         'Updated_Values':Updated_Values
                                     },
                                     success: function(data){
-                                        if (data) {
-                                           // $('#cat_perf_updating').html('Update Failed');
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#cat_perf_updating').html(data);
                                             $('#cat_perf_updating').show();
                                         }
-                                        else {
-                                	   $('#cat_perf_updating').html('Update Failed'); 
-                                            $('#cat_perf_updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#cat_perf_updating').html('Your updates were saved');
+                                            $('#cat_perf_updating').show(); 
+                                       }
+                                       else{
+                                           $('#cat_perf_updating').html('Update Failed');
+                                           $('#cat_perf_updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -1102,14 +1123,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         'Updated_Values':Updated_Values
                                     },
                                     success: function(data){
-                                        if (data) {
-                                           // $('#hh_perf_updating').html('Update Failed');
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#hh_perf_updating').html(data);
                                             $('#hh_perf_updating').show();
                                         }
-                                        else {
-                                	    $('#hh_perf_updating').html('Update Failed'); 
-                                            $('#hh_perf_updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#hh_perf_updating').html('Your updates were saved');
+                                            $('#hh_perf_updating').show(); 
+                                       }
+                                       else{
+                                           $('#hh_perf_updating').html('Update Failed');
+                                           $('#hh_perf_updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -1324,14 +1349,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     },
                     
                                     success: function(data){
-                                        if (data) {
-                                           // $('#updating').html('Update Failed');
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#updating').html(data);
                                             $('#updating').show();
                                         }
-                                        else {
-                                	    $('#updating').html('Update Failed'); 
-                                            $('#updating').show();
-                                        }
+                                        else if(data.length<=4){
+                                            $('#updating').html('Your updates were saved');
+                                            $('#updating').show(); 
+                                       }
+                                       else{
+                                           $('#updating').html('Update Failed');
+                                           $('#updating').show();     
+                                       }
                                     },
                                     error:function(event){
                                         alert('error'+event.message);
@@ -1683,14 +1712,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 'Updated_Values':Updated_Values
                             },
                             success: function(data){
-                                if (data) {
-                                    //$('#updating').html('Update Failed');
-                                    $('#updating').show();
-                                }
-                                else {
-				$('#updating').html('Update Failed');
-				$('#updating').show();
-                                }
+                                       if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                            $('#updating').html(data);
+                                            $('#updating').show();
+                                        }
+                                        else if(data.length<=4){
+                                            $('#updating').html('Your updates were saved');
+                                            $('#updating').show(); 
+                                       }
+                                       else{
+                                           $('#updating').html('Update Failed');
+                                           $('#updating').show();     
+                                       }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -1921,14 +1954,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 'Updated_Values':Updated_Values
                             },
                             success: function(data){
-                                if (data) {
-                                   // $('#pgm_param_updating').html('Update Failed');
-                                    $('#pgm_param_updating').show();
+                                if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                   $('#pgm_param_updating').html(data);
+                                   $('#pgm_param_updating').show();
                                 }
-                                else {
-                                    $('#pgm_param_updating').html('Update Failed'); 
-                                    $('#pgm_param_updating').show();
+                                else if(data.length<=4){
+                                   $('#pgm_param_updating').html('Your updates were saved');
+                                   $('#pgm_param_updating').show(); 
                                 }
+                                else{
+                                   $('#pgm_param_updating').html('Update Failed');
+                                   $('#pgm_param_updating').show();     
+                               }
                             },
                             error:function(event){
                                 alert('error'+event.message);
@@ -2263,18 +2300,22 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     'Updated_Values':Updated_Values
                                 },
                                 success: function(data){
-                                    if (data) {
-                                       
-                                        $('.prod_cat_updating').show();
-					$('#sample .prod_cat_updating').hide();
-                                 
-                                    }
-                                    else {
-                                        $('.prod_cat_updating').html('Update Failed ');
-                                        $('.prod_cat_updating').show();
-                                        $('#sample .prod_cat_updating').hide();
-                                 
-                                    }
+
+                                    if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                       $('.prod_cat_updating').html(data);
+                                       $('.prod_cat_updating').show();
+				       $('#sample .prod_cat_updating').hide();
+                                   }
+                                   else if(data.length<=4){
+                                       $('.prod_cat_updating').html('Your updates were saved');
+                                       $('.prod_cat_updating').show();
+                                       $('#sample .prod_cat_updating').hide();
+                                   }
+                                  else{
+                                      $('.prod_cat_updating').html('Update Failed ');
+                                      $('.prod_cat_updating').show();
+                                      $('#sample .prod_cat_updating').hide();     
+                                  }
                                 },
                                 error:function(event){
                                     alert('error'+event.message);
@@ -2304,5 +2345,5 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                
             });     
      //   });
-   // });
+    });
 });
