@@ -1,11 +1,11 @@
 var min_length=8;
 var unamemaxlength=20;
 var passmaxlength=15;
-var server = "http://stptmpplnxv01/";
+var server = "http://stptmpplnxv01:8080/";
 var value,column,user_val,user_id_col,seg_id,segment_id_val,metric_id_value,super_cat_code,category_code;
 var col_val,col_name,user_id_val,seg_id_val,index_id_val,index_val,metric_val,val,super_cat_id;
 var timeout=25000;
- 
+var minimumval=[]; 
 var UpValue = [];
 var i=0,f=false,edit=false;
 var k=0;
@@ -204,7 +204,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         } 
                     });
                     //if(document.URL=='http://localhost:8080/CatalinaPR/management-console/CatalinaPR/index.php?err=aInsufficient%20Privileges%20or%20unable%20to%20authenticate,please%20contact%20xxxx%20for%20further%20assistance')
-                    if(document.URL=='http://stptmpplnxv01/index.php?err=You%20are%20not%20authorized%20to%20access%20the%20application,please%20contact%20support%20for%20assistance')
+                    if(document.URL=='http://stptmpplnxv01:8080/index.php?err=You%20are%20not%20authorized%20to%20access%20the%20application,please%20contact%20support%20for%20assistance')
                         {
                           jQuery('#submit').click(function () {
                         var uname=document.getElementById("userid").value;
@@ -242,6 +242,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         $('#error').hide();
                         $('#userid_error').hide();
                         $('#passwrd_error').hide();
+                        document.getElementById("userid_error").focus();
                     });
                     jQuery('#cancel').click(function () {
                         window.location.href = server+'php/DefaultHome.php';
@@ -387,11 +388,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });                     
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && sales_range==sales_each && not_range_sales==0 ){
+                            if(k==0){
+                           var conbox=confirm('Are you sure you want to update this value?');}
                             
-                            var conbox=confirm('Are you sure you want to update this value?');
-                            if(conbox==true){
-                      
-                                jQuery.ajax({
+                         if(conbox==true){
+                              jQuery.ajax({
                                     type: "POST",
                                     url: server+"php/SalesChange_Update.php?arr="+Updated_Values,
                                     data: {
@@ -415,7 +416,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         alert('error'+event.message);
                                     }
                                 });
-                            }
+                                if($.browser.version=='9.0'){
+                                k++;}
+                         }
                         }
                         else
                         {
@@ -542,7 +545,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && goals_each==goals_range && not_range_goals==0){
                             
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?');}
                             
                             if(r==true){
                                 jQuery.ajax({
@@ -568,7 +571,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     error:function(event){
                                         alert('error'+event.message);
                                     }
-                                }); 
+                                });
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -690,7 +695,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });  
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && adj_each==adj_range && not_range_adj==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?');}
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -716,6 +721,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         alert('error'+event.message);
                                     }
                                 }); 
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -829,7 +836,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });        
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && purch_each==purch_range && not_range_purch==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?');}
                             if(r==true){
                                 jQuery.ajax({
                                     type: "POST",
@@ -856,6 +863,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         alert('error'+event.message);
                                     }
                                 });
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -968,7 +977,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });        
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && categ_each==categ_range && not_range_categ==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?');}
                             if(r==true){    
                                 jQuery.ajax({
                                     type: "POST",
@@ -994,6 +1003,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         alert('error'+event.message);
                                     }
                                 }); 
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -1114,7 +1125,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && hh_each==hh_range && not_range_hh==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                            if(k==0){var r=confirm('Are you sure you want to update this value?');}
                             if(r==true){   
                                 jQuery.ajax({
                                     type: "POST",
@@ -1140,6 +1151,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         alert('error'+event.message);
                                     }
                                 });
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -1171,9 +1184,10 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             column=$(this).attr('id');
                             var name=$(this).attr('name');
                             var sb=name.substr(13,1);
+                            
                             user_val=document.getElementById("guard_rails_user_id['"+sb+"']").value;
                             metric_id_value=document.getElementById("guard_rails_metric_id['"+sb+"']").value;
-                            if(metric_id_value=='1'||metric_id_value=='2'){
+                            if(((metric_id_value=='1')||(metric_id_value=='2')) &&(column=='minimum')) {
                                 if((this.value>=(30))&&(this.value<=(120))&&(this.value!=""))
                                 {
                                     $(this).css("background-color","white");
@@ -1197,10 +1211,63 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     return false;
                                 }
                             }
+                            else if((metric_id_value=='1') && (column=='maximum'))
+                            {
+                                minimumval1=document.getElementsByName("guard_rails['0']")[0].value;
+                               if((this.value>=(30))&&(this.value<=(120))&&(this.value!="")&&(value>=minimumval1))
+                                {
+                                    $(this).css("background-color","white");
+                                    GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                                }
+                                else if(this.value=="")
+                                {
+                                    $(this).css("background-color","yellow");
+                                    $('#guard_rails_err').html('Please Enter Value between '+minimumval1+' and 120');
+                                    $('#guard_rails_err').show();
+                                    f=false;
+                                    return false;
+                                }
+                                else
+                                {
+                                    $(this).css("background-color","red");
+                                    $('#guard_rails_err').html('Please Enter Value between '+minimumval1+' and 120');
+                                    $('#guard_rails_err').show();
+                                    f=false;
+                                    return false;
+                                } 
+                            }
+                            else if((metric_id_value=='2') && (column=='maximum'))
+                            {
+                                minimumval2=document.getElementsByName("guard_rails['1']")[0].value;
+                               if((this.value>=(30))&&(this.value<=(120))&&(this.value!="")&&(value>=minimumval2))
+                                {
+                                    $(this).css("background-color","white");
+                                    GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                                }
+                                else if(this.value=="")
+                                {
+                                    $(this).css("background-color","yellow");
+                                    $('#guard_rails_err').html('Please Enter Value between '+minimumval2+' and 120');
+                                    $('#guard_rails_err').show();
+                                    f=false;
+                                    return false;
+                                }
+                                else
+                                {
+                                    $(this).css("background-color","red");
+                                    $('#guard_rails_err').html('Please Enter Value between '+minimumval2+' and 120');
+                                    $('#guard_rails_err').show();
+                                    f=false;
+                                    return false;
+                                } 
+                            }
                             else if((metric_id_value=='3') && (column=='minimum'))
                             {
                                 if((value>=(2))&&(value<=(5))&&(value!=""))
                                 {
+                                   //minimumval3=value;
                                     $(this).css("background-color","white");
                                     GuardRails_Checking(value,column,user_val,metric_id_value);
                                 }
@@ -1224,6 +1291,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             }
                             else if((metric_id_value=='3') && (column=='maximum'))
                             {
+                                
                                 if((value>=(10))&&(value<=(100))&&(value!=""))
                                 {
                                     $(this).css("background-color","white");
@@ -1250,6 +1318,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             {
                                 if((value>=(1))&&(value<=(2))&&(value!=""))
                                 {
+                                    
                                     $(this).css("background-color","white");
                                     GuardRails_Checking(value,column,user_val,metric_id_value);
                                 }
@@ -1272,7 +1341,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             }
                             else if((metric_id_value=='4') && (column=='maximum'))
                             {
-                                if((value>=(5))&&(value<=(25))&&(value!=""))
+                               if((value>=(5))&&(value<=(25))&&(value!=""))
                                 {
                                     $(this).css("background-color","white");
                                     GuardRails_Checking(value,column,user_val,metric_id_value);
@@ -1339,7 +1408,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                          });
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && guard_each==guard_range && not_range_guard==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?'); }
                             if(r==true){  
                                 jQuery.ajax({
                                     type: "POST",
@@ -1365,7 +1434,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     error:function(event){
                                         alert('error'+event.message);
                                     }
-                                }); 
+                                });
+                                if($.browser.version=='9.0'){
+                                k++;}
                             }
                         }
                         else
@@ -1400,7 +1471,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 var sb=name.substr(9,1);
                                 user_val=document.getElementById("val_control_user_id['"+sb+"']").value;
                                 metric_id_value=document.getElementById("val_control_metric_id['"+sb+"']").value;
-                                if((metric_id_value=='1')){
+                                if((metric_id_value=='1')&&(column=='minimum')){
                                     if((value>=(0))&&(value<=(120))&&(value!=""))
                                     {
                                         $(this).css("background-color","white");
@@ -1424,32 +1495,33 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }
                                 }
-//                                else if((metric_id_value=='1')&&((column=='maximum')))
-//                                {
-//                                    if((value>=(0))&&(value<=(120))&&(value!=""))
-//                                    {
-//                                        $(this).css("background-color","white");
-//                                        GuardRails_Checking(value,column,user_val,metric_id_value);
-//                                    
-//                                    }
-//                                    else if(value=="")
-//                                    {
-//                                        $(this).css("background-color","yellow");
-//                                        $('#Val_control_err').html('Please enter a value');
-//                                        $('#Val_control_err').show();
-//                                        f=false;
-//                                        return false;
-//                                    }
-//                                    else
-//                                    {
-//                                        $(this).css("background-color","red");
-//                                        $('#Val_control_err').html('Please Enter Value between 0 and 120');
-//                                        $('#Val_control_err').show();
-//                                        f=false;
-//                                        return false;
-//                                    }
-//                                }
-                                else if((metric_id_value=='2'))
+                                else if((metric_id_value=='1')&&((column=='maximum')))
+                                {
+                                    minval0=document.getElementsByName("val_con['1']")[0].value;
+                                    if((value>=(0))&&(value<=(120))&&(value!="")&&(value>=minval0))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval0+' and 120');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval0+' and 120');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                }
+                                else if((metric_id_value=='2')&&(column=='minimum'))
                                 {
                                     if((value>=(10))&&(value<=(120))&&(value!=""))
                                     {
@@ -1474,7 +1546,33 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     } 
                                     
                                 }
-                                else if((metric_id_value=='3'))
+                                else if((metric_id_value=='2')&&(column=='maximum'))
+                                {
+                                    minval1=document.getElementsByName("val_con['2']")[0].value;
+                                    if((value>=(10))&&(value<=(120))&&(value!="")&&(value>=minval1))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval1+' and 120');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval1+' and 120 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    } 
+                                    
+                                }
+                                else if((metric_id_value=='3')&&(column=='minimum'))
                                 {
                                     if((value>=(1))&&(value<=(30))&&(value!=""))
                                     {
@@ -1499,7 +1597,33 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     } 
                                     
                                 }
-                                else if((metric_id_value=='4'))
+                                else if((metric_id_value=='3')&&(column=='maximum'))
+                                {
+                                    minval2=document.getElementsByName("val_con['3']")[0].value;
+                                    if((value>=(1))&&(value<=(30))&&(value!="")&&(value>=minval2))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval2+' and 30');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval2+' and 30 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    } 
+                                    
+                                }
+                                else if((metric_id_value=='4')&&(column=='minimum'))
                                 {
                                     if((value>=(30))&&(value<=(100))&&(value!=""))
                                     {
@@ -1523,7 +1647,32 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     } 
                                 }
-                                else if((metric_id_value=='5'))
+                                else if((metric_id_value=='4')&&(column=='maximum'))
+                                {
+                                    minval3=document.getElementsByName("val_con['4']")[0].value;
+                                    if((value>=(30))&&(value<=(100))&&(value!="")&&(value>=minval3))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval3+' and 100');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval3+' and 100 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    } 
+                                }
+                                else if((metric_id_value=='5')&&(column=='minimum'))
                                 {
                                     if((value>=(5))&&(value<=(120))&&(value!=""))
                                     {
@@ -1546,7 +1695,31 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     } 
                                 }
-                                else if((metric_id_value=='6'))
+                                else if((metric_id_value=='5')&&(column=='maximum'))
+                                {
+                                    minval4=document.getElementsByName("val_con['5']")[0].value;
+                                    if((value>=(5))&&(value<=(120))&&(value!="")&&(value>=minval4))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval4+' and 120');
+                                        $('#Val_control_err').show();
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval4+' and 120 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    } 
+                                }
+                                else if((metric_id_value=='6')&&(column=='minimum'))
                                 {
                                     if((value>=(30))&&(value<=(120))&&(value!=""))
                                     {
@@ -1570,7 +1743,32 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }  
                                 }
-                                else if((metric_id_value=='7'))
+                                else if((metric_id_value=='6')&&(column=='maximum'))
+                                {
+                                    minval5=document.getElementsByName("val_con['6']")[0].value;
+                                    if((value>=(30))&&(value<=(120))&&(value!="")&&(value>=minval5))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value  between '+minval5+' and 120');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval5+' and 120 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }  
+                                }
+                                else if((metric_id_value=='7')&&(column=='minimum'))
                                 {
                                     if((value>=(30))&&(value<=(50))&&(value!=""))
                                     {
@@ -1594,7 +1792,32 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }  
                                 }
-                                else if((metric_id_value=='8'))
+                                else if((metric_id_value=='7')&&(column=='maximum'))
+                                {
+                                    minval6=document.getElementsByName("val_con['7']")[0].value;
+                                    if((value>=(30))&&(value<=(50))&&(value!="")&&(value>=minval6))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval6+' and 50');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter  Value between '+minval6+' and 50 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }  
+                                }
+                                else if((metric_id_value=='8')&&(column=='minimum'))
                                 {
                                     if((value>=(5))&&(value<=(100))&&(value!=""))
                                     {
@@ -1618,7 +1841,32 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     }  
                                 }
-                                else if((metric_id_value=='9'))
+                                else if((metric_id_value=='8')&&(column=='maximum'))
+                                {
+                                    minval7=document.getElementsByName("val_con['8']")[0].value;
+                                    if((value>=(5))&&(value<=(100))&&(value!="")&&(value>=minval7))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter value between '+minval7+' and 100');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval7+' and 100 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }  
+                                }
+                                else if((metric_id_value=='9') &&(column=='minimum'))
                                 {
                                     if((value>=(1))&&(value<=(25))&&(value!=""))
                                     {
@@ -1637,6 +1885,31 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     {
                                         $(this).css("background-color","red");
                                         $('#Val_control_err').html('Please Enter Value between 1 and 25 ');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }  
+                                }
+                                else if((metric_id_value=='9')&&(column=='maximum'))
+                                {
+                                    minval8=document.getElementsByName("val_con['9']")[0].value;
+                                    if((value>=(1))&&(value<=(25))&&(value!="")&&(value>=minval8))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,metric_id_value);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#Val_control_err').html('Please enter a value');
+                                        $('#Val_control_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#Val_control_err').html('Please Enter Value between '+minval8+' and 25 ');
                                         $('#Val_control_err').show();
                                         f=false;
                                         return false;
@@ -1703,7 +1976,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                          });
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && control_each==control_range && not_range_control==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                            if(k==0){var r=confirm('Are you sure you want to update this value?'); }
                             if(r==true){  
                           jQuery.ajax({
                             type: "POST",
@@ -1729,6 +2002,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 alert('error'+event.message);
                             }
                           });
+                          if($.browser.version=='9.0'){
+                                k++;}
                           }
                         }
                         else
@@ -1945,32 +2220,34 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         });
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true && pgm_each==pgm_range && not_range_pgm==0){
-                            var r=confirm('Are you sure you want to update this value?');
+                           if(k==0){ var r=confirm('Are you sure you want to update this value?');}
                             if(r==true){ 
-                        jQuery.ajax({
-                            type: "POST",
-                            url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
-                            data: {
-                                'Updated_Values':Updated_Values
-                            },
-                            success: function(data){
-                                if((typeof data == 'string' || data instanceof String)&& data.length>3) {
-                                   $('#pgm_param_updating').html(data);
-                                   $('#pgm_param_updating').show();
-                                }
-                                else if(data.length<=4){
-                                   $('#pgm_param_updating').html('Your updates were saved');
-                                   $('#pgm_param_updating').show(); 
-                                }
-                                else{
-                                   $('#pgm_param_updating').html('Update Failed');
-                                   $('#pgm_param_updating').show();     
-                               }
-                            },
-                            error:function(event){
-                                alert('error'+event.message);
-                            }
-                        });
+                                jQuery.ajax({
+                                    type: "POST",
+                                    url: server+"php/ProgramParameter_Update.php?arr="+Updated_Values,
+                                    data: {
+                                        'Updated_Values':Updated_Values
+                                    },
+                                    success: function(data){
+                                        if((typeof data == 'string' || data instanceof String)&& data.length>3) {
+                                           $('#pgm_param_updating').html(data);
+                                           $('#pgm_param_updating').show();
+                                        }
+                                        else if(data.length<=4){
+                                           $('#pgm_param_updating').html('Your updates were saved');
+                                           $('#pgm_param_updating').show(); 
+                                        }
+                                        else{
+                                           $('#pgm_param_updating').html('Update Failed');
+                                           $('#pgm_param_updating').show();     
+                                       }
+                                    },
+                                    error:function(event){
+                                        alert('error'+event.message);
+                                    }
+                                });
+                                if($.browser.version=='9.0'){
+                                k++;}
                       } 
                     }
                     else
@@ -2011,167 +2288,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                   
                         });
                     });
-                    
-/*                    $("[name^=prod_cat]").each(function () {
-                        $.data(this, 'default', this.value);
-                    }).css("color","black")
-                    .focus(function() {
-                        if (!$.data(this, 'edited')) {
-                            $(this).css("color","black");
-                        }
-                    }).change(function() {
-                        $.data(this, 'edited', this.value != "");
-                    }).blur(function() {
-                        if ($.data(this, 'edited')) {
-
-                                $('.prod_cat_updating').hide();
-                                $('#sample .prod_cat_updating').hide();
-                                edit=true;
-                                value=this.value;
-                                column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(9,1);
-                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
-                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
-                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
-                                if(((value=='YES')||(value=='NO')||(value=='yes')||(value=='no')||value=='Yes'||(value=='No'))&&(value!=""))
-                                {
-                                    $(this).css("background-color","white");
-                                    if(col_val=="")
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        $('#prod_cat_err').hide();
-                                        f=true;
-                                        return true;
-                                    }
-                                    else if(col_val!=value||(category_code!=super_cat_code&&col_val==value))
-                                    {
-                                        col_val=value;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);
-                                        $('#prod_cat_err').hide();
-                                        f=true;
-                                        return true; 
-                                    }
-//                            
-                                    $('#prod_cat_err').hide();
-                                    return true; 
-                                }
-                                else if(value=="")
-                                {
-                                    $(this).css("background-color","yellow");
-                                    $('.prod_cat_updating').hide();
-                                    $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').html('Please enter a value');
-                                    $('#prod_cat_err').show();
-                                    f=false;
-                                    return false;
-                                }
-                                else
-                                {
-                                    $(this).css("background-color","red");
-                                    $('.prod_cat_updating').hide();
-                                    $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').html('Please enter  value YES/NO');
-                                    $('#prod_cat_err').show();
-                                    f=false;
-                                    return false;
-                                }
-                        }
-                        if(this.value=="")
-                                {
-                                    $(this).css("background-color","yellow");
-                                    $('.prod_cat_updating').hide();
-                                    $('#sample .prod_cat_updating').hide();
-                                    $('#prod_cat_err').html('Please enter a value YES/NO');
-                                    $('#prod_cat_err').show();
-                                    f=false;
-                                    return false;
-                                }
-                            
-
-                    }); 
-                    
-      		   $("[name^=prod_cat1]").each(function () {
-                     $('[name^=prod_cat1]').live('change', function(e) {
-                      var val=(e.target.options[e.target.selectedIndex].text);
-                       $('.prod_cat_updating').hide();
-                        $('#sample .prod_cat_updating').hide();
-                        edit=true;
-                        column=$(this).attr('id');
-                                var name=$(this).attr('name');
-                                var sb=name.substr(10,1);
-                                user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
-                                super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
-                                super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
-                                //alert(column);
-                                 if(col_val=="")
-                                    {
-                                        col_val=val;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);f=true;
-                                        $('#prod_cat_err').hide();
-                                        
-                                        return true;
-                                    }
-                                    else if(col_val!=val||(category_code!=super_cat_code&&col_val==val))
-                                    {
-                                        col_val=val;
-                                        col_name=column;
-                                        user_val=user_val;
-                                        index_val=super_cat_id;
-                                        category_code=super_cat_code;
-                                        var UP_Value = {  
-                                            "col_nam" :col_name,                                
-                                            "col_value" :col_val,
-                                            "user_id_val" :user_val,
-                                            "sup_id_val":index_val,
-                                            "cat_code":category_code
-                                        };
-                                    
-                                        UpValue.push(UP_Value);f=true;
-                                        $('#prod_cat_err').hide();
-                                        
-                                        return true; 
-                                    }
-                   	 });
-                  
-                  	});*/ 
+                     
                     $("input[type=checkbox]").each ( function() {
                          $("input[type=checkbox]").change( function() {
 
@@ -2291,7 +2408,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#pro_cat_save').click(function() {
                         var Updated_Values = JSON.stringify(UpValue);
                         if(f==true){
-                          var r=confirm('Are you sure you want to update this value?');
+                          if(k==0){ var r=confirm('Are you sure you want to update this value?'); }
                           if(r==true){
                             jQuery.ajax({
                                 type: "POST",
@@ -2320,7 +2437,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 error:function(event){
                                     alert('error'+event.message);
                                 }
-                            });  
+                            });
+                            if( $.browser.version=='9.0'){
+                                k++;}
                          }
                         }
                         else

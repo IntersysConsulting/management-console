@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set(timezone_name_from_abbr("CST"));
 require 'connection.php';
 if (isset($_SESSION['myusername'])) {
     $myusername = $_SESSION['myusername'];
