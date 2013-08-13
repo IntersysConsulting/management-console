@@ -186,12 +186,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         {       
                             $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
                             $('#userid_error').show();
+                            document.getElementById("userid_error").focus();
                             return false;     
                         } 
                         else if((passwrd.length <= min_length || passwrd.length >= passmaxlength) && uname.length >= min_length && uname.length <= unamemaxlength)  
                         {       
                             $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#passwrd_error').show();
+                            document.getElementById("passwrd_error").focus();
                             return false;     
                         }  
                         else  
@@ -200,6 +202,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#userid_error').show();
                             $('#passwrd_error').show();
+                            document.getElementById("userid_error").focus();
                             return false;     
                         } 
                     });
@@ -217,12 +220,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         {       
                             $('#userid_error').html('Please Enter user_id between 8 and 20 characters');
                             $('#userid_error').show();
+                            document.getElementById("userid_error").focus();
                             return false;     
                         } 
                         else if((passwrd.length <= min_length || passwrd.length >= passmaxlength) && uname.length >= min_length && uname.length <= unamemaxlength)  
                         {       
                             $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#passwrd_error').show();
+                            document.getElementById("passwrd_error").focus();
                             return false;     
                         }  
                         else  
@@ -231,6 +236,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#passwrd_error').html('Please input password between 8 and 15 characters');
                             $('#userid_error').show();
                             $('#passwrd_error').show();
+                            document.getElementById("userid_error").focus();
                             return false;     
                         } 
                     });  
@@ -900,8 +906,18 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             var sb=name.substr(9,1);
                             user_val=document.getElementById("cat_per_user_id['"+sb+"']").value;
                             index_id_val=document.getElementById("cat-per_index_id['"+sb+"']").value;
-                            if((this.value>=(5))&&(this.value<=(120))&&(this.value!=""))
+                            if((this.value>=(-0.05))&&(this.value<=(0.05))&&(this.value!=""))
                             {
+                                var decimal=  /^[-+]?[0-9]+\.[0-9]+$/;   
+                                if(value.match(decimal))   
+                                {   
+                                }  
+                                else  
+                                { if(value==0){$(this).val(value); }
+                                  else if(value>0){ $(this).val('0'+value);  }
+                                  else{var valsplit=value.toString().split("-")
+                                      $(this).val('-0'+valsplit[1]);}
+                                } 
                                 $(this).css("background-color","white");
                                 if(col_val=="")
                                 {
@@ -946,7 +962,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             else
                             {
                                 $(this).css("background-color","red");
-                                $('#cat_perf_err').html('Please enter value between 5 to 120');
+                                $('#cat_perf_err').html('Please enter value between -0.05 to 0.05');
                                 $('#cat_perf_err').show();
                                 f=false;
                                 return false;
@@ -968,7 +984,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                          $("[name^=cat_per]").each(function () {
                              categ_each++;
                              var values=this.value;
-                             if((this.value>=(5))&&(this.value<=(120))&&(this.value!="")){
+                             if((this.value>=(-0.05))&&(this.value<=(0.05))&&(this.value!="")){
                                   categ_range++;
                              }
                              else{
