@@ -34,7 +34,7 @@
                             <ul>
                                 <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                 <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                <li class="last"><a href="ScatterChart.php">&nbsp;Aggregated Sales&nbsp;</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -77,29 +77,7 @@
                     <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 18px; font-weight: bolder;">
                         Program Parameter Values
                     </div>
-                    <?php
-                    /* require 'connection.php';
-                      if (isset($_SESSION['myusername'])) {
-                      $myusername = $_SESSION['myusername'];
-                      }
-                      else {
-                      header("location:../index.php");
-                      }
-                      $query = "SELECT a.p_parameter FROM pr_program_param a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                      $results = mysqli_query($con, $query) or die("Error performing query"); */
-                    ?>
-                    <!--  <div style="width:350px; margin-top:20px; margin-left:70px;">
-                          <table>-->
-                    <?php //while ($row = mysqli_fetch_array($results)) { ?>
-                                 <!-- <tr style=" float:left; height:35px">
-              
-                                      <td style="width:280px; text-decoration:none; height:30px; text-align: left;" class="segment"><label id="param" name="param"><?php echo $row[0]; ?></label></td>
-                                  </tr>-->
-                    <?php //} ?>
-                    <!-- </table>
-         
-                 </div>-->
-
+                  
                     <form action="ProgramParameter_Update.php" method="POST" id="update" style="">
                         <div>
                             <?php
@@ -126,13 +104,15 @@
                                         <td>&nbsp;</td>
                                         <td style="width:150px; height:30px;">
 
-                                            <?php if (strtoupper($row[1]) != 'DEFAULT SEGMENT(FOR DEFAULT OFFERS)') { ?>
-                                                <input name="pgm_param['<?php echo $i ?>']"  id="p_value"  class="inpu_text" style="text-align: center; height:30px; width:150px; font-size: 12px; font-weight: bold;"  value="<?php echo $row[3]; ?>"/>
-                                                <?php
-                                            }
-                                            else {
+                                            <?php if (strtoupper($row[1]) == 'DEFAULT SEGMENT(FOR DEFAULT OFFERS)') { 
                                                 require 'connection.php';
-                                                $sql = "SELECT a.segment_desc FROM pr_segment a";
+                                                //$sql = "SELECT  a.segment_desc FROM pr_segment a ";
+                                                $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b 
+                                                        where b.user_id ='app' 
+                                                           and a.segment_desc='".$row[3]."'
+                                                        union 
+                                                        select distinct a.segment_desc
+                                                          from pr_segment a"; 
                                                 $result = mysqli_query($con, $sql) or die("Error on segment query");
 
                                                 echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
@@ -140,6 +120,35 @@
                                                     echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
                                                 }
                                                 echo "</select>";
+                                            }
+                                            else if($row[2]== 5)
+                                            {
+                                                echo "<select id='drp_dwn_5' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+                                                    echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
+                                                    if($row[3]=='NO'){
+                                                    echo "<option style='text-align:center;' value='YES'>YES</option>";
+                                                    }
+                                                    else {
+                                                    echo "<option style='text-align:center;' value='NO'>NO</option>";
+                                                    }
+                                                    
+                                                echo "</select>";
+                                            }
+                                            else if($row[2]== 7){
+                                                echo "<select id='drp_dwn_7' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+                                                    echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
+                                                    if($row[3]=='NO'){
+                                                    echo "<option style='text-align:center;' value='YES'>YES</option>";
+                                                    }
+                                                    else {
+                                                    echo "<option style='text-align:center;' value='NO'>NO</option>";
+                                                    }
+                                                echo "</select>";
+                                            }
+                                            else {
+                                                ?>
+                                                <input name="pgm_param['<?php echo $i ?>']"  id="p_value"  class="inpu_text" style="text-align: center; height:30px; width:150px; font-size: 12px; font-weight: bold;"  value="<?php echo $row[3]; ?>"/>
+                                                <?php 
                                             }
                                             ?>
                                         </td>
@@ -150,8 +159,8 @@
                                 } ?>
                             </table>
                             <?php mysqli_close($con); ?>
-                            <div id="pgm_param_err"><label> Please enter value between -.10 and .20 </label></div>
-                            <div class="updating" id="pgm_param_updating" style="margin-left: 800px !important;">Updated...</div>
+                            <div id="pgm_param_err" style="margin-left: 670px !important;"><label> Please enter value between -.10 and .20 </label></div>
+                            <div class="updating" id="pgm_param_updating" style="margin-left: 700px !important;">Ypur Updated were saved</div>
                             <!-- <div>
                                  <div><input style="margin-left:-90px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pgm_param_save" value="save"/></div>
                                  <div style="margin-top: -25px; margin-left: -10px;"><input style="font-size: 13px;" type="button" name="cancel" id="pgm_cancel" value="cancel"/></div>
