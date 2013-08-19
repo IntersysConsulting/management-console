@@ -15,30 +15,28 @@ session_start();
         <title>Eligible Products</title>
     </head>
     <body>
-        
         <div class="home">
             <div id="logout" >
                 <a href="LogOut.php"  style="text-decoration: none; display:inline-block;height:15px; font-size: 14px;color: #0093d0;font-weight: bolder;">Logout</a>
             </div>
             <div id="prheading" style="text-decoration: none;font-size:10px;color:#BACBEB; font-weight:bolder;margin-top:27px;position:absolute;margin-left:160px;"><a>Personalized Rewards</a></div>
             <div id="logo" style="display:inline-block;"><img style="width:150px;height:100%;" src="../images/logo.png"/></div>
-                
+          
             <div id="mainmenubg" style="height: 29px;background-color: #0093d0;">
                 <?php //require 'Mainmenu.php'; ?>
-                    
                 <div class="mainmenu">
                     <ul>
                         <li class="has-sub"><a href="DefaultHome.php">Home </a>
-                            
+
                             <ul>
                                 <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                 <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                             </ul>
                         </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
                             <ul>
-                                     
+                                
                                 <li><a href="SalesChange.php">&nbsp;Sales Change&nbsp;</a></li>
                                 <li><a href="ROIGoals.php">&nbsp;ROI Goals&nbsp;</a></li>
                                 <li><a href="ROIAdj.php">&nbsp;ROI Adj.&nbsp;</a></li>
@@ -50,7 +48,7 @@ session_start();
                         <li class="has-sub"><a href="GuardRails.php">Guard Rails </a>
                             <ul>
                                 <li class="last"><a href="GuardRails.php">&nbsp;Guard Rails&nbsp;</a></li>
-                                            
+                                    
                             </ul>
                         </li>
                         <li class="active has-sub"><a href="ValidationControls.php">Validation Rules </a>
@@ -59,31 +57,28 @@ session_start();
                                 <li><a href="ProgramParameter.php" >&nbsp;Program Parameters&nbsp;</a></li>
                                 <li class="last"><a href="EligibleProduct.php" >&nbsp;Eligible Product&nbsp;</a></li>
                             </ul>
-                                       
+                                
                         </li>
                         <li class="has-sub"><a href="ROIReportChart.php">Reports </a>
                             <ul>
                                 <li class="last"><a href="ROIReportChart.php" >&nbsp;ROI Report&nbsp;</a></li>
-                        
+                                    
                             </ul>
-                    
+                                
                         </li>
                     </ul>
                 </div>
             </div>
-
-
             <div id="content">
                 <div class="controls" id="chartarea">
-                    <div class="heading" id="headings" style="padding-top: 10px; width:570px; margin-top:10px; text-align: center; font-size: 18px; font-weight: bolder;margin-left: 20px;  ">
+                    <div class="heading" id="headings" style="padding-top: 10px; width:570px; margin-top:10px; text-align: center; font-size: 14px; font-weight: bold;margin-left: auto;margin-right:auto;  ">
                         Product Categories Eligible for Personalized Reward Program
                     </div>
-                    <div>
-                        <div class="segment" id="super"style="width:250px;height:38px;margin-top:30px; margin-left:50px;text-decoration: none !important;">
-                            <div style="margin-top: 10px; font-weight:bolder; font-size:16px;">Super Category Description</div>
-                
+                    <div style="width:500px;margin-right:auto;margin-left:auto;">
+                        <div class="segment" id="super" style="height:38px;margin-top:30px;text-decoration: none !important;">
+                            <div style="margin-top: 10px; font-weight:bold; font-size:11px;">Super Category Description</div>
                         </div>
-                        <div style="margin-top: -40px; margin-left: 350px;">
+                        <div style="margin-top: -40px; float:right;">
         <?php
         require 'connection.php';
             if (isset($_SESSION['myusername'])) {
@@ -92,31 +87,63 @@ session_start();
             else {
                 header("location:../index.php");
             }
-                                    $query = "SELECT a.super_category_desc,a.super_category_id FROM pr_super_category a";
+                                 //   $query = "SELECT a.super_category_desc,a.super_category_id FROM pr_super_category a"i;
+                                    $query = "SELECT distinct a.mapping FROM supercategory_mapping a";
                                     $result = mysqli_query($con,$query) or die("Error on performing query");
 
-                                    echo "<select id='drp_dwn_super_category' name='super_category_desc' style='margin-left: -7px;width: 175px; height: 38px;font-size:16px; font-weight:bold; font-family:calibri;'>";
-                                    echo "<option style='text-align:center;' value=''>Select a Value</option>";
+                                    echo "<select id='drp_dwn_super_category' name='super_category_desc' style='margin-left: -7px;width: 150px; height: 30px;font-size:14px; font-weight:bold; font-family:calibri;'>";
+                                    echo "<option style='text-align:left;' value=''>Select a Value</option>";
                                     while ($row = mysqli_fetch_array($result)) {
 
-                                        echo "<option style='text-align:center;' value='" . $row[1] . "'>" . $row[0] . "</option>";
+                                        echo "<option style='text-align:left;' value='" . $row[0] . "'>" . $row[0] . "</option>";
                                     }
                                     echo "</select>";
                                     echo "<input type='hidden' id='username' value='".$myusername."'/>";
 
 
         ?>
-        </div>
-        </div>
+                        </div>
+                    </div>
+                    <div style="width:500px;margin-right:auto;margin-left:auto;">
+                        <div class="segment" id="supers" style="margin-left: -60px; width:250px;height:38px;margin-top:50px; text-decoration: none !important;">
+                            <div style="margin-top: 10px; font-weight:bold; font-size:11px;">L5 Category Description</div>
+                                
+                        </div>
+                        <div style="margin-top: -40px; margin-left: 295px;">
+        <?php
+                require 'connection.php';
+            if (isset($_SESSION['myusername'])) {
+                $myusername = $_SESSION['myusername'];
+                }
+            else {
+                header("location:../index.php");
+            }
+            $vals=$_GET['l5_cat'];
+             if($vals!=null){
+                $query = "SELECT a.l5_category,a.supercategory_id FROM supercategory_mapping a where a.mapping='".$vals."'";
+                                    $result = mysqli_query($con,$query) or die("Error on performing query");
 
-   <!--     <div style="margin-top: 60px;">
+                                    echo "<select id='drp_dwn_l4_category' name='super_category_descss' style='margin-left: -7px;width: 150px; height: 30px;font-size:14px; font-weight:bold; font-family:calibri;'>";
+                                    echo "<option style='text-align:center;' value=''>Select a Value</option>";
+                                    while ($row = mysqli_fetch_array($result)) {
+
+                                        echo "<option style='text-align:center;' value='" . $row[1] . "'>" . $row[0] . "</option>";
+                                    }
+                                    echo "</select>";
+              }
+            else{}
+
+        ?>
+        </div>
+        </div>
+<!--     <div style="margin-top: 60px;">
             <div class="segment" id="Prod_cat_code" style="margin-left:5px;width: 157px;height: 20px;">Product Category Code</div>
             <div class="segment" id="Prod_cat_desc"style="margin-top: -22px;margin-left: 182px;width: 255px;height: 20px">Product Category Description</div>
             <div class="heading" id="pc_value" style="width: 132px;margin-top: -22px;margin-left: 458px;height: 20px;text-align: center;text-decoration: underline;font-weight: bold;">Value</div>
 
         </div>-->
         <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">
-          <div style="width:700px; margin-top: 55px;margin-left: 50px;">
+          <div style="width:700px; margin-top: 45px;margin-left: 60px;">
         <?php
 
          require 'connection.php';
@@ -126,7 +153,8 @@ session_start();
             else {
                 header("location:../index.php");
             }
-             $val=$_GET['sup_id'];
+            $val=$_GET['sup_id'];
+                //$val=01;
              if($val!=null){
                     $sql = "SELECT a.user_id,a.super_category_id,a.product_category_code,a.product_category_desc,a.pc_value FROM pr_product_category a WHERE a.user_id='app' AND a.super_category_id=".$val."";
                     $result = mysqli_query($con,$sql) or die("Error on Performing next query");
@@ -151,16 +179,11 @@ session_start();
                         echo '<td style="width:0px;"><input id="super_cat_code['; echo $i; echo']" type="hidden" name="super_cat_code" value="'; echo $row[2]; echo'"/></td>';
                         echo '<td class="segmentdesc" style="width:195px;  padding-top:1px"><label id="segment" name="segment">'; echo $row[3];  echo '</label></td>';
                         echo '<td style="width:20px"><input id="super_cat_id['; echo $i; echo']" type="hidden" name="super_cat_id" value="'; echo $row[1]; echo'"/></td>';
-                        // echo '<td style="width:130px;"><input name="prod_cat['; echo $i; echo ']"  id="pc_value" class="inpu_text" style="text-align: center;display:block !important; height:20px; width:130px; font-size: 10px;"  value="';echo $row[4]; echo'"/></td>';
-                        //echo '<td style="width:50px;"><select name="prod_cat1['; echo $i; echo']" id="pc_value" style="margin-left: -7px;width: 155px;display:block !important; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;">';
-                        //   echo '<option style="text-align:center;" value="YES">YES</option>';
-                        // echo '<option style="text-align:center;" value="NO">NO</option>';
-                        // echo '</select></td>';
-                        if($row[4]=='YES'){
-                          echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo '" style="display:inline !important" checked="true" value="';echo $row[4]; echo '"</input></td>'; 
+                       if($row[4]=='YES'){
+                          echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo'" style="display:inline !important;" checked="true" value="';echo $row[4]; echo '"</input></td>';
                         }
                         else{
-                          echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo '" style="display:inline !important" value="';echo $row[4]; echo '"</input></td>'; 
+                            echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo'" style="display:inline !important;"  value="';echo $row[4]; echo '"</input></td>';
                         }
                         echo "</tr>";
                         $i++;
@@ -173,24 +196,25 @@ session_start();
 
              }
          ?>
+              <div id="samples"></div>
               <div id="sample"></div>
+             
               <div id="prod_cat_err"><label> Please enter value YES/NO </label></div>
-              <div class="prod_cat_updating" >Your updates were saved</div>
-              <div style="float:right;margin-right:30px;width:200px;">
-                  <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button"class="btn" name="save" id="pro_cat_save" value="Save"/></div>
-                  <div style="display:inline-block;width:50px;"><input style="font-weight:600; font-size: 13px;" type="button"class="btn" name="cancel" id="prod_cat_ancel" value="Cancel"/></div>
+              <div class="prod_cat_updating" style="width:350px !important;">Your updates were saved</div>
+              <div style="float:right;margin-right:auto;margin-left:auto;width:200px;">
+                  <div style="display:inline-block;width:50px;margin:25px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="save" id="pro_cat_save" value="Save"/></div>
+                  <div style="display:inline-block;width:50px;"><input style="font-weight:600; font-size: 13px;" type="button" class="btn" name="cancel" id="prod_cat_ancel" value="Cancel"/></div>
                         
               </div>
           </div>
+        </form>
+                </div>
+             
+            </div>
     
-</div>
-</form>
-</div>
-    
-<div id="bottomstripe" style="margin-top:90px;height: 29px;background-color:#0093d0 ">
-    <?php //require 'Mainmenu.php'; ?>
-</div>
+            <div id="bottomstripe" style="margin-top:110px;height: 29px;background-color:#0093d0 ">
+                <?php //require 'Mainmenu.php'; ?>
+            </div>
         </div>
     </body>
 </html>
-

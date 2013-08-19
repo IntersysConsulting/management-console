@@ -172,6 +172,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#hh_perf_updating').hide();
                     $('#pgm_param_updating').hide();
                     $('#prod_cat_updating').hide();
+                      $('#supers').hide();
+                     //$('#sample #supers').hide();
                     $(".mainmenu ul li").click(make_button_active);
                     jQuery('#submit').click(function () {
                         var uname=document.getElementById("userid").value;
@@ -2583,23 +2585,50 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     }
                     });
-                
-                    $('#drp_dwn_super_category').change(function(e) {
+                $('#drp_dwn_super_category').change(function(e) {
+                        desc=(e.target.options[e.target.selectedIndex].text);
+                        vals=(e.target.options[e.target.selectedIndex].value);
+                        user_val=document.getElementById("username").value;
+                        $.post(server+'php/EligibleProduct.php?l5_cat='+vals, {
+                            "l5_cat": vals
+                        }, function (txt) {
+                                
+                             $('#samples').html(txt);
+                             //$('#samples #supers').show();
+                            $('#samples #prheading').hide();
+			    $('#samples #headings').hide();
+			    $('#samples .mainmenu').hide();
+			    $('#samples #logout').hide();
+			    $('#samples #logo').hide();
+			    $('#samples #mainmenubg').hide();
+			    $('#samples #bottomstripe').hide();
+                            $('#samples #drp_dwn_super_category').hide();
+                            $('#samples #super').hide();
+                            $('#samples .prod_cat_updating').hide();
+                            $('.prod_cat_updating').hide();
+                            $('#samples #pro_cat_save').hide();
+                            $('#samples #prod_cat_ancel').hide();
+                            $('#prod_cat_err').hide();
+                                  
+                        });
+                    });
+                    $('#drp_dwn_l4_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         val=(e.target.options[e.target.selectedIndex].value);
-                        user_val=document.getElementById("username").value;
+                       
                         $.post(server+'php/EligibleProduct.php?sup_id='+val, {
                             "sup_id": val
                         }, function (txt) {
                                 
-                            $('#sample').html(txt);
+                             $('#sample').html(txt);
+			     $('#sample #drp_dwn_l4_category').show();
                             $('#sample #prheading').hide();
-			    $('#sample #headings').hide();
-			    $('#sample .mainmenu').hide();
-			    $('#sample #logout').hide();
-			    $('#sample #logo').hide();
-			    $('#sample #mainmenubg').hide();
-			    $('#sample #bottomstripe').hide();
+                            $('#sample #headings').hide();
+                            $('#sample .mainmenu').hide();
+                            $('#sample #logout').hide();
+                            $('#sample #logo').hide();
+                            $('#sample #mainmenubg').hide();
+                            $('#sample #bottomstripe').hide();
                             $('#sample #drp_dwn_super_category').hide();
                             $('#sample #super').hide();
                             $('#sample .prod_cat_updating').hide();
@@ -2607,6 +2636,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#sample #pro_cat_save').hide();
                             $('#sample #prod_cat_ancel').hide();
                             $('#prod_cat_err').hide();
+			    //$('#sample #supers').hide();
                                   
                         });
                     });
@@ -2744,16 +2774,19 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                        $('.prod_cat_updating').html(data);
                                        $('.prod_cat_updating').show();
 				       $('#sample .prod_cat_updating').hide();
+                                       $('#samples .prod_cat_updating').hide();
                                    }
                                    else if(data.length<=4){
                                        $('.prod_cat_updating').html('Your updates were saved');
                                        $('.prod_cat_updating').show();
                                        $('#sample .prod_cat_updating').hide();
+                                       $('#samples .prod_cat_updating').hide();
                                    }
                                   else{
                                       $('.prod_cat_updating').html('Update Failed ');
                                       $('.prod_cat_updating').show();
-                                      $('#sample .prod_cat_updating').hide();     
+                                      $('#sample .prod_cat_updating').hide();
+                                      $('#samples .prod_cat_updating').hide();
                                   }
                                 },
                                 error:function(event){
@@ -2769,12 +2802,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             if(edit==true)   {
                                $('.prod_cat_updating').hide();
                                     $('#sample .prod_cat_updating').hide();
+                                    $('#samples .prod_cat_updating').hide();
                                     $('#prod_cat_err').html('Please check a value YES/NO');
                                     $('#prod_cat_err').show(); 
                             } 
                             else{
                                 $('.prod_cat_updating').hide();
                                     $('#sample .prod_cat_updating').hide();
+                                    $('#samples .prod_cat_updating').hide();
                                     $('#prod_cat_err').html('No Changes');
                                     $('#prod_cat_err').show();
                             }
