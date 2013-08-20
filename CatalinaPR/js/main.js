@@ -2585,6 +2585,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     }
                     });
+                    $('#pro_cat_save').show();
+                    $('#prod_cat_ancel').show();
                 $('#drp_dwn_super_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         vals=(e.target.options[e.target.selectedIndex].value);
@@ -2608,6 +2610,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('.prod_cat_updating').hide();
                             $('#samples #pro_cat_save').hide();
                             $('#samples #prod_cat_ancel').hide();
+                             $('#pro_cat_save').hide();
+                            $('#prod_cat_ancel').hide();
+                            
                             $('#prod_cat_err').hide();
                                   
                         });
@@ -2615,7 +2620,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#drp_dwn_l4_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         val=(e.target.options[e.target.selectedIndex].value);
-                       
+                        $('#pro_cat_save').show();
+                        $('#prod_cat_ancel').show();
                         $.post(server+'php/EligibleProduct.php?sup_id='+val, {
                             "sup_id": val
                         }, function (txt) {
@@ -2635,8 +2641,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('.prod_cat_updating').hide();
                             $('#sample #pro_cat_save').hide();
                             $('#sample #prod_cat_ancel').hide();
+                            $('#samples #pro_cat_save').hide();
+                            $('#samples #prod_cat_ancel').hide();
                             $('#prod_cat_err').hide();
-			    //$('#sample #supers').hide();
+                            $('#pro_cat_save').show();
+                            $('#prod_cat_ancel').show();
+                           
+			    $('#sample #supers').hide();
                                   
                         });
                     });
