@@ -105,24 +105,9 @@ function Controls()
         height: 400
     }, 200);
 }
-var make_button_active = function()
-{
-    //Get item siblings
-    var siblings =($(this).siblings());
-
-    //Remove active class on all buttons
-    siblings.each(function (index)
-    {
-       
-        $(this).removeClass('active');
-    })
-    //Add the clicked button class
-    $(this).addClass('active');
-}
 
 include(server + 'js/jquery-1.7.1.min.js', function() {
-    include(server + 'js/json2.js', function() {
-  //      include(server + 'js/jquery-ui.js', function() {
+    include(server + 'js/jquery-ui.js', function() {
 		jQuery(window).load(function() {
                     $('#userid_error').hide();
                     $('#passwrd_error').hide();
@@ -172,9 +157,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#hh_perf_updating').hide();
                     $('#pgm_param_updating').hide();
                     $('#prod_cat_updating').hide();
-                      $('#supers').hide();
+                    $('#supers').hide();
                      //$('#sample #supers').hide();
-                    $(".mainmenu ul li").click(make_button_active);
+                    
                     jQuery('#submit').click(function () {
                         var uname=document.getElementById("userid").value;
                         var passwrd=document.getElementById("passwrd").value;
@@ -2585,8 +2570,8 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }
                     }
                     });
-                    $('#pro_cat_save').show();
-                    $('#prod_cat_ancel').show();
+                    $('#pro_cat_save').hide();
+                    
                 $('#drp_dwn_super_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         vals=(e.target.options[e.target.selectedIndex].value);
@@ -2612,7 +2597,6 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#samples #prod_cat_ancel').hide();
                              $('#pro_cat_save').hide();
                             $('#prod_cat_ancel').hide();
-                            
                             $('#prod_cat_err').hide();
                                   
                         });
@@ -2620,8 +2604,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     $('#drp_dwn_l4_category').change(function(e) {
                         desc=(e.target.options[e.target.selectedIndex].text);
                         val=(e.target.options[e.target.selectedIndex].value);
-                        $('#pro_cat_save').show();
-                        $('#prod_cat_ancel').show();
+                        $('#update #prod_cat_ancel').hide();
                         $.post(server+'php/EligibleProduct.php?sup_id='+val, {
                             "sup_id": val
                         }, function (txt) {
@@ -2641,11 +2624,11 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('.prod_cat_updating').hide();
                             $('#sample #pro_cat_save').hide();
                             $('#sample #prod_cat_ancel').hide();
-                            $('#samples #pro_cat_save').hide();
-                            $('#samples #prod_cat_ancel').hide();
+                            $('#samples #pro_cat_save').show();
+                            $('#samples #prod_cat_ancel').show();
                             $('#prod_cat_err').hide();
-                            $('#pro_cat_save').show();
-                            $('#prod_cat_ancel').show();
+                            $('#pro_cat_save').hide();
+                            $('#prod_cat_ancel').hide();
                            
 			    $('#sample #supers').hide();
                                   
@@ -2665,6 +2648,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
                                 super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
                                 super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                                prod_cat_id=document.getElementById("prod_cat_id["+sb+"]").value;
                                 if(col_val=="")
                                     {
                                         col_val=value;
@@ -2672,12 +2656,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         user_val=user_val;
                                         index_val=super_cat_id;
                                         category_code=super_cat_code;
+                                        pro_cat_id=prod_cat_id;
                                         var UP_Value = {  
                                             "col_nam" :col_name,                                
                                             "col_value" :col_val,
                                             "user_id_val" :user_val,
                                             "sup_id_val":index_val,
-                                            "cat_code":category_code
+                                            "cat_code":category_code,
+                                            "prod_id_val":pro_cat_id
                                         };
                                     
                                         UpValue.push(UP_Value);
@@ -2692,12 +2678,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         user_val=user_val;
                                         index_val=super_cat_id;
                                         category_code=super_cat_code;
+                                        pro_cat_id=prod_cat_id;
                                         var UP_Value = {  
                                             "col_nam" :col_name,                                
                                             "col_value" :col_val,
                                             "user_id_val" :user_val,
                                             "sup_id_val":index_val,
-                                            "cat_code":category_code
+                                            "cat_code":category_code,
+                                            "prod_id_val":pro_cat_id
                                         };
                                     
                                         UpValue.push(UP_Value);
@@ -2721,6 +2709,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 user_val=document.getElementById("prod_cat_user_id["+sb+"]").value;
                                 super_cat_code=document.getElementById("super_cat_code["+sb+"]").value;
                                 super_cat_id=document.getElementById("super_cat_id["+sb+"]").value;
+                                prod_cat_id=document.getElementById("prod_cat_id["+sb+"]").value;
                                 if(col_val=="")
                                     {
                                         col_val=value;
@@ -2728,12 +2717,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         user_val=user_val;
                                         index_val=super_cat_id;
                                         category_code=super_cat_code;
+                                        pro_cat_id=prod_cat_id;
                                         var UP_Value = {  
                                             "col_nam" :col_name,                                
                                             "col_value" :col_val,
                                             "user_id_val" :user_val,
                                             "sup_id_val":index_val,
-                                            "cat_code":category_code
+                                            "cat_code":category_code,
+                                            "prod_id_val":pro_cat_id
                                         };
                                     
                                         UpValue.push(UP_Value);
@@ -2748,12 +2739,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         user_val=user_val;
                                         index_val=super_cat_id;
                                         category_code=super_cat_code;
+                                        pro_cat_id=prod_cat_id;
                                         var UP_Value = {  
                                             "col_nam" :col_name,                                
                                             "col_value" :col_val,
                                             "user_id_val" :user_val,
                                             "sup_id_val":index_val,
-                                            "cat_code":category_code
+                                            "cat_code":category_code,
+                                            "prod_id_val":pro_cat_id
                                         };
                                     
                                         UpValue.push(UP_Value);

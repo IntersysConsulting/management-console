@@ -120,7 +120,7 @@ session_start();
             }
             $vals=$_GET['l5_cat'];
              if($vals!=null){
-                $query = "SELECT a.l5_category,a.supercategory_id FROM supercategory_mapping a where a.mapping='".$vals."'";
+                                    $query = "SELECT a.l5_category,a.supercategory_id FROM supercategory_mapping a where a.mapping='".$vals."'";
                                     $result = mysqli_query($con,$query) or die("Error on performing query");
 
                                     echo "<select id='drp_dwn_l4_category' name='super_category_descss' style='margin-left: -7px;width: 150px; height: 30px;font-size:14px; font-weight:bold; font-family:calibri;'>";
@@ -136,12 +136,7 @@ session_start();
         ?>
         </div>
         </div>
-<!--     <div style="margin-top: 60px;">
-            <div class="segment" id="Prod_cat_code" style="margin-left:5px;width: 157px;height: 20px;">Product Category Code</div>
-            <div class="segment" id="Prod_cat_desc"style="margin-top: -22px;margin-left: 182px;width: 255px;height: 20px">Product Category Description</div>
-            <div class="heading" id="pc_value" style="width: 132px;margin-top: -22px;margin-left: 458px;height: 20px;text-align: center;text-decoration: underline;font-weight: bold;">Value</div>
 
-        </div>-->
         <form action="EligibleProducts_Update.php" method="POST" id="update" style="margin-top:5px;">
           <div style="width:700px; margin-top: 45px;margin-left: 60px;">
         <?php
@@ -153,10 +148,9 @@ session_start();
             else {
                 header("location:../index.php");
             }
-            $val=$_GET['sup_id'];
-                //$val=01;
+             $val=$_GET['sup_id'];
              if($val!=null){
-                    $sql = "SELECT a.user_id,a.super_category_id,a.product_category_code,a.product_category_desc,a.pc_value FROM pr_product_category a WHERE a.user_id='app' AND a.super_category_id=".$val."";
+                    $sql = "SELECT a.user_id,a.super_category_id,a.product_category_code,a.product_category_desc,a.pc_value,a.product_category_id FROM pr_product_category a WHERE a.user_id='app' AND a.super_category_id=".$val."";
                     $result = mysqli_query($con,$sql) or die("Error on Performing next query");
                     $i=0;
                    // echo "<table style='width:630px; margin-left:5px;' cellpadding='0' cellspacing='0'>";
@@ -185,6 +179,7 @@ session_start();
                         else{
                             echo '<td style="width:130px;"><input type="checkbox" name="val_ye[';echo $i; echo ']" id="pc_value" class="val_yes';echo $i; echo'" style="display:inline !important;"  value="';echo $row[4]; echo '"</input></td>';
                         }
+                        echo '<td style="width:0px;"><input id="prod_cat_id['; echo $i; echo']" type="hidden" name="prod_cat_id" value="'; echo $row[5]; echo'"/></td>';
                         echo "</tr>";
                         $i++;
                     }
