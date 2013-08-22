@@ -88,7 +88,7 @@ session_start();
                                 else {
                                     header("location:../index.php");
                                 }
-                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id AND a.user_id ='app'";
+                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id AND a.user_id ='app' AND upper(b.metric_desc) <> 'OFFERS PER DECK'";
                                 $results = mysqli_query($con, $query) or die("Error performing query");
                                 $i = 1;
                                 ?>
@@ -125,11 +125,6 @@ session_start();
                                 <?php mysqli_close($con); ?>
                                 <div id="Val_control_err"><label> Please enter value between -.10 and .20 </label></div>
                                 <div class="updating" id="updating" style="margin-left:400px;">Your updates were saved</div>
-                               <!-- <div>
-                                    <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="val_control_save" value="save"/></div>
-                                    <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>
-
-                                </div>-->
                                 <div style="float:right;margin-right:30px;width:200px;">
                                     <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="save" id="val_control_save" value="Save"></div>
                                     <div style="display:inline-block;width:50px;"><input style="font-size: 13px;font-weight:600;" type="button" name="cancel" id="cancel" class="btn" value="Cancel"></div>

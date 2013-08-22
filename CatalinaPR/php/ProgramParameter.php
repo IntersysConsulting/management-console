@@ -134,7 +134,7 @@
                                                     
                                                 echo "</select>";
                                             }
-                                            else if($row[2]== 7){
+                                            else if(strtoupper($row[1])== '# OF DEFAULT OFFERS (PER DECK)'){
                                                 echo "<select id='drp_dwn_7' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
                                                     echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
                                                     if($row[3]=='NO'){

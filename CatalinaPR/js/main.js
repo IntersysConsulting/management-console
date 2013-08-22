@@ -9,7 +9,7 @@ var minimumval=[];
 var UpValue = [];
 var i=0,f=false,edit=false;
 var k=0;
-
+var cnt=0,l4_cnt=0;
 function include(filename, onload) {
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -2449,7 +2449,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                else if((parameter=='6'))
                                 {
-                                    if((value>=(1))&&(value<=(5))&&(value!=""))
+                                    if((value>=(0))&&(value<=(0.30))&&(value!=""))
                                     {
                                         $(this).css("background-color","white");
                                         GuardRails_Checking(value,column,user_val,parameter);
@@ -2465,7 +2465,33 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     else
                                     {
                                         $(this).css("background-color","red");
-                                        $('#pgm_param_err').html('Please Enter Value between 1 and 5 ');
+                                        $('#pgm_param_err').html('Please Enter Value between 0 and 0.30 ');
+                                        $('#pgm_param_err').show();
+                                        f=false;
+                                        return false;
+                                    }  
+                                }
+                               
+                            
+                            else if((parameter=='7'))
+                                {
+                                    if((value>=(1))&&(value<=(25))&&(value!=""))
+                                    {
+                                        $(this).css("background-color","white");
+                                        GuardRails_Checking(value,column,user_val,parameter);
+                                    }
+                                    else if(value=="")
+                                    {
+                                        $(this).css("background-color","yellow");
+                                        $('#pgm_param_err').html('Please enter a value');
+                                        $('#pgm_param_err').show();
+                                        f=false;
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        $(this).css("background-color","red");
+                                        $('#pgm_param_err').html('Please Enter Value between 1 and 25 ');
                                         $('#pgm_param_err').show();
                                         f=false;
                                         return false;
@@ -2494,14 +2520,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         value=(e.target.options[e.target.selectedIndex].text);
                         column='p_value';
                         user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=7;edit=true;
+                        parameter=8;edit=true;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
                     $('#drp_dwn_segment').change(function(e) {
                         value=(e.target.options[e.target.selectedIndex].text);
                         column='p_value';
                         user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=8;edit=true;
+                        parameter=9;edit=true;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
 
@@ -2516,7 +2542,13 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             if((parameter=='1')&&(this.value>=(1))&&(this.value<=(10))&&(this.value!="")){
                                 pgm_range++;
                             }
-                            else if(((parameter=='2') || (parameter=='3') || (parameter=='6')) &&(values>=(1))&&(values<=(5))&&(values!="")){
+                            else if(((parameter=='2') || (parameter=='3')) &&(values>=(1))&&(values<=(5))&&(values!="")){
+                                pgm_range++;
+                            }
+                            else if((parameter=='6') &&(values>=(0))&&(values<=(0.30))&&(values!="")){
+                                pgm_range++;
+                            }
+                            else if((parameter=='7') &&(values>=(1))&&(values<=(25))&&(values!="")){
                                 pgm_range++;
                             }
                             else if((parameter=='4')&& (values>=(5))&&(values<=(7))&&(values!=""))
@@ -2572,7 +2604,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                     });
                     $('#pro_cat_save').hide();
                     
-                $('#drp_dwn_super_category').change(function(e) {
+                $('#drp_dwn_super_category').change(function(e) {cnt++;
                         desc=(e.target.options[e.target.selectedIndex].text);
                         vals=(e.target.options[e.target.selectedIndex].value);
                         user_val=document.getElementById("username").value;
@@ -2581,6 +2613,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         }, function (txt) {
                                 
                              $('#samples').html(txt);
+
                              //$('#samples #supers').show();
                             $('#samples #prheading').hide();
 			    $('#samples #headings').hide();
@@ -2594,14 +2627,16 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#samples .prod_cat_updating').hide();
                             $('.prod_cat_updating').hide();
                             $('#samples #pro_cat_save').hide();
-                            $('#samples #prod_cat_ancel').hide();
+                            //$('#samples #prod_cat_ancel').hide();
                              $('#pro_cat_save').hide();
-                            $('#prod_cat_ancel').hide();
+                            //$('#prod_cat_ancel').hide();
+                            $('#update #prod_div_ancel .btn').hide();
+                            $('#update #samples #prod_div_ancel .btn').css("display","inline-block");
                             $('#prod_cat_err').hide();
-                                  
-                        });
+                            
+                        });$('#update #prod_cat_ancel').hide();
                     });
-                    $('#drp_dwn_l4_category').change(function(e) {
+                    $('#drp_dwn_l4_category').change(function(e) {l4_cnt++;
                         desc=(e.target.options[e.target.selectedIndex].text);
                         val=(e.target.options[e.target.selectedIndex].value);
                         $('#update #prod_cat_ancel').hide();
@@ -2629,10 +2664,10 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             $('#prod_cat_err').hide();
                             $('#pro_cat_save').hide();
                             $('#prod_cat_ancel').hide();
-                           
+                            
 			    $('#sample #supers').hide();
                                   
-                        });
+                        });$('#samples #prod_cat_ancel').show();
                     });
                      
                     $("input[type=checkbox]").each ( function() {
