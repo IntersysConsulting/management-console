@@ -191,20 +191,20 @@ session_start();
 
              }
          ?>
+             
               <div id="samples"></div>
               <div id="sample"></div>
-             
               <div id="prod_cat_err"><label> Please enter value YES/NO </label></div>
               <div class="prod_cat_updating" style="width:350px !important; margin-left:150px;">Your updates were saved</div>
               <div style="float:right;margin-right:auto;margin-left:auto;width:200px;">
                   <div style="display:inline-block;width:50px;margin:25px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="save" id="pro_cat_save" value="Save"/></div>
-                  <div style="display:inline-block;width:50px;"><input style="font-weight:600; font-size: 13px;" type="button" class="btn" name="cancel" id="prod_cat_ancel" value="Cancel"/></div>
+                  <div id="prod_div_ancel" style="display:inline-block;width:50px;"><input style="font-weight:600; font-size: 13px;" type="button" class="btn" name="cancel" id="prod_cat_ancel" value="Cancel"/></div>
                         
               </div>
           </div>
         </form>
                 </div>
-             
+              
             </div>
     
             <div id="bottomstripe" style="margin-top:110px;height: 29px;background-color:#0093d0 ">
