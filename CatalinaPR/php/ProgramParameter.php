@@ -1,4 +1,29 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+function segmentList($rows){
+    
+  require 'connection.php';
+  if (isset($_SESSION['myusername'])) {
+         $myusername = $_SESSION['myusername'];
+  }
+  else {
+          header("location:../index.php");
+  }
+  $segmentArr=array();
+  $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b 
+             where b.user_id ='app' 
+             and a.segment_desc='".$rows."'
+             union 
+             select distinct a.segment_desc
+             from pr_segment a"; 
+  $result = mysqli_query($con, $sql) or die("Error on segment query");
+  while ($row = mysqli_fetch_array($result)) {
+   $segmentArr[]=$row[0];   
+  }
+  mysqli_close($con);
+  return $segmentArr;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -105,19 +130,26 @@
                                         <td style="width:150px; height:30px;">
 
                                             <?php if (strtoupper($row[1]) == 'DEFAULT SEGMENT(FOR DEFAULT OFFERS)') { 
-                                                require 'connection.php';
-                                                //$sql = "SELECT  a.segment_desc FROM pr_segment a ";
-                                                $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b 
-                                                        where b.user_id ='app' 
-                                                           and a.segment_desc='".$row[3]."'
-                                                        union 
-                                                        select distinct a.segment_desc
-                                                          from pr_segment a"; 
-                                                $result = mysqli_query($con, $sql) or die("Error on segment query");
-
-                                                echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
-                                                while ($row = mysqli_fetch_array($result)) {
-                                                    echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
+//                                                require 'connection.php';
+//                                                //$sql = "SELECT  a.segment_desc FROM pr_segment a ";
+//                                                $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b 
+//                                                        where b.user_id ='app' 
+//                                                           and a.segment_desc='".$row[3]."'
+//                                                        union 
+//                                                        select distinct a.segment_desc
+//                                                          from pr_segment a"; 
+//                                                $result = mysqli_query($con, $sql) or die("Error on segment query");
+//
+//                                                echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+//                                                while ($row = mysqli_fetch_array($result)) {
+//                                                    echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
+//                                                }
+//                                                echo "</select>";
+                                                 $segmentArray=array();
+                                                 $segmentArray=segmentList($rows[3]);
+                                                 echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+                                                for($j=0;$j<6;$j++) {
+                                                    echo "<option style='text-align:center;' value='" . $segmentArray[$j] . "'>" . $segmentArray[$j] . "</option>";
                                                 }
                                                 echo "</select>";
                                             }
@@ -134,7 +166,7 @@
                                                     
                                                 echo "</select>";
                                             }
-                                            else if(strtoupper($row[1])== '# OF DEFAULT OFFERS (PER DECK)'){
+                                            else if($row[2]== 7){
                                                 echo "<select id='drp_dwn_7' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
                                                     echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
                                                     if($row[3]=='NO'){

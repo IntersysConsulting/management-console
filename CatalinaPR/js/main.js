@@ -2447,9 +2447,9 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                         return false;
                                     } 
                                 }
-                               else if((parameter=='6'))
+                               else if((parameter=='9'))
                                 {
-                                    if((value>=(0))&&(value<=(0.30))&&(value!=""))
+                                    if((value>=(10))&&(value<=(50))&&(value!=""))
                                     {
                                         $(this).css("background-color","white");
                                         GuardRails_Checking(value,column,user_val,parameter);
@@ -2465,7 +2465,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                     else
                                     {
                                         $(this).css("background-color","red");
-                                        $('#pgm_param_err').html('Please Enter Value between 0 and 0.30 ');
+                                        $('#pgm_param_err').html('Please Enter Value between 10 and 50 ');
                                         $('#pgm_param_err').show();
                                         f=false;
                                         return false;
@@ -2473,7 +2473,7 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                                 }
                                
                             
-                            else if((parameter=='7'))
+                            else if((parameter=='6'))
                                 {
                                     if((value>=(1))&&(value<=(25))&&(value!=""))
                                     {
@@ -2520,14 +2520,14 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                         value=(e.target.options[e.target.selectedIndex].text);
                         column='p_value';
                         user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=8;edit=true;
+                        parameter=7;edit=true;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
                     $('#drp_dwn_segment').change(function(e) {
                         value=(e.target.options[e.target.selectedIndex].text);
                         column='p_value';
                         user_val=document.getElementById("pgm_param_user_id['0']").value;
-                        parameter=9;edit=true;
+                        parameter=8;edit=true;
                         GuardRails_Checking(value,column,user_val,parameter);
                     });
 
@@ -2545,10 +2545,10 @@ include(server + 'js/jquery-1.7.1.min.js', function() {
                             else if(((parameter=='2') || (parameter=='3')) &&(values>=(1))&&(values<=(5))&&(values!="")){
                                 pgm_range++;
                             }
-                            else if((parameter=='6') &&(values>=(0))&&(values<=(0.30))&&(values!="")){
+                            else if((parameter=='9') &&(values>=(10))&&(values<=(50))&&(values!="")){
                                 pgm_range++;
                             }
-                            else if((parameter=='7') &&(values>=(1))&&(values<=(25))&&(values!="")){
+                            else if((parameter=='6') &&(values>=(1))&&(values<=(25))&&(values!="")){
                                 pgm_range++;
                             }
                             else if((parameter=='4')&& (values>=(5))&&(values<=(7))&&(values!=""))
