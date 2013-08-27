@@ -32,7 +32,7 @@
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="active has-sub"><a href="SalesChange.php">Controls </a>
@@ -76,6 +76,7 @@
 <div class="controls" id="chartarea">
         <div class="heading" >
             <div style="text-align: center; font-weight: bold; font-size: 14px;">Program ROI Adjustment</div>
+	    <div style="text-align: center;">Monthly Segment Change-Recency, Frequency, Monetary Value</div>
         </div>
 
 
@@ -98,9 +99,7 @@
                 <table class="table table-striped" cellpadding='0' cellspacing='0'>
 		<thead>
 		<tr>
-			<td style="width:150px;"><label><b>Segment</b></label></td>
- <td style="width:0px;"><input id="user_id['0']" type="hidden" name="user_id" value="" /></td>
-                                            <td style="width:0px;"><input id="segment_id['0']" type="hidden" name="segment_id" value="" /></td>
+			<td style="width:150px;"><label><b></b></label></td>
                                              <td style="">&nbsp;</td>
 			            <td style="text-align:center;"> <b>-5</b></td>
                                     <td style="text-align:center;"> <b>-4</b></td>
@@ -118,8 +117,6 @@
 		<tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" height:18px" class="sales_change_row">
- <td style="width:0px;"><input id="user_id['0']" type="hidden" name="user_id" value="" /></td>
-                                            <td style="width:0px;"><input id="segment_id['0']" type="hidden" name="segment_id" value="" /></td>
                                              <td style="">&nbsp;</td>
 
 
@@ -145,7 +142,7 @@
                 </table>
                 <?php mysqli_close($con); ?>
                 <div id="roi_adj_err"><label> Please enter value between 0.00 and 0.20 </label></div>
-                <div class="updating" id="roi_adj_updating" style="margin-top:20px;">Updated...</div>
+                <div class="updating" id="roi_adj_updating" style="margin-top:20px;margin-left:700px;">Your updates were saved</div>
                 <div style="float:right;margin-right:30px;width:200px;">
                     <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn"  name="save" id="roi_adj_save" value="Save"/></div>
                     <div style="display:inline-block;width:50px;"><input style="font-weight:600;font-size:13px;" type="button"class="btn" name="cancel" id="roi_adj_cancel" value="Cancel"/></div>

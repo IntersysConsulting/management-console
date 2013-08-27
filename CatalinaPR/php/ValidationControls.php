@@ -33,7 +33,7 @@ session_start();
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -89,7 +89,7 @@ session_start();
                         </div>-->
 
                         <form action="ValControls_Update.php" method="POST" id="update">
-                            <div style="width:700px;">
+                            <div style="width:700px;margin-left: 100px;">
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -99,8 +99,9 @@ session_start();
                                     header("location:../index.php");
                                 }
 
-                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
-                                $results = mysqli_query($con, $query) or die("Error performing query");
+                              //  $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id AND a.user_id ='app' where a.metric_id!=9";
+                                 $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum  FROM pr_val_control_rule a INNER JOIN pr_metric b ON a.metric_id = b.metric_id AND a.user_id ='app' AND upper(b.metric_desc) <> 'OFFERS PER DECK'";
+				$results = mysqli_query($con, $query) or die("Error performing query");
                                 $i = 1;
                                 ?>
 
@@ -117,7 +118,7 @@ session_start();
 </tr>
 </thead>
 <tbody>
-                                    <?php while ($row = mysqli_fetch_array($results)) { ?>
+                                    <?php while ($row = mysqli_fetch_array($results)) {  ?>
                                         <tr style="  height:10px;" class="val_control_row">
 
                                             <td class="segmentdesc" style="width:240px; padding-top:1px;"><label id="segment" name="segment"><?php echo $row[2]; ?></label></td>
@@ -135,7 +136,7 @@ session_start();
                                 </table>
                                 <?php mysqli_close($con); ?>
                                 <div id="Val_control_err"><label> Please enter value between -.10 and .20 </label></div>
-                                <div class="updating" id="updating" style="margin-left:300px;">Updated...</div>
+                                <div class="updating" id="updating" style="margin-left:400px;">Your updates were saved</div>
                                <!-- <div>
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="val_control_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>

@@ -145,6 +145,25 @@ $pgm_id = $pgm_ids[0];
 <?php
 //$j=0;
 for ($j = 0; $j < count($value_zero); $j++) {
+/*    if ($j == 0 || $j == 4 || $j == 7 || $j == 10 || $j == 12) {
+        echo "['','','','','',''],";
+    }
+    if ($flag_one_row[$j] == 'N') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "','" . number_format($value_one[$j], 0) . "','" . number_format($value_two[$j], 0) . "','" . number_format($value_three[$j], 0) . "','" . number_format($value_four[$j], 0) . "'],\n";
+    }
+    else if ($flag_one_row[$j] == 'P') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "%','" . number_format($value_one[$j], 0) . "%','" . number_format($value_two[$j], 0) . "%','" . number_format($value_three[$j], 0) . "%','" . number_format($value_four[$j], 0) . "%'],\n";
+    }
+    else if ($flag_one_row[$j] == 'C') {
+        echo "['$pgm_id[$j]','$" . number_format($value_zero[$j], 0) . "','$" . number_format($value_one[$j], 0) . "','$" . number_format($value_two[$j], 0) . "','$" . number_format($value_three[$j], 0) . "','$" . number_format($value_four[$j], 0) . "'],\n";
+    }
+    else if ($flag_one_row[$j] == 'D') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 3, '.', '') . "','" . number_format($value_one[$j], 3, '.', '') . "','" . number_format($value_two[$j], 3, '.', '') . "','" . number_format($value_three[$j], 3, '.', '') . "','" . number_format($value_four[$j], 3, '.', '') . "'],\n";
+    }
+    else {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "','" . number_format($value_one[$j], 0) . "','" . number_format($value_two[$j], 0) . "','" . number_format($value_three[$j], 0) . "','" . number_format($value_four[$j], 0) . "'],\n";
+    }*/
+	if($j!=count($value_zero)-1){
     if ($j == 0 || $j == 4 || $j == 7 || $j == 10 || $j == 12) {
         echo "['','','','','',''],";
     }
@@ -162,6 +181,28 @@ for ($j = 0; $j < count($value_zero); $j++) {
     }
     else {
         echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "','" . number_format($value_one[$j], 0) . "','" . number_format($value_two[$j], 0) . "','" . number_format($value_three[$j], 0) . "','" . number_format($value_four[$j], 0) . "'],\n";
+    }
+    }
+    else
+    {
+      if ($j == 0 || $j == 4 || $j == 7 || $j == 10 || $j == 12) {
+        echo "['','','','','','']";
+    }
+    if ($flag_one_row[$j] == 'N') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "','" . number_format($value_one[$j], 0) . "','" . number_format($value_two[$j], 0) . "','" . number_format($value_three[$j], 0) . "','" . number_format($value_four[$j], 0) . "']\n";
+    }
+    else if ($flag_one_row[$j] == 'P') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "%','" . number_format($value_one[$j], 0) . "%','" . number_format($value_two[$j], 0) . "%','" . number_format($value_three[$j], 0) . "%','" . number_format($value_four[$j], 0) . "%']\n";
+    }
+    else if ($flag_one_row[$j] == 'C') {
+        echo "['$pgm_id[$j]','$" . number_format($value_zero[$j], 0) . "','$" . number_format($value_one[$j], 0) . "','$" . number_format($value_two[$j], 0) . "','$" . number_format($value_three[$j], 0) . "','$" . number_format($value_four[$j], 0) . "']\n";
+    }
+    else if ($flag_one_row[$j] == 'D') {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 3, '.', '') . "','" . number_format($value_one[$j], 3, '.', '') . "','" . number_format($value_two[$j], 3, '.', '') . "','" . number_format($value_three[$j], 3, '.', '') . "','" . number_format($value_four[$j], 3, '.', '') . "']\n";
+    }
+    else {
+        echo "['$pgm_id[$j]','" . number_format($value_zero[$j], 0) . "','" . number_format($value_one[$j], 0) . "','" . number_format($value_two[$j], 0) . "','" . number_format($value_three[$j], 0) . "','" . number_format($value_four[$j], 0) . "']\n";
+    }  
     }
 }
 ?>
@@ -193,7 +234,7 @@ for ($j = 0; $j < count($value_zero); $j++) {
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -220,9 +261,9 @@ for ($j = 0; $j < count($value_zero); $j++) {
                                   </ul>
 
                         </li>
-                        <li class="active has-sub"><a href="ROIReports.php">Reports </a>
+                        <li class="active has-sub"><a href="ROIReportChart.php">Reports </a>
                       <ul>
-                    <li class="last"><a href="ROIReports.php" >&nbsp;ROI Report&nbsp;</a></li>
+                    <li class="last"><a href="ROIReportChart.php" >&nbsp;ROI Report&nbsp;</a></li>
 
                 </ul>
 
@@ -230,18 +271,18 @@ for ($j = 0; $j < count($value_zero); $j++) {
                     </ul>
                 </div>
             </div>
-            <div id="tabs" style="margin-top: 10px;>
+            <div id="tabs" style="margin-top: 10px;">
                 <div class="controls" id="chartarea">
 
                     <div id="tabs-1">
-                        <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 18px; font-weight: boulder;  ">
+                        <div class="heading" style="width:370px; padding-top:10px; margin-top:10px; text-align: center; font-size: 14px; font-weight: bold;  ">
                             PROGRAM AND ROI TRENDS
                         </div>
                         <div id="chart_div" style=" margin-top:20px;width: 99%; height: 100%;"></div>
                     </div>
-
+		   <div style="margin-left: 10px;margin-top: 25px;font-style: italic;font-size: 12px;color:red;"><label>*Values listed above represent averages for each purchase cycle period</label></div>
                 </div>
-   <div style="margin-top:70px;height: 29px;background-color:#0093d0 ">
+   <div style="margin-top:40px;height: 29px;background-color:#0093d0 ">
                 <?php //require 'Mainmenu.php'; ?>
 </div>
             </div>

@@ -8,7 +8,7 @@ else {
      header("location:../index.php");
 }
 // Select all the rows in the markers table
-$query = "SELECT * FROM pr_ag_prodcat;";
+$query = "SELECT * FROM ag_treemap_mod;";
 $result = mysqli_query($con,$query);
 if (!$result) {
   die("Invalid query: " . mysqli_error($con));
@@ -16,11 +16,10 @@ if (!$result) {
 $num = mysqli_num_rows($result);
 while($row=@mysqli_fetch_assoc($result)){
         //$row=@mysql_fetch_assoc($result);
-        $prod[] = $row["prodtypdesc"];
-	$brand[] = $row["branddesc"];
-	$sum_amount[] = $row["sumamt"]; $sum_qty[]=$row["sumqty"];
-        $sum_trip[]=$row["sumtrip"];
-	$year[] = $row["year"];
+        $category[] = $row["prod_hier_descr"];
+	$parent[] = $row["prod_hier_parent_descr"];
+	$sum_amount[] = $row["sum_amt_curyear"];
+        $amt_change[]=$row["sum_amt_change"];
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -44,35 +43,32 @@ while($row=@mysqli_fetch_assoc($result)){
     function drawVisualization() {
 
         var data = google.visualization.arrayToDataTable([
-          ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
-          ['Global',    null,                 0,                               0],
-          ['America',   'Global',             0,                               0],
-          ['Europe',    'Global',             0,                               0],
-          ['Asia',      'Global',             0,                               0],
-          ['Australia', 'Global',             0,                               0],
-          ['Africa',    'Global',             0,                               0],
-          ['Brazil',    'America',            11,                              10],
-          ['USA',       'America',            52,                              31],
-          ['Mexico',    'America',            24,                              12],
-          ['Canada',    'America',            16,                              -23],
-          ['France',    'Europe',             42,                              -11],
-          ['Germany',   'Europe',             31,                              -2],
-          ['Sweden',    'Europe',             22,                              -13],
-          ['Italy',     'Europe',             17,                              4],
-          ['UK',        'Europe',             21,                              -5],
-          ['China',     'Asia',               36,                              4],
-          ['Japan',     'Asia',               20,                              -12],
-          ['India',     'Asia',               40,                              63],
-          ['Laos',      'Asia',               4,                               34],
-          ['Mongolia',  'Asia',               1,                               -5],
-          ['Israel',    'Asia',               12,                              24],
-          ['Iran',      'Asia',               18,                              13],
-          ['Pakistan',  'Asia',               11,                              -52],
-          ['Egypt',     'Africa',             21,                              0],
-          ['S. Africa', 'Africa',             30,                              43],
-          ['Sudan',     'Africa',             12,                              2],
-          ['Congo',     'Africa',             10,                              12],
-          ['Zair',      'Africa',             8,                               10]
+        <?php
+        $j=0;
+        echo "['Categories', 'Parent', 'Sum Sales', 'Sum Trip (color)'],\n";
+        echo "['All',    null,                 0,                               0],\n";
+        echo "['Drug, Pets and Consumables',   'All',             0,                               0],\n";
+        echo "['Grocery and Fresh',    'All',             0,                               0],\n";
+        echo "['Hardlines and Softlines',      'All',             0,                               0],\n";
+        echo "['SOFTLINES',      'Hardlines and Softlines',             0,                               0],\n";
+        echo "['IN AND OUTDOOR HOME',      'Hardlines and Softlines',             0,                               0],\n";
+        echo "['DRUG STORE',      'Drug, Pets and Consumables',             0,                               0],\n";
+        echo "['FRESH',      'Grocery and Fresh',             0,                               0],\n";
+        echo "['MISC.',      'Hardlines and Softlines',             0,                               0],\n";
+        echo "['SYSTEM',      'Hardlines and Softlines',             0,                               0],\n";
+        echo "['PETS AND CONSUMABLES',      'Drug, Pets and Consumables',             0,                               0],\n";
+        echo "['HARDLINES',      'Hardlines and Softlines',             0,                               0],\n";
+        echo "['GROCERY',      'Grocery and Fresh',             0,                               0],\n";
+        echo "['SUPPLIES AND PACKAGING',      'Hardlines and Softlines',             0,                               0],\n";
+        for($j=0;$j<$num;$j++){
+        if ($j != ($num-1)){
+        echo "['$category[$j]','$parent[$j]',$sum_amount[$j],$amt_change[$j]],\n";
+        }else{
+        echo "['$category[$j]','$parent[$j]',$sum_amount[$j],$amt_change[$j]]\n";
+        }
+        }
+        ?>
+
         ]);
       
         // Create and draw the visualization.
@@ -83,28 +79,10 @@ while($row=@mysqli_fetch_assoc($result)){
           midColor: '#ddd',
           maxColor: '#0d0',
           headerHeight: 15,
- 	  title: 'Aggregate Sales and Trip Count by Product Hierarchy',
+ 	  title: 'Aggregate Sales by Product Hierarchy',
           fontColor: 'black',
           showScale: true});
       }
-//	<?php
-//	$j=0;
-    //    echo "['Categories', 'Parent', 'Sum Quantity(size)', 'Sum Trip (color)'],\n";
-   //     echo "['All',    null,                 0,                               0],\n";
-  //      echo "['Drugs',   'All',             0,                               0],\n";
- //       echo "['Produce',    'All',             0,                               0],\n";
-//        echo "['Other',      'All',             0,                               0],\n";
-//	for($j=0;$j<$num;$j++){
-//	if ($j != ($num-1)){
-//	echo "['$prod[$j]',$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]'],\n";
-//	}else{
- //       echo "['Coffee','Drugs',23,-3],\n";
-  //      echo "['Tea','Produce',3,3]\n";
-//	}
-//	}
-//	?>
-
-
 
     google.setOnLoadCallback(drawVisualization);
 
@@ -129,7 +107,7 @@ while($row=@mysqli_fetch_assoc($result)){
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>

@@ -15,9 +15,9 @@ else {
         <link rel="stylesheet" href="../css/jquery-ui.css" />
         <link rel="stylesheet" href="../css/bootstrap.css" />
         <script type="text/javascript" src="../js/main.js"></script>
-        <script src="../js/jquery-1.9.1.js"></script>
-        <script src="../js/jquery-ui.js"></script>
-        <script src="../js/jquery.validate.js"></script>
+        <script src="../js/jquery-1.7.1.min.js"></script>
+      <!--  <script src="../js/jquery-ui.js"></script>
+        <script src="../js/jquery.validate.js"></script>-->
         <title>Sales Change Goals</title>
     </head>
     <body>
@@ -39,7 +39,7 @@ else {
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="active has-sub"><a href="SalesChange.php">Controls </a>
@@ -82,7 +82,7 @@ else {
             <div id="content">
                 <div class="controls" id="chartarea">
         <div class="heading">
-            <div style="text-align: center; font-weight: bold; font-size: 14px;">Program ROI Goals</div>
+            <div style="text-align: center; font-weight: bold; font-size: 14px;">Sales Change Goals</div>
             <div style="text-align: center;">Quintile Change-current Period vs Previous Period or same period Last Year</div>
         </div>
 
@@ -107,9 +107,9 @@ else {
                                 <table class="table table-striped" cellpadding='0' cellspacing='0'>
 		<thead >
 		<tr>
-			<td style="width:150px;"><label><b>Segment</b></label></td>
- <td style="width:0px;"><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
-                                            <td style="width:0px;"><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
+		 	            <td style="width:150px;"><label><b>Segment</b></label></td>
+				    <td style="width:0px;"></td>
+                                            <td style="width:0px;"></td>
                                              <td style="">&nbsp;</td>
 			            <td style="text-align:center;"> <b>-5</b></td>
                                     <td style="text-align:center;"> <b>-4</b></td>
@@ -132,17 +132,60 @@ else {
                                             <td style="width:0px;"><input id="user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                                             <td style="width:0px;"><input id="segment_id['<?php echo $i ?>']" type="hidden" name="segment_id" value="<?php echo $row[1]; ?>" /></td>
                                              <td style="">&nbsp;</td>
+					      <?php if($row[3]==0.00){ ?>
+						<td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3],0, '.', ''); ?>"/></td>
+						<?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n5_val" class="saleschange_inpu_text" style="width:38px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
+					    <?php } if($row[4]==0.00){?>
+					     <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n4_val" class="saleschange_inpu_text"  style="width:37px;"   value="<?php echo number_format($row[4], 0, '.', ''); ?>"/></td>
+					     <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n4_val" class="saleschange_inpu_text"  style="width:37px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
+					    <?php } if($row[5]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[5], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[5], 2, '.', ''); ?>"/></td>
+                                             <?php }if($row[6]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n2_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[6], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n2_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php echo number_format($row[6], 2, '.', ''); ?>"/></td>
+                                             <?php }if($row[7]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[7], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="n1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[7], 2, '.', ''); ?>"/></td>
+                                             <?php }if($row[8]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="zed_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[8], 0, '.', ''); ?>"/></td>
+                                             <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="zed_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[8], 2, '.', ''); ?>"/></td>
+                                             <?php }if($row[9]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p5_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[9], 0, '.', ''); ?>"/></td>
+                                             <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p5_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[9], 2, '.', ''); ?>"/></td>
+                                            <?php }if($row[10]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p4_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[10], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p4_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[10], 2, '.', ''); ?>"/></td>
+                                            <?php }if($row[11]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[11], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']"  id="p3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[11], 2, '.', ''); ?>"/></td>
+                                            <?php }if($row[12]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p2_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[12], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p2_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php echo number_format($row[12], 2, '.', ''); ?>"/></td>
+                                            <?php }if($row[13]==0.00){ ?>
+                                            <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[13], 0, '.', ''); ?>"/></td>
+                                            <?php } else{ ?>
                                             <td style="width:38px;"><input name="inp_text['<?php echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php echo number_format($row[13], 2, '.', ''); ?>"/></td>
+                                            <?php } ?>
+                                           <!-- <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="n3_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php //echo number_format($row[5], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="n2_val" class="saleschange_inpu_text"  style="width:38px;" value="<?php //echo number_format($row[6], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="n1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php //echo number_format($row[7], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="zed_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php //echo number_format($row[8], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="p5_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php //echo number_format($row[9], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="p4_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php //echo number_format($row[10], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']"  id="p3_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php //echo number_format($row[11], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']" id="p2_val" class="saleschange_inpu_text"  style="width:39px;" value="<?php //echo number_format($row[12], 2, '.', ''); ?>"/></td>
+                                            <td style="width:38px;"><input name="inp_text['<?php //echo $i ?>']" id="p1_val" class="saleschange_inpu_text"  style="width:40px;" value="<?php //echo number_format($row[13], 2, '.', ''); ?>"/></td>-->
                                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                                         </tr>
                                  <?php $i++;
@@ -152,7 +195,7 @@ else {
 
                                 <?php mysqli_close($con); ?>
                                 <div id="sales_change_err"><label> Please enter value between -.10 and .20 </label></div>
-                                <div class="updating" id="updating">Updated...</div>
+                                <div class="updating" id="updating" style="margin-left:700px;">Your updates were saved</div>
                                 <div style="float:right;margin-right:30px;width:200px;">
                                     <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px;" type="button" class="btn" name="save" id="save" value="Save"/></div>
                                     <div style="display:inline-block;width:50px;"><input style="font-size: 13px;font-weight:600;" type="button" name="cancel" id="cancel" class="btn" value="Cancel"/></div>

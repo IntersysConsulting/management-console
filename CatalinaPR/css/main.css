@@ -242,7 +242,7 @@ login_error{
     text-align: center;
 }
 .updating{
-    width:90px; height:20px;
+    width:190px; height:20px;
     margin-left: 250px;
     margin-top: 10px;
     font-style: italic;
@@ -252,7 +252,7 @@ login_error{
 .prod_cat_updating
 {
 
-    width:90px; 
+    width:190px; 
     height:20px;
     margin-top: 25px !important; 
     margin-left: 250px; 
@@ -261,3 +261,9 @@ login_error{
     color: #F00;
      display:none;
 }
+#sample #prheading,#sample #headings,#sample .mainmenu,#sample #logout,#sample #logo,#sample #mainmenubg,#sample #bottomstripe,#sample #drp_dwn_super_category,
+#sample #super,#sample .prod_cat_updating,#sample #pro_cat_save,#sample #prod_cat_ancel
+{
+    display:none !important;
+}
+.val_yes0{display:inline !important;}

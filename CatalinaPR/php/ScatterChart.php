@@ -8,27 +8,26 @@ else {
      header("location:../index.php");
 }
 // Select all the rows in the markers table
-$query = "SELECT * FROM pr_ag_prodcat;";
+$query = "SELECT * FROM ag_mon_sup_sales;";
 $result = mysqli_query($con,$query);
 if (!$result) {
   die("Invalid query: " . mysqli_error($con));
 }
-$num = mysqli_num_rows($result);
-while($row=@mysqli_fetch_assoc($result)){
+  $num = mysqli_num_rows($result);
+  while($row=@mysqli_fetch_assoc($result)){
         //$row=@mysql_fetch_assoc($result);
-        $prod[] = $row["prodtypdesc"];
-	$brand[] = $row["branddesc"];
-	$sum_amount[] = $row["sumamt"];
-        $sum_qty[]=$row["sumqty"];
-        $sum_trip[]=$row["sumtrip"];
-	$year[] = $row["year"];
-}
+        $category[] = $row["prod_hier_l5_descr"];
+	$sum_amount[] = $row["sum_mon_amt"];
+
+	$string = $row["cal_mon"];
+	 $date[] =date("Y,m,d", strtotime($row["cal_mon"]));
+   } 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Aggregated Sales</title>
         <link type="text/css" rel="stylesheet" href="../css/main.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
 	<link rel="stylesheet" href="../css/bootstrap.css" />
@@ -43,22 +42,49 @@ while($row=@mysqli_fetch_assoc($result)){
     function drawVisualization() {
 
           var data = new google.visualization.DataTable();
-          data.addColumn('number', 'Sum Trips');
-          data.addColumn('number', 'Groceries');
-          data.addColumn('number', 'Drugs');
-          for (var i = 0; i < 500; ++i) {
-            data.addRow([Math.sin(i / 5) * 0.25, Math.cos(i / 25), null])
+          data.addColumn('date', 'Date');
+          data.addColumn('number', 'Hardlines and Softline');
+          data.addColumn('number', 'Drug, Pets and Consumables');
+          data.addColumn('number', 'Grocery and Fresh');
+        data.addRows([  
+
+    <?php
+        $j=0;
+        for($j=0;$j<$num;$j++){
+
+        if ($category[$j] == 'SOFTLINES' || $category[$j] == 'HARDLINES' || $category[$j] == 'IN AND OUTDOOR HOME' || $category[$j] == 'MISC.' || $category[$j] == 'SYSTEM' || $category[$j] == 'SUPPLIES AND PACKING'){
+
+          if ($j != ($num-1)){
+            echo "[new Date($date[$j]),$sum_amount[$j],null,null],\n";
+          }else{
+            echo "[new Date($date[$j]),$sum_amount[$j],null,null]\n";
           }
-          for (var i = 0; i < 500; i++) {
-            data.addRow([Math.sin(i / 25), null, Math.cos(i / 10) * 0.5]);
+	}
+        else if ($category[$j] == 'GROCERY' || $category[$j] == 'FRESH'){
+          if ($j != ($num-1)){
+           echo "[new Date($date[$j]),null,$sum_amount[$j],null],\n";	
+          }else{
+           echo "[new Date($date[$j]),null,$sum_amount[$j],null]\n";
           }
+	}
+	else{
+          if ($j != ($num-1)){
+            echo "[new Date($date[$j]),null,null,$sum_amount[$j]],\n";
+          }else{
+            echo "[new Date($date[$j]),null,null,$sum_amount[$j]]\n";
+          }
+	}
+       } 
+    ?>
+
+         ]);
 
           var chart = new google.visualization.ScatterChart(
               document.getElementById('visualization'));
-          chart.draw(data, {title: 'Aggregate Sales in Dollars vs Aggregate Trip Count per Super Category',
+          chart.draw(data, {title: 'Aggregate Sales in Dollars per Super Category',
                             width: 900, height: 550,
-                            vAxis: {title: "Aggregate Sales", titleTextStyle: {color: "green"}},
-                            hAxis: {title: "Aggregate Trip Count", titleTextStyle: {color: "green"}}}
+                            vAxis: {title: "Aggregate Sales Over Time", titleTextStyle: {color: "green"}},
+                            hAxis: {title: "Date", titleTextStyle: {color: "green"}}}
                     );
       }
 
@@ -86,7 +112,7 @@ while($row=@mysqli_fetch_assoc($result)){
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>

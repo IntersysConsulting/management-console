@@ -1,4 +1,24 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+function segmentList($rows){ 
+$ProdCatArray=array();
+ require 'connection.php';
+                                                 $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b
+                                                        where b.user_id ='app'
+                                                           and a.segment_desc='".$rows."'
+                                                        union
+                                                        select distinct a.segment_desc
+                                                          from pr_segment a";
+                                                $result = mysqli_query($con, $sql) or die("Error on segment query");
+
+                                                while ($row = mysqli_fetch_array($result)) {
+						    $ProdCatArray[]=$row[0];
+                                                }
+
+                                                mysqli_close($con);
+return  $ProdCatArray;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -34,7 +54,7 @@
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -112,7 +132,7 @@
                     header("location:../index.php");
                 }
 
-                $query = "SELECT a.user_id,a.p_parameter,a.p_param_id,a.p_value FROM pr_program_param a  INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "' ";
+                $query = "SELECT a.user_id,a.p_parameter,a.p_param_id,a.p_value FROM pr_program_param a  WHERE a.user_id ='app' ";
                 $result = mysqli_query($con, $query) or die("Error performing queryi");
                 $i = 0;
                 ?>
@@ -122,27 +142,65 @@
 <?php while ($row = mysqli_fetch_array($result)) { ?>
     <tr style=" height:35px" class="Pgm_Param_row">
                             <td><input id="pgm_param_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
-                            <td><label id="pgm_parameter['<?php echo $i ?>']"  name="parameter"><?php echo $row[1]; ?></label></td>
-                            <td><input id="pgm_parameter_id['<?php echo $i ?>']" type="hidden" name="parameter" value="<?php echo $row[2]; ?>" /></td>
-                            <td>&nbsp;</td>
+                            <td style="width:440px;"><label id="pgm_parameter['<?php echo $i ?>']"  name="parameter"><?php echo $row[1]; ?></label></td>
+                            <td style="width:0px;"><input id="pgm_parameter_id['<?php echo $i ?>']" type="hidden" name="parameter" value="<?php echo $row[2]; ?>" /></td>
+                           <!-- <td>&nbsp;</td>-->
                             <td style="width:150px; height:30px;">
 
-    <?php  if (strtoupper($row[1]) != 'DEFAULT SEGMENT(FOR DEFAULT OFFERS)'){?>
-                                    <input name="pgm_param['<?php echo $i ?>']"  id="p_value"  class="inpu_text" style="text-align: center; height:30px; width:150px; font-size: 12px; font-weight: bold;"  value="<?php echo $row[3]; ?>"/>
-                                    <?php
-                                }
-                                else {
-                                    require 'connection.php';
-                                    $sql = "SELECT a.segment_desc FROM pr_segment a";
-                                    $result = mysqli_query($con,$sql) or die("Error on segment query");
+				<?php if (strtoupper($row[1]) == 'DEFAULT SEGMENT(FOR DEFAULT OFFERS)') { 
+                                          /*      require 'connection.php';
+                                               // $sql = "SELECT  a.segment_desc FROM pr_segment a";
+						 $sql = "select distinct a.segment_desc from pr_segment a join pr_program_param b
+                                                        where b.user_id ='app'
+                                                           and a.segment_desc='".$row[3]."'
+                                                        union
+                                                        select distinct a.segment_desc
+                                                          from pr_segment a";
+                                                $result = mysqli_query($con, $sql) or die("Error on segment query");
 
-                                    echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
-                                    }
-                                    echo "</select>";
-                                }
-                                ?>
+                                                echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+                                                while ($row = mysqli_fetch_array($result)) {
+                                                    echo "<option style='text-align:center;' value='" . $row[0] . "'>" . $row[0] . "</option>";
+                                                }
+                                                echo "</select>";
+						mysqli_close($con);*/
+						$segemntArray=array();
+					$segemntArray=segmentList($row[3]);	
+						 echo "<select id='drp_dwn_segment' name='segment_desc' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+						for($j=0;$j<6;$j++){ 
+						echo "<option style='text-align:center;' value='" . $segemntArray[$j] . "'>" . $segemntArray[$j] . "</option>";
+						}
+				               echo "</select>";
+                                            }	
+                                            else if($row[2]== 5)
+                                            {
+                                                echo "<select id='drp_dwn_5' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+						echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
+                                                    if($row[3]=='NO'){
+                                                    echo "<option style='text-align:center;' value='YES'>YES</option>";
+                                                    }
+                                                    else {
+                                                    echo "<option style='text-align:center;' value='NO'>NO</option>";
+                                                    }
+                                                echo "</select>";
+                                            }
+                                            else if($row[2]== 7){
+                                                echo "<select id='drp_dwn_7' name='yes_no' style='margin-left: -7px;width: 155px; height: 35px;font-size:12px; font-weight:bold; font-family:calibri;'>";
+						echo "<option style='text-align:center;' value='".$row[3]."'>" . $row[3] . "</option>";
+                                                    if($row[3]=='NO'){
+                                                    echo "<option style='text-align:center;' value='YES'>YES</option>";
+                                                    }
+                                                    else {
+                                                    echo "<option style='text-align:center;' value='NO'>NO</option>";
+                                                    }
+                                                echo "</select>";
+                                            }
+                                            else {
+                                                ?>
+                                                <input name="pgm_param['<?php echo $i ?>']"  id="p_value"  class="inpu_text" style="text-align: center; height:30px; width:150px; font-size: 12px; font-weight: bold;"  value="<?php echo $row[3]; ?>"/>
+                                                <?php 
+                                            }
+                                            ?>
                             </td>
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
@@ -151,8 +209,8 @@
                     } ?>
                 </table>
                 <?php mysqli_close($con); ?>
-                <div id="pgm_param_err"><label> Please enter value between -.10 and .20 </label></div>
-                <div class="updating" id="pgm_param_updating" style="margin-left: 800px !important;">Updated...</div>
+                <div id="pgm_param_err"  style="margin-left: 670px !important;"><label> Please enter value between -.10 and .20 </label></div>
+                <div class="updating" id="pgm_param_updating" style="margin-left: 700px !important;">Your updates were saved</div>
                <!-- <div>
                     <div><input style="margin-left:-90px;  margin-top:15px; font-size: 13px;" type="button" name="save" id="pgm_param_save" value="save"/></div>
                     <div style="margin-top: -25px; margin-left: -10px;"><input style="font-size: 13px;" type="button" name="cancel" id="pgm_cancel" value="cancel"/></div>

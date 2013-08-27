@@ -1,5 +1,14 @@
 <?php
+session_start();
+//date_default_timezone_set('America/New_York');
+date_default_timezone_set(timezone_name_from_abbr("CST"));
 require 'connection.php';
+if (isset($_SESSION['myusername'])) {
+    $myusername = $_SESSION['myusername'];
+}
+else {
+   header("location:../index.php");
+}
 //$db_host       = "localhost";
 //$db_name        = "mpr";
 //$db_username    = "root";
@@ -24,8 +33,8 @@ $decodedata =json_decode($updated_values);
 foreach($decodedata as $data)
 
     {
-         
-        $result = mysqli_query($con,"UPDATE pr_sales_change SET ".$data->col_nam."='".$data->col_value."',update_date='".$today."' WHERE  user_id='".$data->user_id_val."'  AND segment_id='".$data->seg_id_val."'  ") or die ('Unable to update row.');
+        
+        $result = mysqli_query($con,"UPDATE pr_sales_change SET ".$data->col_nam."='".$data->col_value."',last_updated_time='".$today."',last_updated_by='".$myusername."' WHERE  user_id='".$data->user_id_val."'  AND segment_id='".$data->seg_id_val."'  ") or die ('Unable to update row.');
     }
 
 

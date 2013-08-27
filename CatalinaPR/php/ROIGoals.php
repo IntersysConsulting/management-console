@@ -30,7 +30,7 @@
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Segment Correlations&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="active has-sub"><a href="SalesChange.php">Controls </a>
@@ -138,8 +138,8 @@
 			</tbody>
                 </table>
                     <?php mysqli_close($con); ?>
-                <div id="roi_goals_err"><label> Please enter value between 10 and 120 </label></div>
-                <div class="updating" id="roi_goal_updating" >Updated...</div>
+                <div id="roi_goals_err"><label> Please enter value between 0 to 1 </label></div>
+                <div class="updating" id="roi_goal_updating"style="margin-left:700px;" >Your updates were saved</div>
 
                     <div style="float:right;margin-right:30px;width:200px;">
 		    <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;font-size:13px;padding-left:15px;font-weight:600;" type="button" class="btn" name="save" id="ROI_Goals_save" value="Save"/></div>

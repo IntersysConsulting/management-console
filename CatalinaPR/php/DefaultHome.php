@@ -8,7 +8,7 @@ else {
      header("location:../index.php");
 }
 // Select all the rows in the markers table
-$query = "SELECT * FROM pr_ag_prodcat;";
+$query = "SELECT * FROM pr_ag_prodcat";
 $result = mysqli_query($con,$query);
 if (!$result) {
   die("Invalid query: " . mysqli_error($con));
@@ -21,7 +21,7 @@ while($row=@mysqli_fetch_assoc($result)){
 	$sum_amount[] = $row["sumamt"];
         $sum_qty[]=$row["sumqty"];
         $sum_trip[]=$row["sumtrip"];
-	$year[] = $row["year"];
+	$ch_year[] = $row["ch_year"];
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -39,34 +39,32 @@ while($row=@mysqli_fetch_assoc($result)){
         <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript">
     google.load('visualization', '1', {packages: ['motionchart']});
-
-    function drawVisualization() {
+function drawVisualization() {
 
        var data = new google.visualization.DataTable();
         data.addColumn('string', 'Product Type');
-        data.addColumn('number', 'Date');
+        data.addColumn('number', 'Year');
         data.addColumn('number', 'Sum Amount');
         data.addColumn('number', 'Sum Quantity');
         data.addColumn('number', 'Sum Trip')
         data.addColumn('string', 'Brand');
-	data.addRows([
-	<?php
-	$j=0;
-	for($j=0;$j<$num;$j++){
-	if ($j != ($num-1)){
-	echo "['$prod[$j]',$year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]'],\n";
-	}else{
-        echo "['$prod[$j]',$year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]']\n";
-	}
-	}
-	?>
-	]);
+        data.addRows([
+        <?php
+        $j=0;
+        for($j=0;$j<$num;$j++){
+        if ($j != ($num-1)){
+        echo "['$prod[$j]',$ch_year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]'],\n";
+        }else{
+        echo "['$prod[$j]',$ch_year[$j],$sum_amount[$j],$sum_qty[$j],$sum_trip[$j],'$brand[$j]']\n";
+        }
+        }
+        ?>
+        ]);
 
-
-      var motionchart = new google.visualization.MotionChart(
-          document.getElementById('visualization'));
-      motionchart.draw(data, {'width': 900, 'height': 450});
-    }
+   var motionchart = new google.visualization.MotionChart(
+      document.getElementById('visualization'));
+  motionchart.draw(data, {'width': 800, 'height': 400});
+}
 
 
     google.setOnLoadCallback(drawVisualization);
@@ -92,7 +90,7 @@ while($row=@mysqli_fetch_assoc($result)){
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -133,6 +131,8 @@ while($row=@mysqli_fetch_assoc($result)){
 
 
 <div id="content">
+<p style="font-family:Arial;font-size:12px;font-weight:bold;margin-left:50px;">Overall Sales Time Lapse</p>
+
 <!--
 <div style="margin-bottom: 10px; padding: 5px; border: 1px solid gray; background-color: buttonface;">
       <form action="">
@@ -147,7 +147,7 @@ while($row=@mysqli_fetch_assoc($result)){
       </div>
 -->
 <div id="chartarea">
-    <div id="visualization" style="z-index:-1;width: 900px; height: 450px;margin-left:auto;margin-right:auto; "></div>
+    <div id="visualization" style="width: 900px; height: 450px;margin-left:auto;margin-right:auto; "></div>
 
         </div>
 </div>

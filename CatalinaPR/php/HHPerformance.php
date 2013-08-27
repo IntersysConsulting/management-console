@@ -10,7 +10,7 @@
         <script src="../js/jquery-1.9.1.js"></script>
         <script src="../js/jquery-ui.js"></script>
         <script src="../js/jquery.validate.js"></script>
-	<title>Category Performance</title>
+	<title>HouseHold Performance</title>
 
     </head>
     <body>
@@ -35,7 +35,7 @@
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Scatter Chart&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="active has-sub"><a href="SalesChange.php">Controls </a>
@@ -104,24 +104,24 @@
                 }
                 ?>
                 <?php
-                $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_hh_perform a INNER JOIN pr_index b ON a.index_id = b.index_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
+                $query = "SELECT a.user_id,a.index_id,b.index_desc,a.bottom_quartile,a.top_quartile FROM pr_hh_perform a INNER JOIN pr_index b ON a.index_id = b.index_id  AND a.user_id ='app'";
                 $results = mysqli_query($con, $query) or die("Error performing query");
                 $i = 0;
                 ?>
-		<div style="width:600px;">
+		<div style="width:600px;margin-left: 100px;">
                <!-- <table style="margin-left: 25px; width:490px; " cellpadding='0' cellspacing='0'>-->
 		<table class="table table-striped" cellpadding='0' cellspacing='0'>
-        <thead>
-        <tr>
-        <td style="width:150px;"><label><b>Index</b></label></td>
-<td style="width:0px;"></td>
-<td style="width:0px;"></td>
-<td>&nbsp;</td>
-<td style="text-align:center;"> <b>Bottom Quartile</b></td>
-<td style="text-align:center;"> <b>Top Quartile</b></td>
-</tr>
-</thead>
-<tbody>
+	        <thead>
+	        <tr>
+	        <td style="width:150px;"><label><b>Index</b></label></td>
+		<td style="width:0px;"></td>
+		<td style="width:0px;"></td>
+		<td>&nbsp;</td>
+		<td style="text-align:center;"> <b>Bottom Quartile</b></td>
+		<td style="text-align:center;"> <b>Top Quartile</b></td>
+		</tr>
+		</thead>
+		<tbody>
                     <?php while ($row = mysqli_fetch_array($results)) { ?>
                         <tr style=" height:10px;" class="sales_change_row">
 
@@ -129,8 +129,15 @@
                             <td><input id="hh_perf_user_id['<?php echo $i ?>']" type="hidden" name="user_id" value="<?php echo $row[0]; ?>" /></td>
                             <td><input id="hh_perf_index_id['<?php echo $i ?>']" type="hidden" name="index_id" value="<?php echo $row[1]; ?>" /></td>
                             <td>&nbsp;</td>
+			    <?php if($row[3]==0.00){ ?>
+                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; height:20px; width:144px; font-size: 10px;"  value="<?php echo number_format($row[3], 0, '.', ''); ?>"/></td>
+                             <?php } else{ ?>
                             <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="bottom_quartile"  class="inpu_text" style="text-align: center; height:20px; width:144px; font-size: 10px;"  value="<?php echo number_format($row[3], 2, '.', ''); ?>"/></td>
+                            <?php } if($row[4]==0.00){ ?>
+                            <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; height:20px; width:144px; font-size: 10px;"   value="<?php echo number_format($row[4], 0, '.', ''); ?>"/></td>
+                            <?php } else{ ?>
                             <td style="width:144px;"><input name="hh_perf['<?php echo $i ?>']"  id="top_quartile"  class="inpu_text"  style="text-align: center; height:20px; width:144px; font-size: 10px;"   value="<?php echo number_format($row[4], 2, '.', ''); ?>"/></td>
+                            <?php } ?>
                             <td><input type="hidden" id="row_num" value="<?php echo $i ?>"/></td>
                         </tr>
 
@@ -140,10 +147,10 @@
                 </table>
                 <?php mysqli_close($con); ?>
                 <div id="hh_perf_err"><label> Please enter value between -0.05 and 0.05 </label></div>
-                <div class="updating" id="hh_perf_updating" style="margin-left:300px;">Updated...</div>
+                <div class="updating" id="hh_perf_updating" style="margin-left:370px;">Your updates were saved</div>
                 <div style="float:right;margin-right:30px;width:200px;">
-                    <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px" type="button"class="btn" name="save" id="hh_perf_save" value="save"/></div>
-                    <div style="display:inline-block;width:50px;"><input style="font-size: 13px;font-weight:600;" type="button" class="btn" name="cancel" id="hh_perf_cancel" value="cancel"/></div>
+                    <div style="display:inline-block;width:50px;margin:15px;"><input style="padding-right:15px;padding-left:15px;font-weight:600;font-size:13px" type="button"class="btn" name="save" id="hh_perf_save" value="Save"/></div>
+                    <div style="display:inline-block;width:50px;"><input style="font-size: 13px;font-weight:600;" type="button" class="btn" name="cancel" id="hh_perf_cancel" value="Cancel"/></div>
                     
                 </div></div>
 </div>

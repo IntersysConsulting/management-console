@@ -21,7 +21,7 @@ $count = mysqli_num_rows($result);
 // If result matched $myusername and $mypassword, table row must be 1 row
 if ($count == 1) {
 
-// Register $myusername, $mypassword and redirect to file "SalesChange.php"
+// Register $myusername, $mypassword and redirect to file "Home Page"
     //session_register("myusername");
     //session_register("mypassword");
      
@@ -36,7 +36,7 @@ if ($count == 1) {
 }
 else {
 //echo "Wrong Username or Password";
-    $err = "aInsufficient Privileges or unable to authenticate,please contact xxxx for further assistance";
+    $err = "You are not authorized to access the application, please contact support for assistance.";
 //header("location:../LoginDesign?err=" . $err);
    header("location:../index.php?err=" . $err);
 }

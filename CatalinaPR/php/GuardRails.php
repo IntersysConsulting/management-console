@@ -33,7 +33,7 @@ session_start();
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Overview&nbsp;</a></li>
                                         <li><a href="Treemap.php">&nbsp;Product Hierarchy&nbsp;</a></li>
-                                        <li class="last"><a href="ScatterChart.php">&nbsp;Product Categories&nbsp;</a></li>
+                                        <li class="last"><a href="ScatterChart.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
@@ -94,7 +94,7 @@ session_start();
                         </div>-->
 
                         <form action="GuardRails_Update.php" method="POST" id="update">
-                            <div style="margin-top: 10px; margin-left: 3px;width:700px;">
+                            <div style="margin-top: 10px; margin-left: 103px;width:700px;">
                                 <?php
                                 require 'connection.php';
                                 if (isset($_SESSION['myusername'])) {
@@ -103,7 +103,7 @@ session_start();
                                 else {
                                     header("location:../index.php");
                                 }
-                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id INNER JOIN pr_user c ON a.user_id = c.user_id AND a.user_id ='" . $myusername . "'";
+                                $query = "SELECT a.user_id,a.metric_id,b.metric_desc, a.minimum,a.maximum FROM pr_guard_rails a INNER JOIN pr_guard_rails_metric b ON a.metric_id = b.metric_id  AND a.user_id ='app'";
                                 $results = mysqli_query($con, $query) or die("Error performing query");
                                 $i = 0;
                                 ?>
@@ -142,7 +142,7 @@ session_start();
                                 </table>
                                 <?php mysqli_close($con); ?>
                                 <div id="guard_rails_err"><label> Please enter value between 0 and 30 </label></div>
-                                <div class="updating" id="updating" style="margin-left:370px;">Updated...</div>
+                                <div class="updating" id="updating" style="margin-left:420px;">Your updates were saved</div>
                                <!-- <div style="margin-left:60px;">
                                     <div><input style="margin-left:250px; margin-top:20px; font-size: 13px;" type="button" name="save" id="guard_rails_save" value="save"/></div>
                                     <div style="margin-top: -25px; margin-left: 350px;"><input style=" font-size: 13px;" type="button" name="cancel" id="cancel" value="cancel"/></div>

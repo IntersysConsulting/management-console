@@ -35,7 +35,7 @@ session_start();
                                         <ul>
                                         <li><a href="DefaultHome.php">&nbsp;Time Lapse&nbsp;</a></li>
                                         <li><a href="DefaultHome.php">&nbsp;Table&nbsp;</a></li>
-                                        <li class="last"><a href="DefaultHome.php">&nbsp;Scatter Plot.&nbsp;</a></li>
+                                        <li class="last"><a href="DefaultHome.php">&nbsp;Aggregate Sales&nbsp;</a></li>
                                    </ul>
                 </li>
                         <li class="has-sub"><a href="SalesChange.php">Controls </a>
